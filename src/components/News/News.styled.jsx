@@ -22,6 +22,7 @@ export const Title = styled.h2`
   line-height: 1.4;
   color: #111111;
   margin: 0 auto;
+  padding: 0;
   text-align: center;
 
   @media screen and (min-width: 481px) {
@@ -62,3 +63,77 @@ export const Input = styled.input`
     padding: 0 20px;
   }
 `;
+
+export const ListItem = styled.li`
+:not(:last-child) {
+  margin-bottom: 40px;
+}
+
+::before {
+  content: '';
+  display: block;
+  width: 200px;
+  height: 4px;
+  margin-bottom: 4px;
+
+  background: linear-gradient(90deg, #ff634e 0%, #ffdf48 105.44%);
+  border-radius: 40px;
+`;
+
+export const ArticleTitle = styled.h3`
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 700;
+font-size: 24px;
+line-height: 1.4;
+letter-spacing: -0.02em;
+color: #111111;
+margin: 0;
+padding: 0;
+`;
+
+
+export const Description = styled.p`
+font-family: 'Manrope';
+font-weight: 400;
+font-size: 16px;
+line-height: 1.4;
+color: #111321;
+padding: 0;
+margin-bottom: 20px;
+`;
+
+export const Wrapper = styled.div`
+display: flex;
+justify-content: space-between;
+`;
+
+
+export const Date = styled.span`
+font-family: 'Manrope';
+font-weight: 400;
+font-size: 16px;
+line-height: 1.4;
+color: rgba(17, 17, 17, 0.6);
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: space-between;
+`;
+
+
+export const LinkReadMore = styled.a`
+font-weight: 500;
+  font-size: 16px;
+  line-height: 1.4;
+  text-decoration-line: underline;
+  color: #F59256;
+
+  &:hover {
+    color: #f4823e;
+  }
+`;
+
+
+
+
