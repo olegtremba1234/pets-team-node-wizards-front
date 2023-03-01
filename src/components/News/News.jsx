@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledContainer, Title, Form, Input, NewsList, NewsItem, NewsTitle, Description, Date, Wrapper, LinkReadMore } from './News.styled';
+import { StyledContainer, Title, Form, Input, NewsList, NewsItem, NewsTitle, Description, Date, Wrapper, LinkReadMore} from './News.styled';
 
 
 

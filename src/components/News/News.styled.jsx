@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const StyledContainer = styled.section`
   max-width: 480px;
   padding: 42px 20px 100px 20px;
+  margin: 0 auto;
   background: #fdf7f2;
 
   @media screen and (min-width: 481px) {
@@ -44,17 +45,19 @@ export const Form = styled.form`
 `;
 
 export const Input = styled.input`
+position: relative;
   height: 40px;
   background: #ffffff;
   box-shadow: 7px 4px 14px rgba(49, 21, 4, 0.07);
   border-radius: 20px;
   border: none;
   padding: 0 9px;
-  font-family: 'Manrope';
+  font-family: 'Inter';
   font-weight: 500;
   font-size: 16px;
   line-height: 1.4;
   color: #535353;
+
 
   @media screen and (min-width: 481px) {
     font-size: 20px;
@@ -62,6 +65,28 @@ export const Input = styled.input`
     border-radius: 40px;
     padding: 0 20px;
   }
+`;
+
+export const SearchBtn = styled.button`
+border: none;
+background-color: transparent;
+cursor: pointer;
+position: absolute;
+right: 15px;
+top: 14%;
+
+`;
+
+export const SearchIcon = styled.img`
+width: 15px;
+  height: 15px;
+  display: block;
+
+  @media screen and (min-width: 768px) {
+    width: 18px;
+    height: 18px;
+  }
+
 `;
 
 export const NewsList = styled.ul`
