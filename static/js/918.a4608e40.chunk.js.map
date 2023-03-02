@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/918.a4608e40.chunk.js","mappings":"gMAAe,SAASA,IACtB,OAAO,sCACR,C","sources":["pages/UserPage.jsx"],"sourcesContent":["export default function UserPage() {\n  return <div>User Page</div>;\n}\n"],"names":["UserPage"],"sourceRoot":""}
