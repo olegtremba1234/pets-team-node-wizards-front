@@ -1,76 +1,104 @@
 import React from 'react';
-import iconSearch from '../News/images/searchIcon.svg'
-import { StyledContainer, Title, Form, Input, NewsList, NewsItem, NewsTitle, Description, Date, Wrapper, LinkReadMore,Label, SearchBtn, IconSearch} from './News.styled';
+import { fetchNews, fetchSearchNews } from 'services/apiService';
+import SearchForm from 'helpers/SearchForm/SearchForm';
 
+import { useState, useEffect } from 'react';
+import {
+  StyledContainer,
+  Title,
+  NewsList,
+  NewsItem,
+  NewsTitle,
+  Description,
+  Date,
+  Wrapper,
+  LinkReadMore,
+} from './News.styled';
 
 
 const News = () => {
+  const [news, setNews] = useState([]);
+  const [searchNews, setSearchNews] = useState(null);
+
+
+  useEffect(() => {
+    fetchNews().then(setNews);
+  }, []);
+
+
+  const handleSearchSubmit = async e => {
+    e.preventDefault();
+    const { search } = e.target.elements;
+    if (search.value.trim() === '') {
+      setSearchNews(null);
+      return;
+    }
+
+    try {
+      const { data: searchData } = await fetchSearchNews(search.value);
+      setSearchNews(searchData);
+    } catch (error) {
+      return alert('Sorry, no news found, try again');
+    }
+  };
+
+
+  const handleClickInput = e => {
+    if (e.target.value.trim()) {
+      return;
+    }
+    setSearchNews(null);
+  };
+
+  const shortenText = (text, max) => {
+    return text && text.length > max
+      ? `${text.slice(0, max).split(' ').slice(0, -1).join(' ')}...`
+      : text;
+  };
 
 
   return (
     <StyledContainer>
       <Title>News</Title>
-      <Form>
-        <Label htmlFor="search">
-        <Input type="text" name="query"  placeholder="Search" />
-        <SearchBtn>
-        <IconSearch src={iconSearch} />
-        </SearchBtn>
-        </Label>
-      </Form>
-      <NewsList>
-        <NewsItem>
-          <NewsTitle>Обережно, кліщі! Як уберегти улюбленця </NewsTitle>
-          <Description>Травневі прогулянки з улюбленцем не лише приємні, але й потребують пильності. З початком теплої пори року активізуються кліщі, і треба бути уважним, щоб уберегти свого песика чи котика від дуже серйозних неприємностей зі здоров`ям.</Description>
-          <Wrapper>
-          <Date>20/02/2021</Date>
-          <LinkReadMore href>Read more</LinkReadMore>
-          </Wrapper>
-        </NewsItem>
-        <NewsItem>
-          <NewsTitle>Обережно, кліщі! Як уберегти улюбленця </NewsTitle>
-          <Description>Травневі прогулянки з улюбленцем не лише приємні, але й потребують пильності. З початком теплої пори року активізуються кліщі, і треба бути уважним, щоб уберегти свого песика чи котика від дуже серйозних неприємностей зі здоров`ям.</Description>
-          <Wrapper>
-          <Date>20/02/2021</Date>
-          <LinkReadMore href>Read more</LinkReadMore>
-          </Wrapper>
-        </NewsItem>
-        <NewsItem>
-          <NewsTitle>Обережно, кліщі! Як уберегти улюбленця </NewsTitle>
-          <Description>Травневі прогулянки з улюбленцем не лише приємні, але й потребують пильності. З початком теплої пори року активізуються кліщі, і треба бути уважним, щоб уберегти свого песика чи котика від дуже серйозних неприємностей зі здоров`ям.</Description>
-          <Wrapper>
-          <Date>20/02/2021</Date>
-          <LinkReadMore href>Read more</LinkReadMore>
-          </Wrapper>
-        </NewsItem>
-        <NewsItem>
-          <NewsTitle>Обережно, кліщі! Як уберегти улюбленця </NewsTitle>
-          <Description>Травневі прогулянки з улюбленцем не лише приємні, але й потребують пильності. З початком теплої пори року активізуються кліщі, і треба бути уважним, щоб уберегти свого песика чи котика від дуже серйозних неприємностей зі здоров`ям.</Description>
-          <Wrapper>
-          <Date>20/02/2021</Date>
-          <LinkReadMore href>Read more</LinkReadMore>
-          </Wrapper>
-        </NewsItem>
-        <NewsItem>
-          <NewsTitle>Обережно, кліщі! Як уберегти улюбленця </NewsTitle>
-          <Description>Травневі прогулянки з улюбленцем не лише приємні, але й потребують пильності. З початком теплої пори року активізуються кліщі, і треба бути уважним, щоб уберегти свого песика чи котика від дуже серйозних неприємностей зі здоров`ям.</Description>
-          <Wrapper>
-          <Date>20/02/2021</Date>
-          <LinkReadMore href>Read more</LinkReadMore>
-          </Wrapper>
-        </NewsItem>
-        <NewsItem>
-          <NewsTitle>Обережно, кліщі! Як уберегти улюбленця </NewsTitle>
-          <Description>Травневі прогулянки з улюбленцем не лише приємні, але й потребують пильності. З початком теплої пори року активізуються кліщі, і треба бути уважним, щоб уберегти свого песика чи котика від дуже серйозних неприємностей зі здоров`ям.</Description>
-          <Wrapper>
-          <Date>20/02/2021</Date>
-          <LinkReadMore href>Read more</LinkReadMore>
-          </Wrapper>
-        </NewsItem>
+      <SearchForm onSubmit={handleSearchSubmit} onChange={handleClickInput}/>
+      {searchNews ? (
+         <NewsList>
+        {news.map(({ _id, title, description, date, url }) => {
+          return (
+            <NewsItem key={_id}>
+              <NewsTitle>{shortenText(title, 50)}</NewsTitle>
+              <Description>{shortenText(description, 250)}</Description>
+              <Wrapper>
+                <Date>{date}</Date>
+                <LinkReadMore href={url} target="_blank" rel="noreferrer">
+                  Read more
+                </LinkReadMore>
+              </Wrapper>
+            </NewsItem>
+          );
+        })}
       </NewsList>
+       ) : (
+        <NewsList>
+        {news.map(({ _id, title, description, date, url }) => {
+          return (
+            <NewsItem key={_id}>
+              <NewsTitle>{shortenText(title, 50)}</NewsTitle>
+              <Description>{shortenText(description, 250)}</Description>
+              <Wrapper>
+                <Date>{date}</Date>
+                <LinkReadMore href={url} target="_blank" rel="noreferrer">
+                  Read more
+                </LinkReadMore>
+              </Wrapper>
+            </NewsItem>
+          );
+        })}
+      </NewsList>
+      )}
+
     </StyledContainer>
   );
-}
-
+};
 
 export default News;
