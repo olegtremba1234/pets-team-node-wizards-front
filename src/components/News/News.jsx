@@ -1,10 +1,12 @@
 import React from 'react';
-import { IoMdSearch } from 'react-icons/io';
-import { StyledContainer, Title, Form, Input, NewsList, NewsItem, NewsTitle, Description, Date, Wrapper, LinkReadMore,Label, SearchBtn} from './News.styled';
+import iconSearch from '../News/images/searchIcon.svg'
+import { StyledContainer, Title, Form, Input, NewsList, NewsItem, NewsTitle, Description, Date, Wrapper, LinkReadMore,Label, SearchBtn, IconSearch} from './News.styled';
 
 
 
 const News = () => {
+
+
   return (
     <StyledContainer>
       <Title>News</Title>
@@ -12,7 +14,7 @@ const News = () => {
         <Label htmlFor="search">
         <Input type="text" name="query"  placeholder="Search" />
         <SearchBtn>
-        <IoMdSearch/>
+        <IconSearch src={iconSearch} />
         </SearchBtn>
         </Label>
       </Form>
