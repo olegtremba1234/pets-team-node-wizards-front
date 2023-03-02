@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyledContainer, Title, Form, Input, NewsList, NewsItem, NewsTitle, Description, Date, Wrapper, LinkReadMore} from './News.styled';
+import { IoMdSearch } from 'react-icons/io';
+import { StyledContainer, Title, Form, Input, NewsList, NewsItem, NewsTitle, Description, Date, Wrapper, LinkReadMore,Label, SearchBtn} from './News.styled';
 
 
 
@@ -8,7 +9,12 @@ const News = () => {
     <StyledContainer>
       <Title>News</Title>
       <Form>
+        <Label htmlFor="search">
         <Input type="text" name="query"  placeholder="Search" />
+        <SearchBtn>
+        <IoMdSearch/>
+        </SearchBtn>
+        </Label>
       </Form>
       <NewsList>
         <NewsItem>
