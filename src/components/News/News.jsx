@@ -20,6 +20,7 @@ import {
 const News = () => {
   const [news, setNews] = useState([]);
   const [searchNews, setSearchNews] = useState(null);
+  
 
 
   useEffect(() => {
@@ -30,6 +31,7 @@ const News = () => {
   const handleSearchSubmit = async e => {
     e.preventDefault();
     const { search } = e.target.elements;
+    console.log(search)
     if (search.value.trim() === '') {
       setSearchNews(null);
       return;

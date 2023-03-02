@@ -138,6 +138,6 @@ export const LinkReadMore = styled.a`
   color: #f59256;
 
   &:hover {
-    color: #f4823e;
+    color: #FF6101;
   }
 `;

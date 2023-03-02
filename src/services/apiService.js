@@ -5,7 +5,6 @@ axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
 export const fetchNews = async () => {
   const response = await axios('news', {
   });
-  console.log(response)
   return response.data;
 };
 
