@@ -4,6 +4,7 @@ import SearchForm from 'helpers/SearchForm/SearchForm';
 
 import { useState, useEffect } from 'react';
 import {
+  NewsWrap,
   StyledContainer,
   Title,
   NewsList,
@@ -58,6 +59,7 @@ const News = () => {
 
 
   return (
+    <NewsWrap>
     <StyledContainer>
       <Title>News</Title>
       <SearchForm onSubmit={handleSearchSubmit} onChange={handleClickInput}/>
@@ -67,7 +69,7 @@ const News = () => {
           return (
             <NewsItem key={_id}>
               <NewsTitle>{shortenText(title, 50)}</NewsTitle>
-              <Description>{shortenText(description, 250)}</Description>
+              <Description>{shortenText(description, 225)}</Description>
               <Wrapper>
                 <Date>{date}</Date>
                 <LinkReadMore href={url} target="_blank" rel="noreferrer">
@@ -98,6 +100,7 @@ const News = () => {
       )}
 
     </StyledContainer>
+    </NewsWrap>
   );
 };
 

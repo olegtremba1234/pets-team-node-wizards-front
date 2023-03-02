@@ -5,9 +5,9 @@ export const Form = styled.form`
   align-items: center;
   justify-content: center;
   margin-top: 28px;
-  margin-bottom: 40px @media screen and (min-width: 481px) {
+
+  margin-bottom: 40px @media screen and (min-width: 768px) {
     margin-top: 40px;
-    margin-bottom: 60px;
   }
 `;
 
@@ -29,7 +29,7 @@ export const Input = styled.input`
   line-height: 1.4;
   color: #535353;
 
-  @media screen and (min-width: 481px) {
+  @media screen and (min-width: 768px) {
     width: 608px;
     height: 44px;
     font-size: 20px;

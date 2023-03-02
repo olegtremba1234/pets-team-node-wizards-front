@@ -1,18 +1,34 @@
 import styled from 'styled-components';
 
-export const StyledContainer = styled.section`
-  width: 480px;
-  padding: 42px 20px 100px 20px;
-  margin: 0 auto;
+export const NewsWrap = styled.section`
+  padding-top: 45px;
+  padding-bottom: 100px;
   background: #fdf7f2;
 
-  @media screen and (min-width: 481px) {
-    width: 768px;
-    padding: 90px 32px 100px 32px;
+  @media screen and (min-width: 768px) {
+    padding-top: 95px;
   }
-  @media screen and (min-width: 769px) {
+
+  @media screen and (min-width: 1280px) {
+    padding-top: 60px;
+    padding-bottom: 200px;
+  }
+
+`;
+
+export const StyledContainer = styled.div`
+  width: 320px;
+  padding: 0 20px;
+  margin: 0 auto;
+
+
+  @media screen and (min-width: 768px) {
+    width: 768px;
+    padding: 0 32px;
+  }
+  @media screen and (min-width: 1280px) {
     width: 1280px;
-    padding: 60px 16px 200px 16px;
+    padding: 0 16px;
   }
 `;
 
@@ -25,7 +41,7 @@ export const Title = styled.h2`
   margin: 0 auto;
   text-align: center;
 
-  @media screen and (min-width: 481px) {
+  @media screen and (min-width: 768px) {
     font-size: 48px;
   }
 `;
@@ -34,21 +50,25 @@ export const Title = styled.h2`
 export const NewsList = styled.ul`
   margin-top: 40px;
 
-  @media screen and (min-width: 481px) {
+  @media screen and (min-width: 768px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 34px;
+    grid-column-gap: 32px;
     grid-row-gap: 60px;
+    margin-top: 60px;
   }
 
-  @media screen and (min-width: 769px) {
+  @media screen and (min-width: 1280px) {
+    grid-column-gap: 34px;
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;
 
 export const NewsItem = styled.li`
-:not(:last-child) {
+@media screen and (max-width: 767px) {
+  :not(:last-child) {
   margin-bottom: 40px;
+}
 }
 
 ::before {
@@ -61,13 +81,13 @@ export const NewsItem = styled.li`
   background: linear-gradient(90deg, #ff634e 0%, #ffdf48 105.44%);
   border-radius: 40px;
 
-  @media screen and (min-width: 481px) {
+  @media screen and (min-width: 768px) {
     width: 280px;
     height: 8px;
 
   }
 
-  @media screen and (min-width: 769px) {
+  @media screen and (min-width: 1280px) {
     width: 340px;
   }
 `;
@@ -88,6 +108,12 @@ export const Description = styled.p`
   color: #111321;
   margin-top: 16px;
   margin-bottom: 20px;
+
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 40px;
+    height: 132px;
+  }
 `;
 
 export const Wrapper = styled.div`
