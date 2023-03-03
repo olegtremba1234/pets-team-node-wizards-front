@@ -17,18 +17,16 @@ const OurFriendsPage = lazy(() => import('pages/OurFriendsPage'));
 
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101',
-      }}
-    >
-      React homework template
-    </div>
-
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        <Route index element={<Home />} />
+        <Route path="user" element={<UserPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="news" element={<NewsPage />} />
+        <Route path="notices" element={<NoticesPage />} />
+        <Route path="friends" element={<OurFriendsPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Route>
+    </Routes>
   );
 };
