@@ -1,11 +1,3 @@
-import News from 'components/News/News';
-
-const NewsPage = () => {
-  return (
-    <main>
-      <News/>
-    </main>
-  )
+export default function NewsPage() {
+  return <div>News Page</div>;
 }
-
-export default NewsPage;
