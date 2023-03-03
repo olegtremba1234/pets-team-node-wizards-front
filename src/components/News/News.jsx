@@ -80,8 +80,8 @@ const News = () => {
             {news.map(({ _id, title, description, date, url }) => {
               return (
                 <NewsItem key={_id}>
-                  <NewsTitle>{shortenText(title, 50)}</NewsTitle>
-                  <Description>{shortenText(description, 250)}</Description>
+                  <NewsTitle>{shortenText(title, 45)}</NewsTitle>
+                  <Description>{shortenText(description, 215)}</Description>
                   <Wrapper>
                     <Date>{date}</Date>
                     <LinkReadMore href={url} target="_blank" rel="noreferrer">

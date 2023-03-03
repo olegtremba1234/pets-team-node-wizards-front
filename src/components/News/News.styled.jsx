@@ -99,6 +99,10 @@ export const NewsTitle = styled.h3`
   line-height: 1.4;
   letter-spacing: -0.02em;
   color: #111111;
+
+  @media screen and (min-width: 768px) {
+    height: 66px;
+  }
 `;
 
 export const Description = styled.p`
