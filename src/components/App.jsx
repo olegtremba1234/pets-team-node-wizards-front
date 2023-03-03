@@ -1,7 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 import SharedLayout from './SharedLayout';
 import { lazy } from 'react';
-import News from './News/News';
 // import UserPage from 'pages/UserPage';
 // import LoginPage from 'pages/LoginPage';
 // import NewsPage from 'pages/NewsPage';
@@ -18,20 +17,18 @@ const OurFriendsPage = lazy(() => import('pages/OurFriendsPage'));
 
 export const App = () => {
   return (
-    // <div
-    //   style={{
-    //     height: '100vh',
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     fontSize: 40,
-    //     color: '#010101',
-    //   }}
-    // >
-    //   React homework template
-    // </div>
-    <>
-    <News/>
-    </>
+    <div
+      style={{
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 40,
+        color: '#010101',
+      }}
+    >
+      React homework template
+    </div>
+
   );
 };
