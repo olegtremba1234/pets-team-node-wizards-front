@@ -1,6 +1,6 @@
 import React from 'react';
 import { fetchNews, fetchSearchNews } from 'services/apiService';
-import SearchForm from 'helpers/SearchForm/SearchForm';
+import SearchForm from '../SearchForm/SearchForm';
 
 import { useState, useEffect } from 'react';
 import {
@@ -16,22 +16,17 @@ import {
   LinkReadMore,
 } from './News.styled';
 
-
 const News = () => {
   const [news, setNews] = useState([]);
   const [searchNews, setSearchNews] = useState(null);
-  
-
 
   useEffect(() => {
     fetchNews().then(setNews);
   }, []);
 
-
   const handleSearchSubmit = async e => {
     e.preventDefault();
     const { search } = e.target.elements;
-    console.log(search)
     if (search.value.trim() === '') {
       setSearchNews(null);
       return;
@@ -41,10 +36,9 @@ const News = () => {
       const { data: searchData } = await fetchSearchNews(search.value);
       setSearchNews(searchData);
     } catch (error) {
-      return alert('Sorry, no news found, try again');
+      console.log(error);
     }
   };
-
 
   const handleClickInput = e => {
     if (e.target.value.trim()) {
@@ -59,49 +53,47 @@ const News = () => {
       : text;
   };
 
-
   return (
     <NewsWrap>
-    <StyledContainer>
-      <Title>News</Title>
-      <SearchForm onSubmit={handleSearchSubmit} onChange={handleClickInput}/>
-      {searchNews ? (
-         <NewsList>
-        {news.map(({ _id, title, description, date, url }) => {
-          return (
-            <NewsItem key={_id}>
-              <NewsTitle>{shortenText(title, 50)}</NewsTitle>
-              <Description>{shortenText(description, 225)}</Description>
-              <Wrapper>
-                <Date>{date}</Date>
-                <LinkReadMore href={url} target="_blank" rel="noreferrer">
-                  Read more
-                </LinkReadMore>
-              </Wrapper>
-            </NewsItem>
-          );
-        })}
-      </NewsList>
-       ) : (
-        <NewsList>
-        {news.map(({ _id, title, description, date, url }) => {
-          return (
-            <NewsItem key={_id}>
-              <NewsTitle>{shortenText(title, 50)}</NewsTitle>
-              <Description>{shortenText(description, 250)}</Description>
-              <Wrapper>
-                <Date>{date}</Date>
-                <LinkReadMore href={url} target="_blank" rel="noreferrer">
-                  Read more
-                </LinkReadMore>
-              </Wrapper>
-            </NewsItem>
-          );
-        })}
-      </NewsList>
-      )}
-
-    </StyledContainer>
+      <StyledContainer>
+        <Title>News</Title>
+        <SearchForm onSubmit={handleSearchSubmit} onChange={handleClickInput} />
+        {searchNews ? (
+          <NewsList>
+            {news.map(({ _id, title, description, date, url }) => {
+              return (
+                <NewsItem key={_id}>
+                  <NewsTitle>{shortenText(title, 50)}</NewsTitle>
+                  <Description>{shortenText(description, 225)}</Description>
+                  <Wrapper>
+                    <Date>{date}</Date>
+                    <LinkReadMore href={url} target="_blank" rel="noreferrer">
+                      Read more
+                    </LinkReadMore>
+                  </Wrapper>
+                </NewsItem>
+              );
+            })}
+          </NewsList>
+        ) : (
+          <NewsList>
+            {news.map(({ _id, title, description, date, url }) => {
+              return (
+                <NewsItem key={_id}>
+                  <NewsTitle>{shortenText(title, 50)}</NewsTitle>
+                  <Description>{shortenText(description, 250)}</Description>
+                  <Wrapper>
+                    <Date>{date}</Date>
+                    <LinkReadMore href={url} target="_blank" rel="noreferrer">
+                      Read more
+                    </LinkReadMore>
+                  </Wrapper>
+                </NewsItem>
+              );
+            })}
+          </NewsList>
+        )}
+      </StyledContainer>
     </NewsWrap>
   );
 };
