@@ -1,3 +1,5 @@
+import OurFriends from "components/OurFriends/OurFriends";
+
 export default function OurFriendsPage() {
-  return <div>Our Friends Page</div>;
+  return <OurFriends/>;
 }
