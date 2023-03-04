@@ -36,12 +36,22 @@ export const IconsDone = styled.div`
 
 export const PetsAddIcon = styled.div`
   stroke: #ffffff;
-  stroke-linecap: round;
-  stroke-width: 3;
-  width: 24px;
-  height: 24px;
-  margin-left: 10px;
-  margin-top: 4px;
+  stroke-width: 2;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F59256;
+
+
+
+  @media screen and (min-width: 1280px) {
+  
+  }
+
+
 `;
 
 export const CardIcons = styled.div`

@@ -1,15 +1,16 @@
-
-import PetsData from "./PetsData/PetsData";
-import UserData from "./UserData/UserData";
-import {UserPage, MyInfo} from "./UserPage.styled"
-
+import PetsData from './PetsData/PetsData';
+import UserData from './UserData/UserData';
+import { UserPage, MyInfo, UserInfo } from './UserPage.styled';
 
 const User = () => {
   return (
     <UserPage>
-      <MyInfo>My information</MyInfo>
-      <UserData/>
-      <PetsData/>
+      <UserInfo>
+        <MyInfo>My information</MyInfo>
+        <UserData />
+      </UserInfo>
+
+      <PetsData />
     </UserPage>
   );
 };

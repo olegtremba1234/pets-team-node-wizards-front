@@ -1,6 +1,6 @@
-import Logout from '../Logaut/Logaut';
+import Logout from '../Logaut/Logout';
 import UserDataItem from '../UserDataItem/UserDataItem';
-import { UserInfo, ImageUser, Button } from './userData.styled';
+import { UserInfo, ImageUser, Button, ImageItem , DataItem} from './userData.styled';
 import { Icons } from '../Icons/Icons';
 
 const UserData = () => {
@@ -9,13 +9,17 @@ const UserData = () => {
 
   return (
     <UserInfo>
-      <ImageUser src={defaultAvatar} alt="name" />
-      <Button type="button">
-        <Icons id="camera" />
-        Edit photo
-      </Button>
-      <UserDataItem />
-      <Logout />
+      <ImageItem>
+        <ImageUser src={defaultAvatar} alt="name" />
+        <Button type="button">
+          <Icons id="camera" />
+          Edit photo
+        </Button>
+      </ImageItem>
+      <DataItem>
+        <UserDataItem />
+        <Logout />
+      </DataItem>
     </UserInfo>
   );
 };

@@ -76,11 +76,11 @@ export const Icons = ({ id }) => {
       return (
         <PetsAddIcon>
           <svg
-            viewBox="0 0 32 32"
+            viewBox="0 0 20 20 "
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
           >
-            <path d="M12 20v-8m0 0V4m0 8h8m-8 0H4" />
+            <path d="M9 17V9M9 9V1M9 9H17M9 9H1" />
           </svg>
         </PetsAddIcon>
       );

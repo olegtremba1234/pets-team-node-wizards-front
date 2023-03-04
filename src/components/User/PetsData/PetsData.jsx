@@ -1,13 +1,21 @@
-import PetsList from "../PetsList/PetsList";
-// import {  Image } from './userData.styled.jsx';
+import { Icons } from '../Icons/Icons';
+import PetsList from '../PetsList/PetsList';
+import { AddPets, ButtonIcon , ButtonBack, Pets} from './PetsData.styled';
 
 const PetsData = () => {
   return (
-    <>
-
-      <button type="button">My pets</button>
+    <Pets>
+      <AddPets>
+        <h3>My pets:</h3>
+        <ButtonIcon type="button">
+          Add pet
+          <ButtonBack>
+            <Icons id="icon-user_plus" />
+          </ButtonBack>
+        </ButtonIcon>
+      </AddPets>
       <PetsList/>
-    </>
+    </Pets>
   );
 };
 
