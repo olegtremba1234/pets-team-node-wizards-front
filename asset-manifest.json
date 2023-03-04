@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/pets-team-node-wizards-front/static/css/main.3c565e1d.css",
-    "main.js": "/pets-team-node-wizards-front/static/js/main.a5a58b88.js",
+    "main.js": "/pets-team-node-wizards-front/static/js/main.a61a958a.js",
     "static/js/415.1220a5d5.chunk.js": "/pets-team-node-wizards-front/static/js/415.1220a5d5.chunk.js",
     "static/js/918.785b8330.chunk.js": "/pets-team-node-wizards-front/static/js/918.785b8330.chunk.js",
-    "static/js/215.854fee09.chunk.js": "/pets-team-node-wizards-front/static/js/215.854fee09.chunk.js",
+    "static/js/215.239ca022.chunk.js": "/pets-team-node-wizards-front/static/js/215.239ca022.chunk.js",
     "static/js/637.b0f9751d.chunk.js": "/pets-team-node-wizards-front/static/js/637.b0f9751d.chunk.js",
     "static/js/658.417d227b.chunk.js": "/pets-team-node-wizards-front/static/js/658.417d227b.chunk.js",
     "static/js/693.1026b3e5.chunk.js": "/pets-team-node-wizards-front/static/js/693.1026b3e5.chunk.js",
@@ -23,10 +23,10 @@
     "index.html": "/pets-team-node-wizards-front/index.html",
     "static/media/searchIcon.svg": "/pets-team-node-wizards-front/static/media/searchIcon.0c99ea32df4ba8a74069ce68a2833430.svg",
     "main.3c565e1d.css.map": "/pets-team-node-wizards-front/static/css/main.3c565e1d.css.map",
-    "main.a5a58b88.js.map": "/pets-team-node-wizards-front/static/js/main.a5a58b88.js.map",
+    "main.a61a958a.js.map": "/pets-team-node-wizards-front/static/js/main.a61a958a.js.map",
     "415.1220a5d5.chunk.js.map": "/pets-team-node-wizards-front/static/js/415.1220a5d5.chunk.js.map",
     "918.785b8330.chunk.js.map": "/pets-team-node-wizards-front/static/js/918.785b8330.chunk.js.map",
-    "215.854fee09.chunk.js.map": "/pets-team-node-wizards-front/static/js/215.854fee09.chunk.js.map",
+    "215.239ca022.chunk.js.map": "/pets-team-node-wizards-front/static/js/215.239ca022.chunk.js.map",
     "637.b0f9751d.chunk.js.map": "/pets-team-node-wizards-front/static/js/637.b0f9751d.chunk.js.map",
     "658.417d227b.chunk.js.map": "/pets-team-node-wizards-front/static/js/658.417d227b.chunk.js.map",
     "693.1026b3e5.chunk.js.map": "/pets-team-node-wizards-front/static/js/693.1026b3e5.chunk.js.map",
@@ -36,6 +36,6 @@
   },
   "entrypoints": [
     "static/css/main.3c565e1d.css",
-    "static/js/main.a5a58b88.js"
+    "static/js/main.a61a958a.js"
   ]
 }
