@@ -69,6 +69,12 @@ export const FriendsCardsItem = styled.div`
   background-color: ${p => p.theme.backgrounds.buttonSecondary};
   box-shadow: ${p => p.theme.shadows.searchBox};
 
+  @media ${device.preTablet} {
+    :not(:last-child) {
+    margin-bottom: 12px;
+  }
+  }
+
   @media ${device.tablet} {
     width: 336px;
     min-height: 246px;
