@@ -1,6 +1,7 @@
 import {CardLink, CardAddress, CardMenu, CardMenuItem, CardImg, CardWrapper, CardLeftWrapper, CardsList, CardsItem, FriendsCardsItem, FriendsCardsWrap, FriendsName, FriendsTitle, FriendsWrap, StyledContainer } from "./OurFriends.styled";
 import { useState, useEffect } from 'react';
 import { fetchOurFriends } from "services/apiService";
+import defaultImage from '../OurFriends/image/default.jpg';
 const OurFriends = () => {
 
   const [friends, setFriends] = useState([]);
@@ -11,12 +12,11 @@ const OurFriends = () => {
   }, []);
 
 
-  const getWorkDays =  arr => {
-    const { from, to } = arr.find(item => item.isOpen === true);
-    console.log(arr)
-    console.log(from)
-    console.log(getWorkDays)
-    return {from, to};
+  const getWorkDays =  (arr) => {
+    const filtered = arr.find(item => item.isOpen === true);
+    console.log(filtered)
+    console.log(`${filtered.from} ${filtered.to}`)
+    return `${filtered.from} ${filtered.to}`;
   };
   return (
     <FriendsWrap>
@@ -43,7 +43,7 @@ const OurFriends = () => {
                 <CardWrapper>
                   <CardLeftWrapper>
                     <CardImg
-                      src={imageUrl}
+                      src={imageUrl ? imageUrl : defaultImage}
                       alt={`${title} img`}
                     />
                   </CardLeftWrapper>

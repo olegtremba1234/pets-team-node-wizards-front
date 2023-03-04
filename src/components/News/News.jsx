@@ -1,6 +1,7 @@
 import React from 'react';
 import { fetchNews, fetchSearchNews } from 'services/apiService';
 import SearchForm from '../SearchForm/SearchForm';
+import moment from 'moment';
 
 import { useState, useEffect } from 'react';
 import {
@@ -66,7 +67,7 @@ const News = () => {
                   <NewsTitle>{shortenText(title, 50)}</NewsTitle>
                   <Description>{shortenText(description, 225)}</Description>
                   <Wrapper>
-                    <Date>{date}</Date>
+                    <Date>{moment(date).format('DD/MM/YYYY')}</Date>
                     <LinkReadMore href={url} target="_blank" rel="noreferrer">
                       Read more
                     </LinkReadMore>
@@ -83,7 +84,7 @@ const News = () => {
                   <NewsTitle>{shortenText(title, 45)}</NewsTitle>
                   <Description>{shortenText(description, 215)}</Description>
                   <Wrapper>
-                    <Date>{date}</Date>
+                    <Date>{moment(date).format('DD/MM/YYYY')}</Date>
                     <LinkReadMore href={url} target="_blank" rel="noreferrer">
                       Read more
                     </LinkReadMore>
