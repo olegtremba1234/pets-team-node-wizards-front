@@ -58,7 +58,7 @@ const News = () => {
             {news.map(({ _id, title, description, date, url }) => {
               return (
                 <NewsItem key={_id}>
-                  <NewsTitle>{shortenText(title, 50)}</NewsTitle>
+                  <NewsTitle>{shortenText(title, 45)}</NewsTitle>
                   <Description>{shortenText(description, 225)}</Description>
                   <Wrapper>
                     <Date>{moment(date).format('DD/MM/YYYY')}</Date>

@@ -1,15 +1,16 @@
 import styled from 'styled-components';
+import { device } from 'vars/device';
 
 export const FriendsWrap = styled.section`
   padding-top: 45px;
   padding-bottom: 100px;
-  background: #fdf7f2;
+  background: ${p => p.theme.backgrounds.bodyPrimary};
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     padding-top: 95px;
   }
 
-  @media screen and (min-width: 1280px) {
+  @media ${device.desktop} {
     padding-top: 60px;
     padding-bottom: 200px;
   }
@@ -20,11 +21,11 @@ export const StyledContainer = styled.div`
   padding: 0 20px;
   margin: 0 auto;
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     width: 768px;
     padding: 0 32px;
   }
-  @media screen and (min-width: 1280px) {
+  @media ${device.desktop} {
     width: 1280px;
     padding: 0 16px;
   }
@@ -37,9 +38,9 @@ export const FriendsTitle = styled.h2`
   font-weight: 700;
   font-size: 24px;
   line-height: 1.4;
-  color: #000000;
+  color: ${p => p.theme.fontColors.secondary};
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     font-size: 48px;
   }
 `;
@@ -47,14 +48,14 @@ export const FriendsTitle = styled.h2`
 export const FriendsCardsWrap = styled.div`
   margin-top: 40px;
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 32px;
     grid-row-gap: 32px;
   }
 
-  @media screen and (min-width: 1280px) {
+  @media ${device.desktop} {
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;
@@ -65,16 +66,16 @@ export const FriendsCardsItem = styled.div`
   padding: 12px 4px;
 
   border-radius: 20px;
-  background-color: #ffffff;
-  box-shadow: 7px 4px 14px rgba(49, 21, 4, 0.07);
+  background-color: ${p => p.theme.backgrounds.buttonSecondary};
+  box-shadow: ${p => p.theme.shadows.searchBox};
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     width: 336px;
     min-height: 246px;
     padding: 12px 10px;
   }
 
-  @media screen and (min-width: 1280px) {
+  @media ${device.desktop}{
     width: 395px;
     min-height: 287px;
     padding: 16px;
@@ -85,15 +86,15 @@ export const FriendsName = styled.h3`
   font-size: 12px;
   line-height: 1.3;
   text-align: center;
-  color: #f59256;
+  color: ${p => p.theme.fontColors.buttonSecondary};
   text-decoration: underline;
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     font-size: 16px;
     line-height: 1.4;
   }
 
-  @media screen and (min-width: 1280px) {
+  @media ${device.desktop} {
     font-size: 20px;
   }
 `;
@@ -104,7 +105,7 @@ export const CardWrapper = styled.div`
   justify-content: space-between;
   margin-top: 10px;
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet}{
     margin-top: 16px;
   }
 `;
@@ -112,7 +113,7 @@ export const CardWrapper = styled.div`
 export const CardLeftWrapper = styled.div`
   width: 110px;
 
-  @media screen and (min-width: 1280px) {
+  @media ${device.desktop}) {
     width: auto;
   }
 `;
@@ -122,7 +123,7 @@ export const CardImg = styled.img`
   width: 110px;
   height: 78px;
 
-  @media screen and (min-width: 1280px) {
+  @media ${device.desktop} {
     width: 158px;
     height: 112px;
   }
@@ -131,11 +132,11 @@ export const CardImg = styled.img`
 export const CardsList = styled.ul`
   width: 150px;
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     width: 170px;
   }
 
-  @media screen and (min-width: 1280px) {
+  @media ${device.desktop} {
     width: 190px;
   }
 `;
@@ -161,7 +162,7 @@ export const CardsItem = styled.li`
   &:first-child {
     cursor: pointer;
     &:hover {
-      color: #ff6101;
+      color: ${p => p.theme.hoverButtonColor.primary};
       transform: color;
     }
   }
@@ -170,9 +171,10 @@ export const CardsItem = styled.li`
   }
   &:first-child:hover ${CardMenu} {
     display: block;
+    transition: ${p => p.theme.transition.first}
   }
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     font-size: 14px;
     line-height: 1.357em;
     &:not(:last-child) {
@@ -180,7 +182,7 @@ export const CardsItem = styled.li`
     }
   }
 
-  @media screen and (min-width: 1280px) {
+  @media ${device.desktop} {
     font-size: 16px;
     line-height: 1.375em;
   }
@@ -202,7 +204,7 @@ export const CardMenuItem = styled.li`
 `;
 
 export const CardAddress = styled.a`
-  color: #000000;
+  color: ${p => p.theme.fontColors.secondary};
   text-decoration: underline;
 `;
 
@@ -210,9 +212,11 @@ export const CardLink = styled.a`
   color: inherit;
   text-decoration: none;
   &:hover {
-    color: #f59256;
+    color:  ${p => p.theme.fontColors.buttonSecondary};
+    transition: ${p => p.theme.transition.first}
   }
   &:focus {
-    color: #f59256;
+    color:  ${p => p.theme.fontColors.buttonSecondary};
+    transition: ${p => p.theme.transition.first}
   }
 `;
