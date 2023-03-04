@@ -1,26 +1,45 @@
-import {CardLink, CardAddress, CardMenu, CardMenuItem, CardImg, CardWrapper, CardLeftWrapper, CardsList, CardsItem, FriendsCardsItem, FriendsCardsWrap, FriendsName, FriendsTitle, FriendsWrap, StyledContainer } from "./OurFriends.styled";
+import {
+  CardLink,
+  CardAddress,
+  CardMenu,
+  CardMenuItem,
+  CardImg,
+  CardWrapper,
+  CardLeftWrapper,
+  CardsList,
+  CardsItem,
+  FriendsCardsItem,
+  FriendsCardsWrap,
+  FriendsName,
+  FriendsTitle,
+  FriendsWrap,
+  StyledContainer,
+} from './OurFriends.styled';
 import { useState, useEffect } from 'react';
-import { fetchOurFriends } from "services/apiService";
-import defaultImage from '../OurFriends/image/default.jpg';
-const OurFriends = () => {
+import { fetchOurFriends } from 'services/apiService';
+import defaultImage from '../OurFriends/image/default.svg';
 
+
+const OurFriends = ({ data }) => {
   const [friends, setFriends] = useState([]);
 
+  let days = ['MN', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 
   useEffect(() => {
     fetchOurFriends().then(setFriends);
   }, []);
 
-
-  const getWorkDays =  (arr) => {
+  const getWorkTime = arr => {
+    if (!arr || arr.length === 0) {
+      return;
+    }
     const filtered = arr.find(item => item.isOpen === true);
-    console.log(filtered)
-    console.log(`${filtered.from} ${filtered.to}`)
-    return `${filtered.from} ${filtered.to}`;
+    return `${filtered.from}-${filtered.to}`;
   };
+
   return (
     <FriendsWrap>
-       <StyledContainer>
+      <StyledContainer>
         <FriendsTitle>Our friends</FriendsTitle>
         <FriendsCardsWrap>
           {friends.map(
@@ -39,7 +58,6 @@ const OurFriends = () => {
                 <a href={url} target="blank">
                   <FriendsName>{title}</FriendsName>
                 </a>
-
                 <CardWrapper>
                   <CardLeftWrapper>
                     <CardImg
@@ -47,29 +65,24 @@ const OurFriends = () => {
                       alt={`${title} img`}
                     />
                   </CardLeftWrapper>
-
                   <CardsList>
                     <CardsItem>
-                      {/* Time: <br />
+                      Time: <br />
                       {workDays ? (
-                        <p> {getWorkDays(workDays)}</p>
+                        <p> {getWorkTime(workDays)}</p>
                       ) : (
                         <span>-------------</span>
-                      )} */}
-                      {/* {workDays && (
+                      )}
+                      {workDays && (
                         <CardMenu>
-                          {workDays.map(({ day, from, to, id }) => (
-                            <CardMenuItem
-                              key={id.toString()}
-                            >
+                          {days.map((day, _id) => (
+                            <CardMenuItem key={_id}>
                               <p>{day}</p>
-                              <p>
-                                {from}-{to}
-                              </p>
+                              <p>{getWorkTime(workDays)}</p>
                             </CardMenuItem>
                           ))}
                         </CardMenu>
-                      )} */}
+                      )}
                     </CardsItem>
                     <CardsItem>
                       Address: <br />
@@ -84,9 +97,7 @@ const OurFriends = () => {
                     <CardsItem>
                       Email: <br />
                       {email ? (
-                        <CardLink href={`mailto:${email}`}>
-                          {email}
-                        </CardLink>
+                        <CardLink href={`mailto:${email}`}>{email}</CardLink>
                       ) : (
                         <span>----------</span>
                       )}
@@ -95,9 +106,7 @@ const OurFriends = () => {
                       Phone:
                       <br />
                       {phone ? (
-                        <CardLink href={`tel:${phone}`}>
-                          {phone}
-                        </CardLink>
+                        <CardLink href={`tel:${phone}`}>{phone}</CardLink>
                       ) : (
                         <span>----------</span>
                       )}
@@ -108,9 +117,8 @@ const OurFriends = () => {
             )
           )}
         </FriendsCardsWrap>
-       </StyledContainer>
-       </FriendsWrap>
-
-  )
-}
+      </StyledContainer>
+    </FriendsWrap>
+  );
+};
 export default OurFriends;

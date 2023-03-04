@@ -1,5 +1,6 @@
 import React from 'react';
 import { fetchNews, fetchSearchNews } from 'services/apiService';
+import { useSearchParams } from 'react-router-dom';
 import SearchForm from '../SearchForm/SearchForm';
 import moment from 'moment';
 
@@ -19,34 +20,51 @@ import {
 
 const News = () => {
   const [news, setNews] = useState([]);
-  const [searchNews, setSearchNews] = useState(null);
+  const [input, setInput] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = searchParams.get('query');
+  console.log(query)
+
+  const handleClick = e => {
+    setInput(e.currentTarget.value);
+  };
+
+  const handleSearchSubmit = e => {
+    e.preventDefault();
+    setSearchParams({ query: e.currentTarget.elements.query.value.trim() });
+
+  };
+
 
   useEffect(() => {
     fetchNews().then(setNews);
   }, []);
 
-  const handleSearchSubmit = async e => {
-    e.preventDefault();
-    const { search } = e.target.elements;
-    if (search.value.trim() === '') {
-      setSearchNews(null);
-      return;
-    }
+  // const handleSearchSubmit = async e => {
+  //   e.preventDefault();
+  //   const { search } = e.target.elements;
+  //   if (search.value.trim() === '') {
+  //     setSearchNews(null);
+  //     console.log(search.value)
+  //     return;
+  //   }
 
-    try {
-      const { data: searchData } = await fetchSearchNews(search.value);
-      setSearchNews(searchData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     const { data: searchData } = await fetchSearchNews(search.value);
+  //     setSearchNews(searchData);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const handleClickInput = e => {
-    if (e.target.value.trim()) {
-      return;
-    }
-    setSearchNews(null);
-  };
+  // const handleClickInput = e => {
+  //   if (e.target.value.trim()) {
+  //     return;
+  //   }
+  //   setSearchNews(null);
+  // };
+
 
   const shortenText = (text, max) => {
     return text && text.length > max
@@ -58,8 +76,8 @@ const News = () => {
     <NewsWrap>
       <StyledContainer>
         <Title>News</Title>
-        <SearchForm onSubmit={handleSearchSubmit} onChange={handleClickInput} />
-        {searchNews ? (
+        <SearchForm onSubmit={handleSearchSubmit} onChange={handleClick}  value={input} />
+        {searchParams ? (
           <NewsList>
             {news.map(({ _id, title, description, date, url }) => {
               return (
