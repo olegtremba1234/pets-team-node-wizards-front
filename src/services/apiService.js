@@ -17,6 +17,5 @@ export const fetchSearchNews = async query => {
 export const fetchOurFriends = async () => {
   const response = await axios('/friends', {
   });
-  console.log(response)
   return response.data;
 };

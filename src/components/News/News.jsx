@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchNews, fetchSearchNews } from 'services/apiService';
+import { fetchNews } from 'services/apiService';
 import { useSearchParams } from 'react-router-dom';
 import SearchForm from '../SearchForm/SearchForm';
 import moment from 'moment';
@@ -40,30 +40,6 @@ const News = () => {
   useEffect(() => {
     fetchNews().then(setNews);
   }, []);
-
-  // const handleSearchSubmit = async e => {
-  //   e.preventDefault();
-  //   const { search } = e.target.elements;
-  //   if (search.value.trim() === '') {
-  //     setSearchNews(null);
-  //     console.log(search.value)
-  //     return;
-  //   }
-
-  //   try {
-  //     const { data: searchData } = await fetchSearchNews(search.value);
-  //     setSearchNews(searchData);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const handleClickInput = e => {
-  //   if (e.target.value.trim()) {
-  //     return;
-  //   }
-  //   setSearchNews(null);
-  // };
 
 
   const shortenText = (text, max) => {
