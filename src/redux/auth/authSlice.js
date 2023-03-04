@@ -9,7 +9,7 @@ const authInitialState = {
     email: null,
     password: null,
     name: null,
-    place: null,
+    city: null,
     phone: null,
     dateofbirth: null,
   },

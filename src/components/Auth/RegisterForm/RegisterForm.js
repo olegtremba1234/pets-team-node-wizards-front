@@ -35,7 +35,7 @@ export const RegisterForm = () => {
     password: '',
     confirmPassword: '',
     name: '',
-    region: '',
+    city: '',
     phone: '',
   });
 
@@ -46,7 +46,7 @@ export const RegisterForm = () => {
       email: formData.email,
       password: formData.password,
       name: formData.name,
-      place: formData.region,
+      city: formData.city,
       phone: formData.phone,
     };
 
@@ -176,7 +176,7 @@ const RegisterStepOne = props => {
 
 const RegisterStepTwo = props => {
   const nameInputId = nanoid();
-  const regionInputId = nanoid();
+  const cityInputId = nanoid();
   const phoneInputId = nanoid();
 
   const handleSubmit = values => {
@@ -211,13 +211,13 @@ const RegisterStepTwo = props => {
               />
               <FormError name="name" />
               <FormInput
-                id={regionInputId}
-                name="region"
+                id={cityInputId}
+                name="city"
                 placeholder="City, region"
                 type="text"
                 autoComplete="off"
               />
-              <FormError name="region" />
+              <FormError name="city" />
 
               <FormInput
                 component={PhoneInputField}

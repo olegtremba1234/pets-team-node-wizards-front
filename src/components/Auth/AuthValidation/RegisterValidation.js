@@ -42,7 +42,7 @@ export const stepTwoRegisterSchema = yup.object().shape({
     .max(16, 'Maximum number of characters 16')
     .matches(nameRules, 'Only latin characters are allowed for this field')
     .required('Name is a required field'),
-  region: yup
+  city: yup
     .string()
     .required('City, region is a required field')
     .min(5, 'Format must be City, region. For example: Brovary, Kyiv')
