@@ -109,7 +109,7 @@ export const CardWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 12px;
 
   @media ${device.tablet}{
     margin-top: 16px;
@@ -128,6 +128,11 @@ export const CardImg = styled.img`
   display: block;
   width: 110px;
   height: 78px;
+
+  @media ${device.tablet} {
+    width: 120px;
+    height: 85px;
+  }
 
   @media ${device.desktop} {
     width: 158px;

@@ -1,7 +1,7 @@
 import React from 'react';
-import { fetchNews } from 'services/apiService';
-import { useSearchParams } from 'react-router-dom';
-import SearchForm from '../SearchForm/SearchForm';
+import { fetchNews, fetchSearchNews } from 'services/apiService';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';import SearchForm from '../SearchForm/SearchForm';
 import moment from 'moment';
 
 import { useState, useEffect } from 'react';
@@ -20,20 +20,31 @@ import {
 
 const News = () => {
   const [news, setNews] = useState([]);
-  const [input, setInput] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchingNewsData, setSearchingNewsData] = useState(null);
 
-  const query = searchParams.get('query');
-  console.log(query)
 
   const handleClick = e => {
-    setInput(e.currentTarget.value);
-  };
+      if (e.target.value.trim()) {
+        return;
+      }
+    };
 
-  const handleSearchSubmit = e => {
+
+  const handleSearchSubmit = async e => {
     e.preventDefault();
-    setSearchParams({ query: e.currentTarget.elements.query.value.trim() });
+    const { search } = e.target.elements;
+    console.log(search.value)
 
+    if (search.value.trim() === '') {
+      return;
+    }
+
+    try {
+      const { data: searchData } =  await fetchSearchNews(search.value);
+      setSearchingNewsData(searchData);
+    } catch (error) {
+      return toast.error('Вибачте, новин не знайдено.');
+    }
   };
 
 
@@ -52,8 +63,8 @@ const News = () => {
     <NewsWrap>
       <StyledContainer>
         <Title>News</Title>
-        <SearchForm onSubmit={handleSearchSubmit} onChange={handleClick}  value={input} />
-        {searchParams ? (
+        <SearchForm onSubmit={handleSearchSubmit} onChange={handleClick}  />
+        {searchingNewsData ? (
           <NewsList>
             {news.map(({ _id, title, description, date, url }) => {
               return (
