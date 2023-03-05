@@ -9,7 +9,6 @@ const User = () => {
         <MyInfo>My information</MyInfo>
         <UserData />
       </UserInfo>
-
       <PetsData />
     </UserPage>
   );

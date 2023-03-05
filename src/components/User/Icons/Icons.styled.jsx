@@ -18,7 +18,7 @@ export const UserAvatarIcons = styled.div`
 export const IconsRed = styled.div`
   width: 20px;
   height: 20px;
-  fill: #111;
+  fill: #f59256;
   fill-opacity: 0.6;
   background-color: #fdf7f2;
   border-radius: 50%;

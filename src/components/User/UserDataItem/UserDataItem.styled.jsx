@@ -13,6 +13,7 @@ export const UserItem = styled.ul`
     display: flex;
     margin-bottom: 12px;
     justify-content: space-between;
+    
 
     @media screen and (min-width: 768px) {
       padding: 0;
@@ -52,12 +53,12 @@ export const UserItem = styled.ul`
     display: flex;
     align-items: center;
     letter-spacing: 0.04em;
-    width:60px;
+    width:80px;
   }
 
   .buttItem {
     border: none;
-    width: 0;
+    /* width: 0; */
     background-color: inherit;
     cursor: pointer;
   }
