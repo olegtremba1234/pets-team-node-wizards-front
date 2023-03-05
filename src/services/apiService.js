@@ -9,7 +9,13 @@ export const fetchNews = async () => {
 };
 
 export const fetchSearchNews = async query => {
-  const response = await axios(`/news/search?title=${query}`, {
+  const response = await axios(`news/search?title=${query}`, {
+  });
+  return response.data;
+};
+
+export const fetchOurFriends = async () => {
+  const response = await axios('/friends', {
   });
   return response.data;
 };
