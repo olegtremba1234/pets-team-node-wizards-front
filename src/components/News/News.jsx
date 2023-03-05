@@ -1,6 +1,8 @@
 import React from 'react';
 import { fetchNews, fetchSearchNews } from 'services/apiService';
-import SearchForm from '../SearchForm/SearchForm';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';import SearchForm from '../SearchForm/SearchForm';
+import moment from 'moment';
 
 import { useState, useEffect } from 'react';
 import {
@@ -18,34 +20,38 @@ import {
 
 const News = () => {
   const [news, setNews] = useState([]);
-  const [searchNews, setSearchNews] = useState(null);
+  const [searchingNewsData, setSearchingNewsData] = useState(null);
+
+
+  const handleClick = e => {
+      if (e.target.value.trim()) {
+        return;
+      }
+    };
+
+
+  const handleSearchSubmit = async e => {
+    e.preventDefault();
+    const { search } = e.target.elements;
+    console.log(search.value)
+
+    if (search.value.trim() === '') {
+      return;
+    }
+
+    try {
+      const { data: searchData } =  await fetchSearchNews(search.value);
+      setSearchingNewsData(searchData);
+    } catch (error) {
+      return toast.error('Вибачте, новин не знайдено.');
+    }
+  };
+
 
   useEffect(() => {
     fetchNews().then(setNews);
   }, []);
 
-  const handleSearchSubmit = async e => {
-    e.preventDefault();
-    const { search } = e.target.elements;
-    if (search.value.trim() === '') {
-      setSearchNews(null);
-      return;
-    }
-
-    try {
-      const { data: searchData } = await fetchSearchNews(search.value);
-      setSearchNews(searchData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleClickInput = e => {
-    if (e.target.value.trim()) {
-      return;
-    }
-    setSearchNews(null);
-  };
 
   const shortenText = (text, max) => {
     return text && text.length > max
@@ -57,16 +63,16 @@ const News = () => {
     <NewsWrap>
       <StyledContainer>
         <Title>News</Title>
-        <SearchForm onSubmit={handleSearchSubmit} onChange={handleClickInput} />
-        {searchNews ? (
+        <SearchForm onSubmit={handleSearchSubmit} onChange={handleClick}  />
+        {searchingNewsData ? (
           <NewsList>
             {news.map(({ _id, title, description, date, url }) => {
               return (
                 <NewsItem key={_id}>
-                  <NewsTitle>{shortenText(title, 50)}</NewsTitle>
+                  <NewsTitle>{shortenText(title, 45)}</NewsTitle>
                   <Description>{shortenText(description, 225)}</Description>
                   <Wrapper>
-                    <Date>{date}</Date>
+                    <Date>{moment(date).format('DD/MM/YYYY')}</Date>
                     <LinkReadMore href={url} target="_blank" rel="noreferrer">
                       Read more
                     </LinkReadMore>
@@ -83,7 +89,7 @@ const News = () => {
                   <NewsTitle>{shortenText(title, 45)}</NewsTitle>
                   <Description>{shortenText(description, 215)}</Description>
                   <Wrapper>
-                    <Date>{date}</Date>
+                    <Date>{moment(date).format('DD/MM/YYYY')}</Date>
                     <LinkReadMore href={url} target="_blank" rel="noreferrer">
                       Read more
                     </LinkReadMore>
