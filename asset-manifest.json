@@ -1,17 +1,18 @@
 {
   "files": {
     "main.css": "/pets-team-node-wizards-front/static/css/main.6fd00ed7.css",
-    "main.js": "/pets-team-node-wizards-front/static/js/main.f7a81cc5.js",
+    "main.js": "/pets-team-node-wizards-front/static/js/main.7032da59.js",
     "static/js/415.1220a5d5.chunk.js": "/pets-team-node-wizards-front/static/js/415.1220a5d5.chunk.js",
     "static/js/918.785b8330.chunk.js": "/pets-team-node-wizards-front/static/js/918.785b8330.chunk.js",
-    "static/js/736.10fbff7a.chunk.js": "/pets-team-node-wizards-front/static/js/736.10fbff7a.chunk.js",
-    "static/js/940.d9f55d47.chunk.js": "/pets-team-node-wizards-front/static/js/940.d9f55d47.chunk.js",
-    "static/js/658.417d227b.chunk.js": "/pets-team-node-wizards-front/static/js/658.417d227b.chunk.js",
+    "static/js/736.a3b6d219.chunk.js": "/pets-team-node-wizards-front/static/js/736.a3b6d219.chunk.js",
+    "static/js/940.48ffb4c4.chunk.js": "/pets-team-node-wizards-front/static/js/940.48ffb4c4.chunk.js",
+    "static/js/691.b64eb1fd.chunk.js": "/pets-team-node-wizards-front/static/js/691.b64eb1fd.chunk.js",
     "static/js/693.1026b3e5.chunk.js": "/pets-team-node-wizards-front/static/js/693.1026b3e5.chunk.js",
-    "static/js/806.3e0e143b.chunk.js": "/pets-team-node-wizards-front/static/js/806.3e0e143b.chunk.js",
+    "static/js/232.942aedb5.chunk.js": "/pets-team-node-wizards-front/static/js/232.942aedb5.chunk.js",
     "static/js/991.bee2a04f.chunk.js": "/pets-team-node-wizards-front/static/js/991.bee2a04f.chunk.js",
     "static/css/925.b41ba148.chunk.css": "/pets-team-node-wizards-front/static/css/925.b41ba148.chunk.css",
     "static/js/925.62e302b6.chunk.js": "/pets-team-node-wizards-front/static/js/925.62e302b6.chunk.js",
+    "static/js/426.90b08e76.chunk.js": "/pets-team-node-wizards-front/static/js/426.90b08e76.chunk.js",
     "static/media/tablet_vector_2.png": "/pets-team-node-wizards-front/static/media/tablet_vector_2.05871790f88419184eb0.png",
     "static/media/desktop_vector_3.png": "/pets-team-node-wizards-front/static/media/desktop_vector_3.9eeb186a2442ed72e905.png",
     "static/media/desktop_vector_1.png": "/pets-team-node-wizards-front/static/media/desktop_vector_1.fd7ba10802a1dc685d8c.png",
@@ -21,23 +22,25 @@
     "static/media/tablet_vector_4.png": "/pets-team-node-wizards-front/static/media/tablet_vector_4.8d0dd5b9faa0ccccc10e.png",
     "static/media/register_bg_step1_mob.png": "/pets-team-node-wizards-front/static/media/register_bg_step1_mob.0f61ab901ee451630584.png",
     "static/media/register_bg_step2_mob.png": "/pets-team-node-wizards-front/static/media/register_bg_step2_mob.24566353893c90ded5cf.png",
+    "static/media/default.svg": "/pets-team-node-wizards-front/static/media/default.451e396707bec78ccf98bd7c9c8371f6.svg",
     "index.html": "/pets-team-node-wizards-front/index.html",
     "static/media/searchIcon.svg": "/pets-team-node-wizards-front/static/media/searchIcon.0c99ea32df4ba8a74069ce68a2833430.svg",
     "main.6fd00ed7.css.map": "/pets-team-node-wizards-front/static/css/main.6fd00ed7.css.map",
-    "main.f7a81cc5.js.map": "/pets-team-node-wizards-front/static/js/main.f7a81cc5.js.map",
+    "main.7032da59.js.map": "/pets-team-node-wizards-front/static/js/main.7032da59.js.map",
     "415.1220a5d5.chunk.js.map": "/pets-team-node-wizards-front/static/js/415.1220a5d5.chunk.js.map",
     "918.785b8330.chunk.js.map": "/pets-team-node-wizards-front/static/js/918.785b8330.chunk.js.map",
-    "736.10fbff7a.chunk.js.map": "/pets-team-node-wizards-front/static/js/736.10fbff7a.chunk.js.map",
-    "940.d9f55d47.chunk.js.map": "/pets-team-node-wizards-front/static/js/940.d9f55d47.chunk.js.map",
-    "658.417d227b.chunk.js.map": "/pets-team-node-wizards-front/static/js/658.417d227b.chunk.js.map",
+    "736.a3b6d219.chunk.js.map": "/pets-team-node-wizards-front/static/js/736.a3b6d219.chunk.js.map",
+    "940.48ffb4c4.chunk.js.map": "/pets-team-node-wizards-front/static/js/940.48ffb4c4.chunk.js.map",
+    "691.b64eb1fd.chunk.js.map": "/pets-team-node-wizards-front/static/js/691.b64eb1fd.chunk.js.map",
     "693.1026b3e5.chunk.js.map": "/pets-team-node-wizards-front/static/js/693.1026b3e5.chunk.js.map",
-    "806.3e0e143b.chunk.js.map": "/pets-team-node-wizards-front/static/js/806.3e0e143b.chunk.js.map",
+    "232.942aedb5.chunk.js.map": "/pets-team-node-wizards-front/static/js/232.942aedb5.chunk.js.map",
     "991.bee2a04f.chunk.js.map": "/pets-team-node-wizards-front/static/js/991.bee2a04f.chunk.js.map",
     "925.b41ba148.chunk.css.map": "/pets-team-node-wizards-front/static/css/925.b41ba148.chunk.css.map",
-    "925.62e302b6.chunk.js.map": "/pets-team-node-wizards-front/static/js/925.62e302b6.chunk.js.map"
+    "925.62e302b6.chunk.js.map": "/pets-team-node-wizards-front/static/js/925.62e302b6.chunk.js.map",
+    "426.90b08e76.chunk.js.map": "/pets-team-node-wizards-front/static/js/426.90b08e76.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6fd00ed7.css",
-    "static/js/main.f7a81cc5.js"
+    "static/js/main.7032da59.js"
   ]
 }
