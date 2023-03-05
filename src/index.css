@@ -1,5 +1,7 @@
 @import-normalize; /* bring in normalize.css styles */
+
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Poppins:wght@700&display=swap');
+
 *,
 *::before,
 *::after {
@@ -145,5 +147,51 @@ code {
     monospace;
 }
 
+.flag-dropdown .selected-flag {
+  background-color: transparent !important;
+  border-radius: 50% !important;
+}
 
+@media screen and (min-width: 768px) {
+  .react-tel-input > .form-control {
+    font-size: 18px !important;
+    line-height: 25px !important;
+  }
 
+  .react-tel-input {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+  }
+}
+
+.react-tel-input .invalid-number-message {
+  position: absolute;
+  z-index: 1;
+  font-size: 13px;
+  left: 25px;
+  top: -7px;
+  background: #fff;
+  padding: 0 5px;
+  color: #de0000;
+}
+
+.react-tel-input .special-label {
+  position: absolute;
+  z-index: 1;
+  top: -7px;
+  left: 25px;
+  display: block;
+  background: white;
+  padding: 0 5px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.react-tel-input {
+  transition: transform 250ms cubic-bezier(0.57, 0.21, 0.69, 1.25);
+}
+
+.react-tel-input:hover {
+  transform: scale(1.02);
+  border: 1px solid #ff6101 !important;
+}

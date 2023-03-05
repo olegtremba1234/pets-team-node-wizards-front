@@ -6,8 +6,8 @@ const nameRules = /^[aA-zZ\s]+$/;
 const passwordRules = /^(\S+$)/g;
 const emailRules = /^(?!-)(?!.*@[^,]*,)/;
 const emailRules2 = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const regionRules = /^()(\w+(,|\s)\s*)+\w+$/;
-const regionRulesOnlyLetters = /^[a-zA-Z\s]{3,},[a-zA-Z\s]{4,}$/;
+const cityRules = /^()(\w+(,|\s)\s*)+\w+$/;
+const cityRulesOnlyLetters = /^[a-zA-Z\s]{3,},[a-zA-Z\s]{4,}$/;
 
 export const stepOneRegisterSchema = yup.object().shape({
   email: yup
@@ -48,10 +48,10 @@ export const stepTwoRegisterSchema = yup.object().shape({
     .min(5, 'Format must be City, region. For example: Brovary, Kyiv')
     .max(60, 'Maximum number of characters 16')
     .matches(
-      regionRules,
+      cityRules,
       'Format must be City, region. For example: Brovary, Kyiv'
     )
-    .matches(regionRulesOnlyLetters, 'regionRulesOnlyLetters'),
+    .matches(cityRulesOnlyLetters, 'regionRulesOnlyLetters'),
   // .matches(region2, 'Must contain one number'),
   phone: yup
     .string()
