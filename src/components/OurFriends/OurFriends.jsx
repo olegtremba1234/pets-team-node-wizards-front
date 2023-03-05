@@ -30,12 +30,10 @@ const OurFriends = ({ data }) => {
   }, []);
 
   const getWorkTime = arr => {
-    if (!arr || arr.length === 0) {
-      return;
-    }
     const filtered = arr.find(item => item.isOpen === true);
     return `${filtered.from}-${filtered.to}`;
   };
+
 
   return (
     <FriendsWrap>
@@ -68,12 +66,12 @@ const OurFriends = ({ data }) => {
                   <CardsList>
                     <CardsItem>
                       Time: <br />
-                      {workDays ? (
+                      {workDays !== null && workDays.length ? (
                         <p> {getWorkTime(workDays)}</p>
                       ) : (
                         <span>-------------</span>
                       )}
-                      {workDays && (
+                      {workDays !== null && workDays.length !== 0 && (
                         <CardMenu>
                           {days.map((day, _id) => (
                             <CardMenuItem key={_id}>
