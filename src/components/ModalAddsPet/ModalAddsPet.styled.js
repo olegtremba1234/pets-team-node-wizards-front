@@ -27,7 +27,7 @@ export const ModalContent = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #ffffff;
+  background: ${p => p.theme.backgrounds.bodySecondary};
   box-shadow: ${p => p.theme.shadows.modal};
   border-radius: ${p => p.theme.borderRadius.main};
   width: 608px;
@@ -38,11 +38,11 @@ export const ModalTitle = styled.h2`
   margin-bottom: 28px;
   text-align: center;
 
-  font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 36px;
-  line-height: 49px;
+  font-family: ${p => p.theme.fontFamily.main};
+  font-style: ${p => p.theme.fontStyle.main};
+  font-weight: ${p => p.theme.fontWeights.medium};
+  font-size: ${p => p.theme.fontSizes.xxxxl};
+  line-height: 1.36;
   color: ${p => p.theme.fontColors.primary};
 `;
 
@@ -57,10 +57,10 @@ export const Label = styled.label`
     margin-bottom: 40px;
   }
 
-  font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
+  font-family: ${p => p.theme.fontFamily.main};
+  font-style: ${p => p.theme.fontStyle.main};
+  font-weight: ${p => p.theme.fontWeights.medium};
+  font-size: ${p => p.theme.fontSizes.xxl};
   line-height: 1.1;
   color: ${p => p.theme.fontColors.primary};
 `;
@@ -69,10 +69,10 @@ export const Input = styled.input`
   height: 48px;
   padding: 10px 16px;
 
-  font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
+  font-family: ${p => p.theme.fontFamily.main};
+  font-style: ${p => p.theme.fontStyle.main};
+  font-weight: ${p => p.theme.fontWeights.normal};
+  font-size: ${p => p.theme.fontSizes.m};
   line-height: 1.66;
   color: ${p => p.theme.fontColors.inputTextColor};
   background: ${p => p.theme.backgrounds.input};
@@ -96,6 +96,17 @@ export const CloseBtn = styled.button`
   border-radius: ${p => p.theme.borderRadius.main};
   padding: 2px 2px;
 
+  cursor: pointer;
   border: none;
   background: ${p => p.theme.backgrounds.input};
+
+  :hover,
+  :focus {
+    background-color: ${p => p.theme.backgrounds.buttonPrimary};
+    color: ${p => p.theme.fontColors.white};
+  }
+  :active {
+    background-color: ${p => p.theme.backgrounds.buttonPrimary};
+    color: ${p => p.theme.fontColors.white};
+  }
 `;

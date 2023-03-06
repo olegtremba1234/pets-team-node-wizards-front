@@ -30,8 +30,26 @@ export const theme = Object.freeze({
   transitions: {
     primary: '',
   },
+  fontFamily: {main: 'Manrope'},
+  fontStyle: {main: 'normal'},
   fonts: {
     letterSpacing: '0.04em',
+  },
+  fontWeights: {
+    normal: 400, 
+    medium: 500,
+    bold: 700 
+  },
+  fontSizes: {
+    xs: '12px',
+    s: '14px',
+    m: '16px',
+    l: '18px',
+    xl: '20px',
+    xxl: '24px',
+    xxxl: '28px',
+    xxxxl: '36px',
+    xxxxxl: '68px',
   },
   shadows: {
     searchBox: '7px 4px 14px rgba(49, 21, 4, 0.07)',
@@ -42,7 +60,7 @@ export const theme = Object.freeze({
   },
   borderRadius: {
     main: '40px',
-    secondary: '40px',
+    secondary: '20px',
     userInfo: '0px 40px 40px 0px',
   },
   transition: { first: '250ms cubic-bezier(0.57, 0.21, 0.69, 1.25)' },

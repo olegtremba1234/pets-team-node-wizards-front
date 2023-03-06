@@ -67,7 +67,11 @@ export default function ModalAddsPet() {
               </Label>
 
               <BtnWrapper>
-                <ButtonMain type="button" content="Cancel" />
+                <ButtonMain
+                  type="button"
+                  content="Cancel"
+                  onClick={toggleModal}
+                />
                 <ButtonMain type="submit" content="Next" />
               </BtnWrapper>
             </form>
