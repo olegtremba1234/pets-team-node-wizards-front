@@ -1,7 +1,8 @@
 import iconSearch from '../SearchForm/images/searchIcon.svg';
 import { Form, Input, Label, SearchBtn, IconSearch } from './SearchForm.styled';
 
-const SearchForm = ({ onSubmit, onChange }) => {
+const SearchForm = ({ onSubmit, onChange}) => {
+
   return (
     <Form onSubmit={onSubmit}>
       <Label htmlFor="search">
