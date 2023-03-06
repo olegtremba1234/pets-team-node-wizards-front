@@ -1,32 +1,45 @@
-import { useState } from 'react';
 import accountImage from '../../icons/account.svg';
-import { StyledLink } from './AuthNav.styled';
+import { StyledLink, AccountLink, Ul } from './AuthNav.styled';
+import { useLocation } from 'react-router-dom';
+import { isLocationRegister } from 'helpers/getLocationPathname';
+import { useSelector } from 'react-redux';
 
-export default function AuthNav() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export default function AuthNav({ closeMobile }) {
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const location = useLocation();
+  const isLocationReg = isLocationRegister(location);
 
   return (
-    <ul>
+    <Ul>
       {isLoggedIn ? (
         <li>
-          <StyledLink to="/user">
+          <AccountLink to="/user" onClick={() => closeMobile(false)}>
             <img src={accountImage} alt="acc" />
             Account
-          </StyledLink>
+          </AccountLink>
         </li>
       ) : (
         <>
           <li>
-            <StyledLink to="/login">Login</StyledLink>
+            <StyledLink
+              to="/login"
+              onClick={() => closeMobile(false)}
+              style={
+                isLocationReg
+                  ? { color: '#111111', backgroundColor: '#ffffff' }
+                  : { color: '#ffffff', backgroundColor: '#f59256' }
+              }
+            >
+              Login
+            </StyledLink>
           </li>
           <li>
-            <StyledLink to="/register">Registration</StyledLink>
+            <StyledLink to="/register" onClick={() => closeMobile(false)}>
+              Registration
+            </StyledLink>
           </li>
         </>
       )}
-      <button type="button" onClick={() => setIsLoggedIn(!isLoggedIn)}>
-        togle login
-      </button>
-    </ul>
+    </Ul>
   );
 }
