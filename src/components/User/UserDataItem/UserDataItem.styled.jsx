@@ -2,10 +2,13 @@ import styled from 'styled-components';
 
 export const UserItem = styled.ul`
   padding-top: 16px;
- 
 
   @media screen and (min-width: 768px) {
     width: 100%;
+  }
+
+  @media screen and (min-width: 1280px) {
+    padding: 0;
   }
 
   .userInfoItem {
@@ -13,7 +16,6 @@ export const UserItem = styled.ul`
     display: flex;
     margin-bottom: 12px;
     justify-content: space-between;
-    
 
     @media screen and (min-width: 768px) {
       padding: 0;
@@ -22,7 +24,6 @@ export const UserItem = styled.ul`
     @media screen and (min-width: 1280px) {
       padding-right: 16px;
     }
-
   }
 
   .inputSpace {
@@ -30,18 +31,9 @@ export const UserItem = styled.ul`
     padding-right: 16px;
 
     @media screen and (min-width: 768px) {
-      width:  100%;
+      width: 100%;
       justify-content: space-between;
     }
-  }
-
-  .infoItem {
-    margin-right: 9px;
-    border-radius: 40px;
-    border: 1px solid rgba(245, 146, 86, 0.5);
-    width: 100%;
-    /* display: flex; */
-    /* justify-content: space-between; */
   }
 
   .userInfoName {
@@ -53,7 +45,7 @@ export const UserItem = styled.ul`
     display: flex;
     align-items: center;
     letter-spacing: 0.04em;
-    width:80px;
+    width: 80px;
   }
 
   .buttItem {
@@ -63,3 +55,18 @@ export const UserItem = styled.ul`
     cursor: pointer;
   }
 `;
+
+export const InfoItem = styled.input`
+  margin-right: 9px;
+  border-radius: 40px;
+  width: 100%;
+  font-weight: 400;
+  font-size: 18px;
+  padding-left:15px;
+
+  color: #111111;
+  border: 1px solid rgba(245, 146, 86, 0.5);
+  border-color: ${p => (p.disabled ? ' transparent' : '#F59256')};
+  background: ${p => (p.disabled ? ' transparent' :' #FDF7F2')};
+`;
+// transparent

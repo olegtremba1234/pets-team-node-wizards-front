@@ -1,130 +1,80 @@
-import { v4 } from 'uuid';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Icons } from '../Icons/Icons';
-import { UserItem } from './UserDataItem.styled';
+import { UserItem, InfoItem } from './UserDataItem.styled';
 import { nanoid } from 'nanoid';
 
 const UserDataItem = () => {
-  const [name, setName] = useState('icon-user_red');
+  const [nameDisabled, setNameDisabled] = useState(false);
+  const [emailDisabled, setEmailDisabled] = useState(false);
+  const [birthdayDisabled, setBirthdayDisabled] = useState(false);
+  const [phoneDisabled, setPhoneDisabled] = useState(false);
+  const [cityDisabled, setCityDisabled] = useState(false);
 
-
-  const [disabled, setDisabled] = useState(true);
-  const [active, setActive] = useState(true);
-
-  const [currentInput, setCurrentInput] = useState('');
-  const [inputActive, setInputActive] = useState(true);
-
-  const textInput = document.querySelector('.text-input');
-  // const output = document.querySelector(".output");
- 
-
- 
-
-  // const [inpDis, setInpDis] = useState(true);
-
-  const selectInput = ev => {
+  const selectInput = (ev, diz) => {
     const id = ev.previousElementSibling.id;
     const el = document.getElementById(id);
-    el.disabled = !disabled;
+    el.disabled = !el.disabled;
     el.focus();
-
-    // setInpDis(ev.previousElementSibling.disabled);
-    setDisabled(el.disabled);
-    setInputActive(el.disabled);
-    setCurrentInput(ev.previousElementSibling.name);
   };
 
-  const edit = name => {
+  const handleClickEdit = ev => {
+    const name = ev.previousElementSibling.name;
     switch (name) {
       case 'name':
-        if ('name' === currentInput) {
-          
-          console.log("1", inputActive)
-          if (inputActive) {
-            
-            return <Icons id={'icon-user_red'} />;
-          } else {
-            return <Icons id={'icon-user_done'} />;
-          }
-        } else {
-          return <Icons id={'icon-user_red'} />;
-        }
+        selectInput(ev, nameDisabled);
+        setNameDisabled(!nameDisabled);
+        break;
 
       case 'email':
-        if ('email' === currentInput) {
-          console.log("2", inputActive)
-          if (inputActive) {
-            return <Icons id={'icon-user_red'} />;
-          } else {
-            return <Icons id={'icon-user_done'} />;
-          }
-        } else {
-          return <Icons id={'icon-user_red'} />;
-        }
+        selectInput(ev, nameDisabled);
+        setEmailDisabled(!emailDisabled);
+        break;
 
       case 'birthday':
-        if ('birthday' === currentInput) {
-          if (inputActive) {
-            return <Icons id={'icon-user_red'} />;
-          } else {
-            return <Icons id={'icon-user_done'} />;
-          }
-        } else {
-          return <Icons id={'icon-user_red'} />;
-        }
+        selectInput(ev, nameDisabled);
+        setBirthdayDisabled(!birthdayDisabled);
+        break;
 
       case 'phone':
-        if ('phone' === currentInput) {
-          if (inputActive) {
-            return <Icons id={'icon-user_red'} />;
-          } else {
-            return <Icons id={'icon-user_done'} />;
-          }
-        } else {
-          return <Icons id={'icon-user_red'} />;
-        }
-
+        selectInput(ev, nameDisabled);
+        setPhoneDisabled(!phoneDisabled);
+        break;
       case 'city':
-        if ('city' === currentInput) {
-          if (inputActive) {
-            return <Icons id={'icon-user_red'} />;
-          } else {
-            return <Icons id={'icon-user_done'} />;
-          }
-        } else {
-          return <Icons id={'icon-user_red'} />;
-        }
-
+        selectInput(ev, nameDisabled);
+        setCityDisabled(!cityDisabled);
+        break;
       default:
     }
   };
 
-  const handleClickEdit = ev => {
-    
-    selectInput(ev);
-  };
+  // const handleSubmit =(e)=>{
+  //     e.preventDefault();
+  // }
 
-  // e.preventDefault();
-  //   return 'icon-user_red';
   return (
     <UserItem>
       <li className="userInfoItem">
         <p className="userInfoName">Name:</p>
         <div className="inputSpace">
-          <input
+          <InfoItem
             className="infoItem"
             type="text"
             name="name"
-            disabled={active}
+            disabled={nameDisabled}
             id={nanoid()}
-          ></input>
+            defaultValue="ghhd"
+          ></InfoItem>
           {
             <button
               className="buttItem"
               type="button"
               onClick={event => handleClickEdit(event.currentTarget)}
             >
-              {edit('name')}
+              {nameDisabled ? (
+                <Icons id={'icon-user_red'} />
+              ) : (
+                <Icons id={'icon-user_done'} />
+              )}
             </button>
           }
         </div>
@@ -133,20 +83,26 @@ const UserDataItem = () => {
       <li className="userInfoItem">
         <p className="userInfoName">Email:</p>
         <div className="inputSpace">
-          <input
+          <InfoItem
             className="infoItem"
             type="text"
             name="email"
-            disabled={active}
+            disabled={emailDisabled}
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             id={nanoid()}
-          ></input>
+            defaultValue="ghhd"
+          ></InfoItem>
           {
             <button
               className="buttItem"
               type="button"
               onClick={event => handleClickEdit(event.currentTarget)}
             >
-              {edit('email')}
+              {emailDisabled ? (
+                <Icons id={'icon-user_red'} />
+              ) : (
+                <Icons id={'icon-user_done'} />
+              )}
             </button>
           }
         </div>
@@ -154,62 +110,81 @@ const UserDataItem = () => {
       <li className="userInfoItem">
         <p className="userInfoName">Birthday:</p>
         <div className="inputSpace">
-          <input
+          <InfoItem
             className="infoItem"
             type="text"
             name="birthday"
-            disabled={active}
+            disabled={birthdayDisabled}
             id={nanoid()}
-          ></input>
+            defaultValue="ghhd"
+          ></InfoItem>
           {
             <button
               className="buttItem"
               type="button"
               onClick={event => handleClickEdit(event.currentTarget)}
             >
-              {edit('birthday')}
+              {birthdayDisabled ? (
+                <Icons id={'icon-user_red'} />
+              ) : (
+                <Icons id={'icon-user_done'} />
+              )}
             </button>
           }
         </div>
       </li>
+
       <li className="userInfoItem">
         <p className="userInfoName">Phone:</p>
         <div className="inputSpace">
-          <input
+          <InfoItem
             className="infoItem"
             type="text"
             name="phone"
-            disabled={active}
+            disabled={phoneDisabled}
+            pattern="\(\d{3}\) \d{3}-\d{4}"
+            required
             id={nanoid()}
-          ></input>
+            defaultValue="ghhd"
+          ></InfoItem>
           {
             <button
               className="buttItem"
               type="button"
               onClick={event => handleClickEdit(event.currentTarget)}
             >
-              {edit('phone')}
+              {phoneDisabled ? (
+                <Icons id={'icon-user_red'} />
+              ) : (
+                <Icons id={'icon-user_done'} />
+              )}
             </button>
           }
         </div>
       </li>
+
       <li className="userInfoItem">
         <p className="userInfoName"> City:</p>
         <div className="inputSpace">
-          <input
+          <InfoItem
             className="infoItem"
             type="text"
             name="city"
-            disabled={active}
+            disabled={cityDisabled}
             id={nanoid()}
-          ></input>
+            defaultValue="ghhd"
+          ></InfoItem>
           {
             <button
               className="buttItem"
               type="button"
               onClick={event => handleClickEdit(event.currentTarget)}
             >
-              {edit('city')}
+              {cityDisabled ? (
+                <Icons id={'icon-user_red'} />
+              ) : (
+                <Icons id={'icon-user_done'} />
+              )}
             </button>
           }
         </div>

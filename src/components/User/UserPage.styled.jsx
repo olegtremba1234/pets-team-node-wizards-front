@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const UserPage = styled.div`
   padding-left: 15px;
   padding-right: 15px;
-  background: #ebe2db;
+
   margin-top: 61px;
   margin-bottom: 20px;
 

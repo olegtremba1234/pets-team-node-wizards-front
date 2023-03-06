@@ -16,3 +16,8 @@ export const fetchOurFriends = async () => {
   const response = await axios('/friends');
   return response.data;
 };
+
+export const fetchUser =async ()=>{
+  const res = await axios('/user');
+  return res.data
+}
