@@ -48,5 +48,9 @@ export const Ul = styled.ul`
   margin-bottom: 60px;
   @media (min-width: 768px) {
     margin: 0;
+    margin-right: 25px;
+  }
+  @media (min-width: 1280px) {
+    margin: 0;
   }
 `;

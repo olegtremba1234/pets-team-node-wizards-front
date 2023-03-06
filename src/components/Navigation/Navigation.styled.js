@@ -4,6 +4,7 @@ export const NavEl = styled.nav`
   display: flex;
   @media (min-width: 1280px) {
     justify-content: space-between;
+    width: 100%;
   }
 `;
 
