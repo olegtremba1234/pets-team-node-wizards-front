@@ -14,11 +14,11 @@ import {
   FriendsTitle,
   FriendsWrap,
   StyledContainer,
+  CardsWithoutSchedule,
 } from './OurFriends.styled';
 import { useState, useEffect } from 'react';
 import { fetchOurFriends } from 'services/apiService';
 import defaultImage from '../OurFriends/image/default.svg';
-
 
 const OurFriends = ({ data }) => {
   const [friends, setFriends] = useState([]);
@@ -33,7 +33,6 @@ const OurFriends = ({ data }) => {
     const filtered = arr.find(item => item.isOpen === true);
     return `${filtered.from}-${filtered.to}`;
   };
-
 
   return (
     <FriendsWrap>
@@ -65,11 +64,16 @@ const OurFriends = ({ data }) => {
                   </CardLeftWrapper>
                   <CardsList>
                     <CardsItem>
-                      Time: <br />
                       {workDays !== null && workDays.length ? (
-                        <p> {getWorkTime(workDays)}</p>
+                        <CardsWithoutSchedule>
+                          Time: <br />
+                          {getWorkTime(workDays)}
+                        </CardsWithoutSchedule>
                       ) : (
-                        <span>-------------</span>
+                        <span>
+                          Time:
+                          <br /> -------------
+                        </span>
                       )}
                       {workDays !== null && workDays.length !== 0 && (
                         <CardMenu>
