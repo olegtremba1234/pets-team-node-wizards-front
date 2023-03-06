@@ -61,6 +61,22 @@ export const SearchBtn = styled.button`
   position: absolute;
   right: 8px;
   top: 30%;
+
+  @media ${device.tablet}  {
+  right: 7px;
+  top: 26%;
+  }
+`;
+
+
+export const CloseBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  right: 8px;
+  top: 30%;
+
 `;
 
 export const IconSearch = styled.img`
@@ -69,7 +85,25 @@ export const IconSearch = styled.img`
   display: block;
 
   @media ${device.tablet}  {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
+
 `;
+
+export const IconClose = styled.img`
+  width: 15px;
+  height: 15px;
+  display: block;
+
+  @media ${device.tablet}  {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media ${device.tablet}  {
+    right: 7px;
+    top: 26%;
+    }
+`;
+
