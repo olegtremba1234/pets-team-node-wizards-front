@@ -1,16 +1,14 @@
-// import AuthNav from 'components/AuthNav/AuthNav';
 import Logo from 'components/Logo';
-import Nav from 'components/Nav';
-import { HeaderEl } from './Header.styled';
+import Navigation from 'components/Navigation';
+import { HeaderEl, HeaderContainer } from './Header.styled';
 
 export default function Header() {
   return (
     <HeaderEl>
-      <Logo />
-      <nav>
-        <Nav />
-        {/* <AuthNav /> */}
-      </nav>
+      <HeaderContainer>
+        <Logo />
+        <Navigation />
+      </HeaderContainer>
     </HeaderEl>
   );
 }

@@ -1,8 +1,8 @@
-import { P, Span } from './Logo.styled';
-export default function Logo() {
+import { StyledLink, Span } from './Logo.styled';
+export default function Logo({ closeMobile }) {
   return (
-    <P>
+    <StyledLink to="/" onClick={() => closeMobile(false)}>
       pe<Span>t</Span>ly
-    </P>
+    </StyledLink>
   );
 }

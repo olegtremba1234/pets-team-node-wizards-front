@@ -1,16 +1,22 @@
 import { Ul, StyledLink } from './Nav.styled';
 
-export default function Nav() {
+export default function Nav({ closeMobile }) {
   return (
     <Ul>
       <li>
-        <StyledLink to="/news">News</StyledLink>
+        <StyledLink to="/news" onClick={() => closeMobile(false)}>
+          News
+        </StyledLink>
       </li>
       <li>
-        <StyledLink to="/notices">Find pet</StyledLink>
+        <StyledLink to="/notices" onClick={() => closeMobile(false)}>
+          Find pet
+        </StyledLink>
       </li>
       <li>
-        <StyledLink to="/friends">Our friends</StyledLink>
+        <StyledLink to="/friends" onClick={() => closeMobile(false)}>
+          Our friends
+        </StyledLink>
       </li>
     </Ul>
   );
