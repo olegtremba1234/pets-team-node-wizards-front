@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/pets-team-node-wizards-front/static/css/main.6fd00ed7.css",
-    "main.js": "/pets-team-node-wizards-front/static/js/main.7032da59.js",
+    "main.js": "/pets-team-node-wizards-front/static/js/main.f169ac09.js",
     "static/js/415.1220a5d5.chunk.js": "/pets-team-node-wizards-front/static/js/415.1220a5d5.chunk.js",
     "static/js/918.785b8330.chunk.js": "/pets-team-node-wizards-front/static/js/918.785b8330.chunk.js",
     "static/js/736.a3b6d219.chunk.js": "/pets-team-node-wizards-front/static/js/736.a3b6d219.chunk.js",
@@ -26,7 +26,7 @@
     "index.html": "/pets-team-node-wizards-front/index.html",
     "static/media/searchIcon.svg": "/pets-team-node-wizards-front/static/media/searchIcon.0c99ea32df4ba8a74069ce68a2833430.svg",
     "main.6fd00ed7.css.map": "/pets-team-node-wizards-front/static/css/main.6fd00ed7.css.map",
-    "main.7032da59.js.map": "/pets-team-node-wizards-front/static/js/main.7032da59.js.map",
+    "main.f169ac09.js.map": "/pets-team-node-wizards-front/static/js/main.f169ac09.js.map",
     "415.1220a5d5.chunk.js.map": "/pets-team-node-wizards-front/static/js/415.1220a5d5.chunk.js.map",
     "918.785b8330.chunk.js.map": "/pets-team-node-wizards-front/static/js/918.785b8330.chunk.js.map",
     "736.a3b6d219.chunk.js.map": "/pets-team-node-wizards-front/static/js/736.a3b6d219.chunk.js.map",
@@ -41,6 +41,6 @@
   },
   "entrypoints": [
     "static/css/main.6fd00ed7.css",
-    "static/js/main.7032da59.js"
+    "static/js/main.f169ac09.js"
   ]
 }
