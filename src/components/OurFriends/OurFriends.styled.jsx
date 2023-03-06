@@ -165,6 +165,10 @@ export const CardMenu = styled.ul`
   border-radius: 8px;
 `;
 
+
+export const CardsWithoutSchedule = styled.p`
+`;
+
 export const CardsItem = styled.li`
   font-weight: 500;
   font-size: 12px;
@@ -172,7 +176,7 @@ export const CardsItem = styled.li`
 
   &:first-child {
     cursor: pointer;
-    &:hover {
+    &:hover ${CardsWithoutSchedule} {
       color: ${p => p.theme.hoverButtonColor.primary};
       transform: color;
     }
@@ -198,6 +202,9 @@ export const CardsItem = styled.li`
     line-height: 1.375em;
   }
 `;
+
+
+
 
 
 export const CardMenuItem = styled.li`

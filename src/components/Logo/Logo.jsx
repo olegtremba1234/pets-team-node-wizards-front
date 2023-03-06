@@ -1,7 +1,7 @@
 import { StyledLink, Span } from './Logo.styled';
-export default function Logo({ closeMobile }) {
+export default function Logo() {
   return (
-    <StyledLink to="/" onClick={() => closeMobile(false)}>
+    <StyledLink to="/">
       pe<Span>t</Span>ly
     </StyledLink>
   );
