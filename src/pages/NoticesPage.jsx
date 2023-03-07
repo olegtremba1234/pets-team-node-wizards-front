@@ -16,7 +16,6 @@ export default function NoticesPage() {
   const token = useSelector(selectToken);
   const [notices, setNotices] = useState([]);
   const { categoryName } = useParams();
-  console.log(categoryName);
 
   useEffect(() => {
     if (!categoryName) {

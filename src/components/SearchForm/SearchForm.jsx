@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 
 const SearchForm = ({ onSubmit, onChange, value, onClose, isHiden }) => {
   const searchParams = useParams();
-  console.log(searchParams);
+
   return (
     <Form onSubmit={onSubmit}>
       <Label htmlFor="search">

@@ -22,7 +22,7 @@ export const fetchAllNotices = async () => {
 
 export const fetchNoticesByQuery = async query => {
   const response = await axios.get(`/notices?query=${query}`);
-  console.log(response.data);
+
   return response.data;
 };
 
