@@ -1,26 +1,28 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api/';
 
-export const fetchUser = createAsyncThunk(
+
+export const currentUser = createAsyncThunk(
     'user/getUser',
-    async(_,{rejectedWithValue })=>{
+    async(_ ,thunkAPI)=>{
         try{
-            const {data}= await axios.get("user");
-            console.log(data)
-            return data;
+            // const {auth} =thunkAPI.getState()
+            const response = await axios.get('/auth/current');
+            console.log(response.data, "1")
+            return response.data;
         }catch(err){
-            rejectedWithValue(err)
+          console.log( "1")
+          return thunkAPI.rejectWithValue(err.message);
         }
     }
 )
 
 export const currentPets = createAsyncThunk(
     'pets/getCurrentPets',
-    async (_, thunkAPI) => {
+    async (_id, thunkAPI) => {
       try {
-        const { data } = await axios.get('pets/current');
+        const { data } = await axios.get(`pets/current`);
         return data;
       } catch (err) {
         thunkAPI(err);

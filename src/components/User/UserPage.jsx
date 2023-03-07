@@ -3,9 +3,6 @@ import UserData from './UserData/UserData';
 import { UserPage, MyInfo, UserInfo } from './UserPage.styled';
 
 const User = () => {
-
-  
-
   return (
     <UserPage>
       <UserInfo>

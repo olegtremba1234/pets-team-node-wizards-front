@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Icons } from '../Icons/Icons';
 import { UserItem, InfoItem } from './UserDataItem.styled';
 import { nanoid } from 'nanoid';
+import { useSelector } from 'react-redux';
+import { userSelector } from 'redux/user/userSelector';
+// import { fetchUserInfo } from 'services/apiService';
 
 const UserDataItem = () => {
   const [nameDisabled, setNameDisabled] = useState(false);
@@ -13,7 +16,7 @@ const UserDataItem = () => {
   const selectInput = (ev, diz) => {
     const id = ev.previousElementSibling.id;
     const el = document.getElementById(id);
-    el.disabled = !el.disabled;
+    el.disabled = !el.diz;
     el.focus();
   };
 
@@ -26,26 +29,36 @@ const UserDataItem = () => {
         break;
 
       case 'email':
-        selectInput(ev, nameDisabled);
+        selectInput(ev, emailDisabled);
         setEmailDisabled(!emailDisabled);
         break;
 
       case 'birthday':
-        selectInput(ev, nameDisabled);
+        selectInput(ev, birthdayDisabled);
         setBirthdayDisabled(!birthdayDisabled);
         break;
 
       case 'phone':
-        selectInput(ev, nameDisabled);
+        selectInput(ev, phoneDisabled);
         setPhoneDisabled(!phoneDisabled);
         break;
       case 'city':
-        selectInput(ev, nameDisabled);
+        selectInput(ev, cityDisabled);
         setCityDisabled(!cityDisabled);
         break;
       default:
     }
   };
+
+  // const dataReq = async()=>{await}
+
+  // useEffect(() => {
+  //   const 
+  // }, []);
+  // console.log(userInform);
+  console.log(useSelector(userSelector))
+
+  const { name, email, birthday, city, phone } = useSelector(userSelector);
 
   // const handleSubmit =(e)=>{
   //     e.preventDefault();
@@ -62,7 +75,7 @@ const UserDataItem = () => {
             name="name"
             disabled={nameDisabled}
             id={nanoid()}
-            defaultValue="ghhd"
+            defaultValue={name}
           ></InfoItem>
           {
             <button
@@ -90,7 +103,7 @@ const UserDataItem = () => {
             disabled={emailDisabled}
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             id={nanoid()}
-            defaultValue="ghhd"
+            defaultValue={email}
           ></InfoItem>
           {
             <button
@@ -107,6 +120,7 @@ const UserDataItem = () => {
           }
         </div>
       </li>
+
       <li className="userInfoItem">
         <p className="userInfoName">Birthday:</p>
         <div className="inputSpace">
@@ -116,7 +130,7 @@ const UserDataItem = () => {
             name="birthday"
             disabled={birthdayDisabled}
             id={nanoid()}
-            defaultValue="ghhd"
+            defaultValue={birthday}
           ></InfoItem>
           {
             <button
@@ -145,7 +159,7 @@ const UserDataItem = () => {
             pattern="\(\d{3}\) \d{3}-\d{4}"
             required
             id={nanoid()}
-            defaultValue="ghhd"
+            defaultValue={phone}
           ></InfoItem>
           {
             <button
@@ -172,7 +186,7 @@ const UserDataItem = () => {
             name="city"
             disabled={cityDisabled}
             id={nanoid()}
-            defaultValue="ghhd"
+            defaultValue={city}
           ></InfoItem>
           {
             <button

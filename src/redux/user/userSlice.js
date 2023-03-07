@@ -1,12 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchUser, currentPets } from './userOperations';
-
+import { currentUser, currentPets } from './userOperations';
 
 const useInitialState = {
-  user: { email: '', name: '', city: '', phone: '', birthday: '' },
-  petUser: [],
-  isLoading: false,
-  error: null,
+  us: {
+    email: null,
+    name: null,
+    city: null,
+    phone: null,
+    dateofbirth: null,
+  },
+  accessToken: null,
+  isLoggedIn: false,
+  isRefreshing: false,
+
 };
 
 const userSlice = createSlice({
@@ -14,18 +20,17 @@ const userSlice = createSlice({
   initialState: useInitialState,
   extraReducers: builder =>
     builder
-      .addCase(fetchUser.pending, state => {
+      .addCase(currentUser.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
 
-      .addCase(fetchUser.fulfilled, (state, action) => {
+      .addCase(currentUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isLoading = false;
-        state.items = action.payload;
       })
 
-      .addCase(fetchUser.rejected, (state, action) => {
+      .addCase(currentUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
@@ -37,7 +42,7 @@ const userSlice = createSlice({
 
       .addCase(currentPets.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.items = action.payload;
+        state.petUser = action.payload;
       })
 
       .addCase(currentPets.rejected, (state, action) => {
