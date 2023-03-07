@@ -233,6 +233,8 @@ export const ButtonWrap = styled.div`
     flex-wrap: nowrap;
     justify-content: center;
     flex-direction: row;
+
+
   }
 `;
 
@@ -313,7 +315,7 @@ export const Input = styled.input`
   line-height: 1.36em;
   letter-spacing: ${p => p.theme.fonts.letterSpacing};
 
-  transition: ${p => p.theme.transition.first};
+  transition: transform ${props => props.theme.transition.first};
 
   &:focus {
     background-color: rgba(0, 0, 0, 0.03);
@@ -341,8 +343,9 @@ export const Input = styled.input`
   }
 `;
 
-export const ErrorMessage = styled.p`
-  border: 1px solid rgb(255, 77, 77, 1);
+export const ErrorInput = styled.p`
+  font-family: 'Raleway', sans-serif;
+  color: ${p => p.theme.fontColors.inputTextColor || '#4d4d4d'}
 `;
 
 
@@ -535,3 +538,17 @@ cursor: pointer;
 top: 24px;
   }
 `;
+
+
+export const ErrorText = styled.p`
+  position: absolute;
+
+  margin-top: 1px;
+  margin-left: 16px;
+  font-size: 11px;
+  color: red;
+  @media ${device.tablet} {
+    margin-left: 32px;
+    max-width: 448px;
+  }
+  `;

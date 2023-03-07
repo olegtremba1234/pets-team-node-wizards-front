@@ -1,16 +1,17 @@
 import {  Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
-import { Input, InputRadio, Label, Form,  ModalText, CategoryLostFound, CategoryForFree, CategorySell, LabelTitle, FieldRequired, ButtonWrap, Button, ErrorMsg, FieldRadioWrap } from './ModalAddNotice.styled';
+import {ErrorInput, ErrorText, Input, InputRadio, Label, Form,  ModalText, CategoryLostFound, CategoryForFree, CategorySell, LabelTitle, FieldRequired, ButtonWrap, Button, ErrorMsg, FieldRadioWrap } from './ModalAddNotice.styled';
 
 const FirstModalPage = ({
   handleFirstInputSubmit,
-  firstValues,
+  firstModalValues,
   handleModalClose,
   handleDateValidation,
   verifyCategory,
 }) => {
-  const [categoryValue, setCategoryValue] = useState(firstValues.category);
+  const [categoryValue, setCategoryValue] = useState(firstModalValues.category);
+
 
   const firstModalSchema = Yup.object({
     category: Yup.string().required('Required'),
@@ -18,16 +19,22 @@ const FirstModalPage = ({
       .min(2, 'Title is too short')
       .max(48, 'Title is too long')
       .required('Required'),
-    name: Yup.string()
+     name: Yup.string()
       .min(2, 'Name is too short')
       .max(16, 'Name is too long')
       .required('Required'),
+
     birthDate: Yup.string().when(categoryValue, {
       is: () => verifyCategory(categoryValue),
       then: Yup.string()
         .matches(
           /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:20)\d{2})\s*$/,
           'Date format should be DD.MM.YYYY'
+        )
+        .test(
+          'dateFormat',
+          'Provide a valid date of birth',
+          handleDateValidation
         )
 
         .required('Required'),
@@ -47,7 +54,7 @@ const FirstModalPage = ({
   return (
     <>
       <Formik
-        initialValues={firstValues}
+        initialValues={firstModalValues}
         onSubmit={handleFirstInputSubmit}
         validationSchema={firstModalSchema}
       >
@@ -94,28 +101,32 @@ const FirstModalPage = ({
 
             <LabelTitle htmlFor="title">
               Tittle of ad <FieldRequired>*</FieldRequired>
+              {errors.title && touched.title ? <ErrorInput color="red">{errors.title}</ErrorInput> : ''}
               <Input
+               border={errors.title && "1px solid red"}
                 type="text"
                 id="title"
                 name="title"
                 placeholder="Type title"
               />
-              <ErrorMessage
-                name="title"
-                render={msg => <ErrorMsg>{msg}</ErrorMsg>}
-              />
+             <ErrorMessage
+      name="title"
+      render={message => <ErrorText>{message}</ErrorText>}
+    />
             </LabelTitle>
-            <LabelTitle htmlFor="name">
+            <LabelTitle htmlFor ="name">
               Name<FieldRequired>*</FieldRequired>
+              {errors.name && touched.name ? <ErrorInput color="red"></ErrorInput> : ''}
               <Input
+              border={errors.name && "1px solid red"}
                 type="text"
                 id="name"
                 name="name"
                 placeholder="Type name"
               />
-              <ErrorMessage
+               <ErrorMessage
                 name="name"
-                render={msg => <ErrorMsg>{msg}</ErrorMsg>}
+                render={msg => <ErrorMessage>{msg}</ErrorMessage>}
               />
             </LabelTitle>
             {categoryValue !== 'lost-found' && (
@@ -126,10 +137,6 @@ const FirstModalPage = ({
                   id="birthDate"
                   name="birthDate"
                   placeholder="Type date of birth"
-                />
-                <ErrorMessage
-                  name="birthDate"
-                  render={msg => <ErrorMsg>{msg}</ErrorMsg>}
                 />
               </LabelTitle>
             )}

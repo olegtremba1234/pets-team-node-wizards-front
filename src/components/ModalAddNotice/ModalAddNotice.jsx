@@ -14,6 +14,7 @@ const ModalAddNotice = () => {
   });
 
 
+
   const [secondStepValues, setSecondStepValues] = useState({
     sex: '',
     location: '',
@@ -26,6 +27,8 @@ const ModalAddNotice = () => {
     setFirstModalValues(values);
     setPage(prevPage => prevPage + 1);
   };
+
+  console.log(handleFirstInputSubmit())
 
 
   const handleBackToFirst = values => {
@@ -54,18 +57,49 @@ const ModalAddNotice = () => {
   };
 
 
-  const [fileValue, setFileValue] = useState('');
+  const [fileValue] = useState('');
+
+  const handleDateValidation = value => {
+    if (!value) {
+      return;
+    }
+    let result;
+    const [day, month, year] = value.split('.');
+
+    if (day) {
+      result = Number(day) > 31 ? false : true;
+    }
+    if (month) {
+      result = Number(month) > 12 ? false : true;
+    }
+
+    if (year) {
+      result =
+        new Date(`${month}-${day}-${year}`).getTime() > Date.now()
+          ? false
+          : true;
+    }
+    return result;
+  };
+
+
+
+  const verifyCategory = value => {
+    return value === 'sell' || value === 'for-free';
+  };
   return (
     <WrapperContainer>
       <ModalWrap>
         <FormWrapper>
         <ModalTitle>Add pet</ModalTitle>
-{/*
+      {page === 0 ? (
         <FirstModalPage
-              firstValues={firstModalValues}
+              firstModalValues={firstModalValues}
               setFirstValues={setFirstModalValues}
               handleFirstInputSubmit={handleFirstInputSubmit}
-              /> */}
+              handleDateValidation={handleDateValidation}
+              verifyCategory={verifyCategory}
+              />) : (
               <SecondModalPage
               handleBackToFirst={handleBackToFirst}
               secondStepValues={secondStepValues}
@@ -74,6 +108,7 @@ const ModalAddNotice = () => {
               handleSecondStepSubmit={handleSecondStepSubmit}
               category={firstModalValues.category}
               />
+              )}
                <CloseButton
 
             // onClick={handleModalClose}
