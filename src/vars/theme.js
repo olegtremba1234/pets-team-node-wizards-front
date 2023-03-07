@@ -30,7 +30,9 @@ export const theme = Object.freeze({
   transitions: {
     primary: '',
   },
-  fontFamily: { main: 'Manrope' },
+
+  fontFamily: { main: 'Manrope', secondary: 'Poppins' },
+
   fontStyle: { main: 'normal' },
   fonts: {
     letterSpacing: '0.04em',
@@ -50,6 +52,8 @@ export const theme = Object.freeze({
     xxxl: '28px',
     xxxxl: '36px',
     xxxxxl: '68px',
+    xxxl_increased: '32px',
+    xxxxl_increased: '48px',
   },
   shadows: {
     searchBox: '7px 4px 14px rgba(49, 21, 4, 0.07)',
