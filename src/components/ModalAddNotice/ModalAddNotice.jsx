@@ -28,7 +28,7 @@ const ModalAddNotice = () => {
     setPage(prevPage => prevPage + 1);
   };
 
-  console.log(handleFirstInputSubmit())
+ 
 
 
   const handleBackToFirst = values => {
