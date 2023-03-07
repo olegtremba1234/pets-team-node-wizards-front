@@ -13,7 +13,7 @@ const authInitialState = {
     phone: null,
     dateofbirth: null,
   },
-  token: null,
+  accessToken: null,
   isLoggedIn: false,
   isRefreshing: false,
 };
@@ -38,7 +38,7 @@ const authSlice = createSlice({
 
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
-        state.token = null;
+        state.accessToken = null;
         state.isLoggedIn = false;
       })
 
@@ -58,7 +58,7 @@ const authSlice = createSlice({
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'],
+  whitelist: ['accessToken'],
 };
 
 export const authReduсer = persistReducer(authPersistConfig, authSlice.reducer);

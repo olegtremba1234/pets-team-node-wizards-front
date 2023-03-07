@@ -11,8 +11,8 @@ const notify = message => {
 
 axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
 
-const setAuthHeader = token => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+const setAuthHeader = accessToken => {
+  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
 
 const clearAuthHeader = () => {
@@ -24,7 +24,7 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const responseRegister = await axios.post('/auth/register', credentials);
-      setAuthHeader(responseRegister.data.token);
+      setAuthHeader(responseRegister.data.accessToken);
 
       const loginBody = {
         email: credentials.email,
@@ -68,13 +68,13 @@ export const logOut = createAsyncThunk('/auth/logout', async (_, thunkAPI) => {
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
-    const { token } = thunkAPI.getState().auth;
+    const { accessToken } = thunkAPI.getState().auth;
 
-    if (!token) {
+    if (!accessToken) {
       return thunkAPI.rejectWithValue('No valid token');
     }
 
-    setAuthHeader(token);
+    setAuthHeader(accessToken);
 
     try {
       const response = await axios.get('/auth/current');
