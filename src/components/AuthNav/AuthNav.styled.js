@@ -3,28 +3,28 @@ import { NavLink } from 'react-router-dom';
 
 export const StyledLink = styled(NavLink)`
   text-decoration: none;
-  background-color: #ffffff;
+  background-color: ${p => p.theme.backgrounds.buttonSecondary};
   border: 2px solid #f59256;
-  border-radius: 40px;
+  border-radius: ${p => p.theme.borderRadius.main};
   padding: 8px 28px;
-  font-family: 'Manrope';
-  font-weight: 500;
-  font-size: 14px;
+  font-family: ${p => p.theme.fontFamily.main}, sans-serif;
+  font-weight: ${p => p.theme.fontWeights.medium};
+  font-size: ${p => p.theme.fontSizes.s};
   line-height: 1.357;
-  letter-spacing: 0.04em;
-  color: #111111;
+  letter-spacing: ${p => p.theme.fonts.letterSpacing};
+  color: ${p => p.theme.fontColors.primary};
 
   &.active {
-    background-color: #f59256;
-    color: #ffffff;
+    background-color: ${p => p.theme.backgrounds.buttonPrimary};
+    color: ${p => p.theme.fontColors.white};
   }
   &:hover:not(.active),
   :focus-visible:not(.active) {
-    background-color: #f59256;
-    color: #ffffff;
+    background-color: ${p => p.theme.backgrounds.buttonPrimary};
+    color: ${p => p.theme.fontColors.white};
   }
   @media (min-width: 768px) {
-    font-size: 20px;
+    font-size: ${p => p.theme.fontSizes.xl};
     line-height: 1.35;
     padding: 10px 28px;
   }
@@ -32,7 +32,7 @@ export const StyledLink = styled(NavLink)`
 
 export const AccountLink = styled(StyledLink)`
   background-color: #f59256;
-  color: #ffffff;
+  color: ${p => p.theme.fontColors.white};
   display: flex;
   gap: 12px;
   width: fit-content;
@@ -47,6 +47,10 @@ export const Ul = styled.ul`
   margin-top: 45px;
   margin-bottom: 60px;
   @media (min-width: 768px) {
+    margin: 0;
+    margin-right: 25px;
+  }
+  @media (min-width: 1280px) {
     margin: 0;
   }
 `;

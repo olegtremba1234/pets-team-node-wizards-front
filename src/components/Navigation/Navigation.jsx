@@ -1,10 +1,12 @@
-import AuthNav from 'components/AuthNav/AuthNav';
+import AuthNav from 'components/AuthNav';
 import MobileMenu from 'components/MobileMenu';
 import Nav from 'components/Nav';
-
 import { Fragment, useState } from 'react';
 import { Button, NavEl } from './Navigation.styled';
 import Media from 'react-media';
+import { CSSTransition } from 'react-transition-group';
+
+import './animationsClasses.css';
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileNenuOpen] = useState(false);
@@ -23,10 +25,16 @@ export default function Navigation() {
             {matches.small && (
               <nav>
                 {isMobileMenuOpen ? (
-                  <MobileMenu closeMobile={setIsMobileNenuOpen}>
-                    <AuthNav closeMobile={setIsMobileNenuOpen} />
-                    <Nav closeMobile={setIsMobileNenuOpen} />
-                  </MobileMenu>
+                  <CSSTransition
+                    in={isMobileMenuOpen}
+                    classNames="fade"
+                    timeout={500}
+                  >
+                    <MobileMenu closeMobile={setIsMobileNenuOpen}>
+                      <AuthNav closeMobile={setIsMobileNenuOpen} />
+                      <Nav closeMobile={setIsMobileNenuOpen} />
+                    </MobileMenu>
+                  </CSSTransition>
                 ) : (
                   <Button
                     type="button"
@@ -52,9 +60,15 @@ export default function Navigation() {
               <NavEl>
                 <AuthNav closeMobile={setIsMobileNenuOpen} />
                 {isMobileMenuOpen ? (
-                  <MobileMenu closeMobile={setIsMobileNenuOpen}>
-                    <Nav closeMobile={setIsMobileNenuOpen} />
-                  </MobileMenu>
+                  <CSSTransition
+                    in={isMobileMenuOpen}
+                    classNames="fade"
+                    timeout={500}
+                  >
+                    <MobileMenu closeMobile={setIsMobileNenuOpen}>
+                      <Nav closeMobile={setIsMobileNenuOpen} />
+                    </MobileMenu>
+                  </CSSTransition>
                 ) : (
                   <Button
                     type="button"

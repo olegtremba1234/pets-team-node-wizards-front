@@ -9,22 +9,23 @@ const notify = message => {
   });
 };
 
+const token = {
+  set(token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  },
+  unset() {
+    axios.defaults.headers.common.Authorization = '';
+  },
+};
+
 axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
-
-const setAuthHeader = token => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
-
-const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = '';
-};
 
 export const register = createAsyncThunk(
   '/auth/register',
   async (credentials, thunkAPI) => {
     try {
       const responseRegister = await axios.post('/auth/register', credentials);
-      setAuthHeader(responseRegister.data.token);
+      token.set(responseRegister.data.accessToken);
 
       const loginBody = {
         email: credentials.email,
@@ -32,11 +33,8 @@ export const register = createAsyncThunk(
       };
 
       const responseLogin = await axios.post('/auth/login', loginBody);
-      setAuthHeader(responseLogin.data.token);
-      return {
-        registerRespons: responseRegister.data,
-        loginRespons: responseLogin.data,
-      };
+      token.set(responseLogin.data.accessToken);
+      return responseLogin.data;
     } catch (error) {
       console.log(error.message);
       notify('Email in use');
@@ -50,7 +48,7 @@ export const logIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post('/auth/login', credentials);
-      setAuthHeader(response.data.token);
+      token.set(response.data.accessToken);
       return response.data;
     } catch (error) {
       notify('Incorrect email or password');
@@ -62,7 +60,7 @@ export const logIn = createAsyncThunk(
 export const logOut = createAsyncThunk('/auth/logout', async (_, thunkAPI) => {
   try {
     await axios.get('/auth/logout');
-    clearAuthHeader();
+    token.unset();
   } catch (error) {
     return alert('Sorry, there was a login error');
   }
@@ -71,14 +69,12 @@ export const logOut = createAsyncThunk('/auth/logout', async (_, thunkAPI) => {
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
-    const { token } = thunkAPI.getState().auth;
+    const { accessToken } = thunkAPI.getState().auth;
 
-    if (!token) {
+    if (!accessToken) {
       return thunkAPI.rejectWithValue('No valid token');
     }
-
-    setAuthHeader(token);
-
+    token.set(accessToken);
     try {
       const response = await axios.get('/auth/current');
       return response.data;

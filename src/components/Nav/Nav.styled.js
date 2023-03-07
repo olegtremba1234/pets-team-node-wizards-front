@@ -20,28 +20,28 @@ export const Ul = styled.ul`
 
 export const StyledLink = styled(NavLink)`
   text-decoration: none;
-  font-family: 'Manrope', sans-serif;
-  font-weight: 500;
-  font-size: 32px;
+  font-family: ${p => p.theme.fontFamily.main}, sans-serif;
+  font-weight: ${p => p.theme.fontWeights.medium};
+  font-size: ${p => p.theme.fontSizes.xxxl_increased};
   line-height: 1.375;
-  letter-spacing: 0.04em;
+  letter-spacing: ${p => p.theme.fonts.letterSpacing};
 
-  color: #181c27;
+  color: ${p => p.theme.fontColors.navFont};
   &.active {
-    color: #f59256;
+    color: ${p => p.theme.fontColors.buttonSecondary};
     text-decoration-line: underline;
-    font-weight: 700;
+    font-weight: ${p => p.theme.fontWeights.bold};
   }
   &:hover:not(.active),
   :focus-visible:not(.active) {
-    color: #f59256;
+    color: ${p => p.theme.fontColors.buttonSecondary};
     text-decoration-line: underline;
   }
   @media (min-width: 768px) {
-    font-size: 48px;
+    font-size: ${p => p.theme.fontSizes.xxxxl_increased};
     line-height: 1.35;
   }
   @media (min-width: 1280px) {
-    font-size: 20px;
+    font-size: ${p => p.theme.fontSizes.xl};
   }
 `;

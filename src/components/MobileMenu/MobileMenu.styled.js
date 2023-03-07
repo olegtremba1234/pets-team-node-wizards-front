@@ -1,4 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadeInOut = keyframes`
+  from {
+   opacity:0;
+
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 export const DivMobile = styled.div`
   position: fixed;
@@ -7,12 +17,13 @@ export const DivMobile = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fdf7f2;
+  background-color: ${p => p.theme.backgrounds.bodyPrimary};
   padding: 16px 20px;
 
   @media (min-width: 768px) {
     padding: 24px 32px;
   }
+  animation: ${fadeInOut} 500ms ease-in-out;
 `;
 
 export const Button = styled.button`

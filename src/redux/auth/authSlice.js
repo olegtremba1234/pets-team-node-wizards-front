@@ -13,7 +13,7 @@ const authInitialState = {
     phone: null,
     dateofbirth: null,
   },
-  token: null,
+  accessToken: null,
   isLoggedIn: false,
   isRefreshing: false,
 };
@@ -25,20 +25,20 @@ const authSlice = createSlice({
     builder
 
       .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.loginRespons.user;
-        state.token = action.payload.loginRespons.token;
+        state.user = action.payload.user;
+        state.accessToken = action.payload.accessToken;
         state.isLoggedIn = true;
       })
 
       .addCase(logIn.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.accessToken = action.payload.accessToken;
         state.isLoggedIn = true;
       })
 
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
-        state.token = null;
+        state.accessToken = null;
         state.isLoggedIn = false;
       })
 
@@ -58,7 +58,7 @@ const authSlice = createSlice({
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'],
+  whitelist: ['accessToken'],
 };
 
 export const authReduсer = persistReducer(authPersistConfig, authSlice.reducer);
