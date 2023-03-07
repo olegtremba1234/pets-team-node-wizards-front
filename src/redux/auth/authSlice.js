@@ -25,14 +25,14 @@ const authSlice = createSlice({
     builder
 
       .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.loginRespons.user;
-        state.accessToken = action.payload.loginRespons.accessToken;
+        state.user = action.payload.user;
+        state.token = action.payload.accessToken;
         state.isLoggedIn = true;
       })
 
       .addCase(logIn.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.accessToken = action.payload.accessToken;
+        state.token = action.payload.accessToken;
         state.isLoggedIn = true;
       })
 

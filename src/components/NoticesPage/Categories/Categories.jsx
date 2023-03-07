@@ -7,17 +7,17 @@ const Categories = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   return isLoggedIn ? (
     <Container>
-      <StyledNavLink to={`/notices/lost-found`}>lost/found</StyledNavLink>
-      <StyledNavLink to={`/notices/in-good-hands`}>in good hands</StyledNavLink>
-      <StyledNavLink to={`/notices/sell`}>sell</StyledNavLink>
-      <StyledNavLink to={`/notices/favorite-ads`}>favorite ads</StyledNavLink>
-      <StyledNavLink to={`/notices/my-ads`}>my ads</StyledNavLink>
+      <StyledNavLink to={`lost-found`}>lost/found</StyledNavLink>
+      <StyledNavLink to={`in-good-hands`}>in good hands</StyledNavLink>
+      <StyledNavLink to={`sell`}>sell</StyledNavLink>
+      <StyledNavLink to={`favorite-ads`}>favorite ads</StyledNavLink>
+      <StyledNavLink to={`my-ads`}>my ads</StyledNavLink>
     </Container>
   ) : (
     <Container>
-      <StyledNavLink to={`/notices/lost-found`}>lost/found</StyledNavLink>
-      <StyledNavLink to={`/notices/in-good-hands`}>in good hands</StyledNavLink>
-      <StyledNavLink to={`/notices/sell`}>sell</StyledNavLink>
+      <StyledNavLink to={`lost-found`}>lost/found</StyledNavLink>
+      <StyledNavLink to={`in-good-hands`}>in good hands</StyledNavLink>
+      <StyledNavLink to={`sell`}>sell</StyledNavLink>
     </Container>
   );
 };

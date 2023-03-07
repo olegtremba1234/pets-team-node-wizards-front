@@ -53,7 +53,9 @@ export const App = () => {
             }
           />
           <Route path="news" element={<NewsPage />} />
-          <Route path="notices/:categoryName" element={<NoticesPage />} />
+          <Route path="notices" element={<NoticesPage />}>
+            <Route path=":categoryName" element={<NoticesPage />} />
+          </Route>
           <Route path="friends" element={<OurFriendsPage />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>

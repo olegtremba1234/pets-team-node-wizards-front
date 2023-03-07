@@ -33,10 +33,7 @@ export const register = createAsyncThunk(
 
       const responseLogin = await axios.post('/auth/login', loginBody);
       setAuthHeader(responseLogin.data.accessToken);
-      return {
-        registerRespons: responseRegister.data,
-        loginRespons: responseLogin.data,
-      };
+      return responseLogin.data;
     } catch (error) {
       console.log(error.message);
       notify('Email in use');
