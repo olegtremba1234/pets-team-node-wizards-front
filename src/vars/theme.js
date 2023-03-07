@@ -30,7 +30,9 @@ export const theme = Object.freeze({
   transitions: {
     primary: '',
   },
+
   fontFamily: { main: 'Manrope', secondary: 'Poppins' },
+
   fontStyle: { main: 'normal' },
   fonts: {
     letterSpacing: '0.04em',
@@ -59,6 +61,7 @@ export const theme = Object.freeze({
   },
   borders: {
     input: '1px solid rgba(245, 146, 86, 0.5)',
+    buttonModal: '2px solid #f59256',
   },
   borderRadius: {
     main: '40px',
