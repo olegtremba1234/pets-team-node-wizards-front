@@ -9,22 +9,23 @@ const notify = message => {
   });
 };
 
+const token = {
+  set(token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  },
+  unset() {
+    axios.defaults.headers.common.Authorization = '';
+  },
+};
+
 axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
-
-const setAuthHeader = accessToken => {
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-};
-
-const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = '';
-};
 
 export const register = createAsyncThunk(
   '/auth/register',
   async (credentials, thunkAPI) => {
     try {
       const responseRegister = await axios.post('/auth/register', credentials);
-      setAuthHeader(responseRegister.data.accessToken);
+      token.set(responseRegister.data.accessToken);
 
       const loginBody = {
         email: credentials.email,
@@ -32,7 +33,7 @@ export const register = createAsyncThunk(
       };
 
       const responseLogin = await axios.post('/auth/login', loginBody);
-      setAuthHeader(responseLogin.data.accessToken);
+      token.set(responseLogin.data.accessToken);
       return responseLogin.data;
     } catch (error) {
       console.log(error.message);
@@ -47,7 +48,7 @@ export const logIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post('/auth/login', credentials);
-      setAuthHeader(response.data.accessToken);
+      token.set(response.data.accessToken);
       return response.data;
     } catch (error) {
       notify('Incorrect email or password');
@@ -59,7 +60,7 @@ export const logIn = createAsyncThunk(
 export const logOut = createAsyncThunk('/auth/logout', async (_, thunkAPI) => {
   try {
     await axios.get('/auth/logout');
-    clearAuthHeader();
+    token.unset();
   } catch (error) {
     return alert('Sorry, there was a login error');
   }
@@ -73,11 +74,10 @@ export const refreshUser = createAsyncThunk(
     if (!accessToken) {
       return thunkAPI.rejectWithValue('No valid token');
     }
-
-    setAuthHeader(accessToken);
-
+    token.set(accessToken);
     try {
       const response = await axios.get('/auth/current');
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue('Unauthorized');
