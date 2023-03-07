@@ -4,8 +4,7 @@ import { UserInfo, ImageUser, Button, ImageItem , DataItem} from './userData.sty
 import { Icons } from '../Icons/Icons';
 
 const UserData = () => {
-  const defaultAvatar =
-    'https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792__480.png';
+  const defaultAvatar ='https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792__480.png';
 
   return (
     <UserInfo>
