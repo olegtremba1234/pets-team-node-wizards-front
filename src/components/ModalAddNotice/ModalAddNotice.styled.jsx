@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { device } from 'vars/device';
+import closeBtn from '../ModalAddNotice/images/closeBtn.svg'
 
 export const WrapperContainer = styled.div`
   display: flex;
@@ -44,13 +45,13 @@ export const ModalTitle = styled.h2`
   margin-bottom: 20px;
   font-family: 'Manrope';
   font-weight: ${p => p.theme.fontWeights.medium};
-  font-size: ${p => p.theme.fontSizes.xxl}px;
+  font-size: ${p => p.theme.fontSizes.xxl};
   line-height: 1.4;
   color: ${p => p.theme.fontColors.secondary};
 
   @media ${device.tablet} {
     font-weight: 600;
-    font-size: ${p => p.theme.fontSizes.xxxxl}px;
+    font-size: ${p => p.theme.fontSizes.xxxxl};
   }
 `;
 
@@ -159,6 +160,26 @@ export const CategorySell = styled(CategoryLostFound)`
   }
 `;
 
+export const GenderMale = styled.img`
+width: 40px;
+height: 40px;
+margin-bottom: 12px;
+
+`;
+
+export const GenderFemale = styled.img`
+
+width: 40px;
+height: 40px;
+margin-bottom: 12px;
+
+`;
+
+export const Span = styled.span`
+
+`;
+
+
 export const InputRadio = styled.input`
   position: absolute;
   opacity: 0;
@@ -172,6 +193,10 @@ export const InputRadio = styled.input`
 
   &:checked ~ ${CategoryLostFound} {
     color: ${p => p.theme.fontColors.white};
+  }
+
+  &:checked ~ ${Span} {
+    color: ${p => p.theme.fontColors.buttonSecondary};
   }
 `;
 
@@ -203,6 +228,7 @@ export const ButtonWrap = styled.div`
   flex-wrap: wrap;
   flex-direction: column-reverse;
 
+
   @media ${device.tablet} {
     flex-wrap: nowrap;
     justify-content: center;
@@ -227,17 +253,22 @@ export const Button = styled.button`
   transition: ${p => p.theme.transition.first};
 
   &:first-child {
-    margin-top: 16px;
+    margin-top: 12px;
   }
 
     &:hover {
       background-color: #e7884d;
+      color: white;
     }
   }
 
   @media ${device.tablet} {
     width: 180px;
     height: 44px;
+
+    &:last-child {
+      margin-top: 0;
+    }
 
     &:not(:last-of-type) {
       margin-right: 20px;
@@ -264,6 +295,8 @@ export const ErrorMsg = styled.div`
     top: 118%;
   }
 `;
+
+
 
 export const Input = styled.input`
   width: 240px;
@@ -292,6 +325,7 @@ export const Input = styled.input`
     color: rgba(27, 27, 27, 0.6);
   }
 
+
   @media ${device.tablet} {
     width: 448px;
     height: 48px;
@@ -309,4 +343,195 @@ export const Input = styled.input`
 
 export const ErrorMessage = styled.p`
   border: 1px solid rgb(255, 77, 77, 1);
+`;
+
+
+export const GenderLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Manrope';
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.44;
+  color: $secondaryTextColor;
+  cursor: pointer;
+
+  &:not(:last-of-type) {
+    margin-right: 42px;
+  }
+
+  &:hover,
+  &:focus {
+    color: $orangeColor;
+  }
+
+
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+    line-height: 1.3;
+
+    &:not(:last-of-type) {
+      margin-right: 80px;
+      align-items: flex-start;
+    }
+  }
+
+`;
+
+export const FieldWrap = styled.div`
+position: relative;
+width: 240px;
+border: none;
+padding: 0px;
+display: flex;
+flex-wrap: wrap;
+align-items: flex-end;
+margin-bottom: 32px;
+
+
+
+@media  ${device.tablet}  {
+  width: 448px;
+  margin-bottom: 18px;
+}
+
+@media  ${device.desktop}  {
+  margin-bottom: 28px;
+}
+`;
+
+
+export const AvatarLabel = styled.label`
+position: relative;
+margin: 8px 0px 28px 0px;
+width: 116px;
+height: 116px;
+display: flex;
+
+@media screen and (min-width: 768px) {
+  width: 140px;
+  height: 140px;
+  margin: 8px 0px 16px 0px;
+}
+
+@media screen and (min-width: 1280px) {
+  margin: 8px 0px 18px 0px;
+}
+
+`;
+
+
+export const AddImage = styled.div`
+  width: 116px;
+  height: 116px;
+  background: #fdf7f2;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    width: 140px;
+    height: 140px;
+  }
+`;
+
+export const SelectedImage = styled.img`
+width: 116px;
+height: 116px;
+background: #fff;
+
+@media screen and (min-width: 768px) {
+  width: 140px;
+  height: 140px;
+}
+`;
+
+
+export const FileInput = styled.input`
+  display: none;
+`;
+
+export const InputTextArea = styled.textarea`
+display: flex;
+align-items: center;
+width: 240px;
+min-height: 100px;
+padding: 12px 14px;
+margin: 24px 0 40px 0;
+
+color: ${p => p.theme.fontColors.secondary} ;
+background-color: ${p => p.theme.backgrounds.input} ;
+border: 1px solid rgba(245, 146, 86, 0.5);
+border-radius: 20px;
+font-family: 'Manrope';
+font-size: 14px;
+line-height: 1.36em;
+letter-spacing: 0.04em;
+
+transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+  box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+resize: none;
+overflow: hidden;
+
+&:focus {
+  background-color: rgba(0, 0, 0, 0.03);
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem rgba(245, 146, 86, 0.5);
+  outline: none;
+}
+
+&::placeholder {
+  color: rgba(27, 27, 27, 0.6);
+}
+
+@media screen and (min-width: 768px) {
+  width: 448px;
+  height: 113px;
+  padding: 16px 18px;
+  margin: 8px 0px 28px 0px;
+
+  font-size: 18px;
+  line-height: 1.39em;
+}
+`;
+
+
+export const Title = styled.h3`
+margin-bottom: 18px;
+`;
+
+
+export const CloseButton = styled.button`
+position: absolute;
+left: 226px;
+top: 20px;
+
+width: 36px;
+height: 36px;
+
+border: none;
+padding: 0;
+background-color: transparent;
+
+cursor: pointer;
+  background-color: #fdf7f2;
+  backdrop-filter: blur(2px);
+  border-radius: 50%;
+  background-position-x: center;
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-image: url(${closeBtn});
+
+  @media screen and (min-width: 768px) {
+    top: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    background-size: 36px;
+    left: 548px;
+top: 24px;
+  }
 `;

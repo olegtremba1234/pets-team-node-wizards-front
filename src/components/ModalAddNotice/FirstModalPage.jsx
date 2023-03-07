@@ -1,10 +1,9 @@
 import {  Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Input, InputRadio, Label, Form,  ModalText, CategoryLostFound, CategoryForFree, CategorySell, LabelTitle, FieldRequired, ButtonWrap, Button, ErrorMsg, FieldRadioWrap } from './ModalAddNotice.styled';
 
-const FirstStep = ({
+const FirstModalPage = ({
   handleFirstInputSubmit,
   firstValues,
   handleModalClose,
@@ -165,17 +164,5 @@ const FirstStep = ({
   );
 };
 
-FirstStep.propTypes = {
-  handleFirstStepSubmit: PropTypes.func.isRequired,
-  firstStepValues: PropTypes.shape({
-    category: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    birthDate: PropTypes.string.isRequired,
-    breed: PropTypes.string.isRequired,
-  }).isRequired,
-  handleModalClose: PropTypes.func.isRequired,
-  handleDateValidation: PropTypes.func.isRequired,
-};
 
-export default FirstStep;
+export default FirstModalPage;
