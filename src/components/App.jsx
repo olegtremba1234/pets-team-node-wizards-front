@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { refreshUser } from 'redux/auth/authOperations';
 import { useAuth } from 'hooks/useAuth';
 import { PublicRoute } from './PublicRoute/PublicRoute';
+import Spinner from './Spinner/Spinner';
 
 const Home = lazy(() => import('pages/Home'));
 const UserPage = lazy(() => import('pages/UserPage'));
@@ -25,7 +26,7 @@ export const App = () => {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <>Loading...</>
+    <Spinner />
   ) : (
     <>
       <Routes>

@@ -1,8 +1,9 @@
-import News from "components/News/News";
+import News from 'components/News/News';
 
 export default function NewsPage() {
-  return <main>
-    <News />
-  </main>
-
+  return (
+    <main>
+      <News />
+    </main>
+  );
 }
