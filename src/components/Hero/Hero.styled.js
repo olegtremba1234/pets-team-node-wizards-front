@@ -7,7 +7,26 @@ import mainBgImgTablet from '../../images/hero-images/vectors/vector-tablet.svg'
 import mainBgImgDesktop from '../../images/hero-images/vectors/vector-desktop.svg';
 
 export const StyledContainer = styled.main`
-  box-sizing: content-box;
+  background-color: ${theme.backgrounds.bodyPrimary};
+  background-image: url(${mainBgImgMobile});
+  background-size: 100% 470px;
+  background-repeat: no-repeat;
+  background-position: right 0% bottom 0%;
+
+  @media ${device.tablet} {
+    background-image: url(${mainBgImgTablet});
+    background-size: 100% 1098px;
+  }
+  @media ${device.desktop} {
+    background-image: url(${mainBgImgDesktop});
+    background-size: 100% 538px;
+  }
+`;
+
+export const HeroWrapper = styled.div`
+  position: relative;
+  height: 90vh;
+
   width: 320px;
   padding: 0 20px;
   margin: 0 auto;
@@ -19,36 +38,27 @@ export const StyledContainer = styled.main`
   @media ${device.desktop} {
     width: 1280px;
     padding: 0 16px;
-  }
-`;
-
-export const HeroWrapper = styled.div`
-  /* position: fixed;
-  bottom: 0; */
-  background-color: ${theme.backgrounds.bodyPrimary};
-
-  @media ${device.desktop} {
     display: flex;
   }
 `;
 
 export const HeroImg = styled.img`
-  display: block;
+  position: absolute;
+  bottom: 0;
   width: 320px;
-  height: auto;
 
   @media ${device.tablet} {
     width: 645px;
   }
 
   @media ${device.desktop} {
+    position: static;
+    display: block;
     width: 590px;
   }
 `;
 
 export const HeroTitle = styled.h1`
-  margin-bottom: 60px;
-
   color: ${theme.fontColors.secondary};
   font-family: 'Manrope';
   font-style: normal;
@@ -56,13 +66,10 @@ export const HeroTitle = styled.h1`
   font-size: 32px;
   line-height: 44px;
   @media ${device.tablet} {
-    margin-bottom: 120px;
-
     font-size: 68px;
     line-height: 100px;
   }
   @media ${device.desktop} {
-    margin-bottom: 0px;
     margin-top: 60px;
   }
 `;
