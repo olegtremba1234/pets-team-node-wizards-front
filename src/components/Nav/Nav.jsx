@@ -9,7 +9,7 @@ export default function Nav({ closeMobile }) {
         </StyledLink>
       </li>
       <li>
-        <StyledLink to="/notices/all" onClick={() => closeMobile(false)}>
+        <StyledLink to="/notices" onClick={() => closeMobile(false)}>
           Find pet
         </StyledLink>
       </li>

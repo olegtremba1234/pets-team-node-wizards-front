@@ -32,11 +32,8 @@ export const register = createAsyncThunk(
       };
 
       const responseLogin = await axios.post('/auth/login', loginBody);
-      setAuthHeader(responseLogin.data.token);
-      return {
-        registerRespons: responseRegister.data,
-        loginRespons: responseLogin.data,
-      };
+      setAuthHeader(responseLogin.data.accessToken);
+      return responseLogin.data;
     } catch (error) {
       console.log(error.message);
       notify('Email in use');
@@ -50,7 +47,7 @@ export const logIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post('/auth/login', credentials);
-      setAuthHeader(response.data.token);
+      setAuthHeader(response.data.accessToken);
       return response.data;
     } catch (error) {
       notify('Incorrect email or password');
