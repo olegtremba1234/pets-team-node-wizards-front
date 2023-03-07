@@ -1,6 +1,14 @@
 import styled from 'styled-components';
 
-export const Nav = styled.nav`
+export const NavEl = styled.nav`
   display: flex;
-  flex-direction: column;
+  @media (min-width: 1280px) {
+    justify-content: space-between;
+    width: 100%;
+  }
+`;
+
+export const Button = styled.button`
+  background-color: transparent;
+  border: 1px transparent solid;
 `;

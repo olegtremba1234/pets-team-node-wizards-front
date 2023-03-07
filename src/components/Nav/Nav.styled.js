@@ -9,16 +9,18 @@ export const Ul = styled.ul`
   justify-content: center;
   @media (min-width: 768px) {
     gap: 60px;
+    margin-top: 88px;
   }
   @media (min-width: 1280px) {
     flex-direction: row;
     gap: 80px;
+    margin-top: 0;
   }
 `;
 
 export const StyledLink = styled(NavLink)`
   text-decoration: none;
-  font-family: 'Manrope';
+  font-family: 'Manrope', sans-serif;
   font-weight: 500;
   font-size: 32px;
   line-height: 1.375;
@@ -28,6 +30,7 @@ export const StyledLink = styled(NavLink)`
   &.active {
     color: #f59256;
     text-decoration-line: underline;
+    font-weight: 700;
   }
   &:hover:not(.active),
   :focus-visible:not(.active) {
@@ -36,9 +39,9 @@ export const StyledLink = styled(NavLink)`
   }
   @media (min-width: 768px) {
     font-size: 48px;
-  }
-  @media (min-width: 768px) {
-    font-size: 20px;
     line-height: 1.35;
+  }
+  @media (min-width: 1280px) {
+    font-size: 20px;
   }
 `;

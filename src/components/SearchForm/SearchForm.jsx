@@ -1,7 +1,16 @@
 import iconSearch from '../SearchForm/images/searchIcon.svg';
-import { Form, Input, Label, SearchBtn, IconSearch } from './SearchForm.styled';
+import iconClose from '../SearchForm/images/x-circle.svg';
+import {
+  Form,
+  Input,
+  Label,
+  SearchBtn,
+  IconSearch,
+  CloseBtn,
+  IconClose,
+} from './SearchForm.styled';
 
-const SearchForm = ({ onSubmit, onChange }) => {
+const SearchForm = ({ onSubmit, onChange, value, onClose, isHiden }) => {
   return (
     <Form onSubmit={onSubmit}>
       <Label htmlFor="search">
@@ -9,12 +18,19 @@ const SearchForm = ({ onSubmit, onChange }) => {
           type="text"
           name="search"
           id="search"
+          value={value}
           placeholder="Search"
           onChange={onChange}
         />
-        <SearchBtn>
-          <IconSearch src={iconSearch} />
-        </SearchBtn>
+        {!isHiden ? (
+          <SearchBtn disabled={!value}>
+            <IconSearch src={iconSearch} />
+          </SearchBtn>
+        ) : (
+          <CloseBtn type="button" onClick={onClose}>
+            <IconClose src={iconClose} />
+          </CloseBtn>
+        )}
       </Label>
     </Form>
   );

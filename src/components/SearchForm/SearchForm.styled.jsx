@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from 'vars/device';
 
 export const Form = styled.form`
   display: flex;
@@ -6,7 +7,9 @@ export const Form = styled.form`
   justify-content: center;
   margin-top: 28px;
 
-  margin-bottom: 40px @media screen and (min-width: 768px) {
+  margin-bottom: 40px;
+
+   @media ${device.tablet} {
     margin-top: 40px;
   }
 `;
@@ -18,8 +21,8 @@ export const Label = styled.label`
 export const Input = styled.input`
   width: 280px;
   height: 40px;
-  background: #ffffff;
-  box-shadow: 7px 4px 14px rgba(49, 21, 4, 0.07);
+  background: ${p => p.theme.backgrounds.white};
+  box-shadow: ${p => p.theme.shadows.searchBox};
   border-radius: 20px;
   border: none;
   padding: 9px 12px;
@@ -27,10 +30,10 @@ export const Input = styled.input`
   font-weight: 500;
   font-size: 16px;
   line-height: 1.4;
-  color: #535353;
+  color: ${p => p.theme.fontColors.grey};
   outline: transparent;
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet}  {
     width: 608px;
     height: 44px;
     font-size: 20px;
@@ -40,17 +43,14 @@ export const Input = styled.input`
 
   &:hover {
     border: 1px solid rgba(245, 146, 86, 0.5);
-box-shadow: 7px 4px 14px rgba(49, 21, 4, 0.07);
-border-radius: 20px;
-  }
-  &:focus {
-    border: 1px solid rgba(245, 146, 86, 0.5);
-box-shadow: 7px 4px 14px rgba(49, 21, 4, 0.07);
-border-radius: 20px;
+    box-shadow: ${p => p.theme.shadows.searchBox};
+    border-radius: 20px;
   }
 
-  :placeholder-shown {
-    visibility: visible;
+  &:focus {
+    border: 1px solid rgba(245, 146, 86, 0.5);
+    box-shadow: ${p => p.theme.shadows.searchBox};
+    border-radius: 20px;
   }
 `;
 
@@ -61,6 +61,22 @@ export const SearchBtn = styled.button`
   position: absolute;
   right: 8px;
   top: 30%;
+
+  @media ${device.tablet}  {
+  right: 7px;
+  top: 26%;
+  }
+`;
+
+
+export const CloseBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  right: 8px;
+  top: 30%;
+
 `;
 
 export const IconSearch = styled.img`
@@ -68,8 +84,26 @@ export const IconSearch = styled.img`
   height: 15px;
   display: block;
 
-  @media screen and (min-width: 768px) {
-    width: 18px;
-    height: 18px;
+  @media ${device.tablet}  {
+    width: 20px;
+    height: 20px;
   }
+
 `;
+
+export const IconClose = styled.img`
+  width: 15px;
+  height: 15px;
+  display: block;
+
+  @media ${device.tablet}  {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media ${device.tablet}  {
+    right: 7px;
+    top: 26%;
+    }
+`;
+

@@ -1,8 +1,8 @@
-import { P, Span } from './Logo.styled';
+import { StyledLink, Span } from './Logo.styled';
 export default function Logo() {
   return (
-    <P>
+    <StyledLink to="/">
       pe<Span>t</Span>ly
-    </P>
+    </StyledLink>
   );
 }
