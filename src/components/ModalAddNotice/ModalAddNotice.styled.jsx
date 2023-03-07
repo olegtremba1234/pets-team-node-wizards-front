@@ -65,50 +65,48 @@ export const Form = styled.form`
 
 export const ModalText = styled.p`
   font-family: 'Manrope';
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: ${p => p.theme.fontWeights.medium};
+  font-size: ${p => p.theme.fontSizes.m};
   line-height: 1.37;
   margin-bottom: 20px;
   text-align: center;
   letter-spacing: -0.01em;
-  color: $textColor;
+  color: ${p => p.theme.fontColors.secondary};
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     font-size: ${p => p.theme.fontSizes.l};
     letter-spacing: -0.01em;
     margin-bottom: 20px;
   }
 
-  @media screen and (min-width: 1280px) {
+  @media ${device.desktop} {
     font-size: ${p => p.theme.fontSizes.xl};
     margin-bottom: 28px;
   }
 `;
 
 export const Label = styled.label`
-  display: flex;
   position: relative;
   cursor: pointer;
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     display: block;
   }
 `;
 
 export const FieldRadioWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   margin-bottom: 18px;
   font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: ${p => p.theme.fontWeights.medium};
+  font-size: ${p => p.theme.fontSizes.s};
   line-height: 1.37;
-  display: flex;
-  align-items: center;
   letter-spacing: ${p => p.theme.fonts.letterSpacing};
   color: ${p => p.theme.fontColors.secondary};
 
-  @media (min-width: 768px) and (max-width: 1279px) {
-    margin-bottom: 10px;
+  @media ${device.tablet} {
+    margin-bottom: 28px;
   }
 `;
 
@@ -119,7 +117,7 @@ export const CategoryLostFound = styled.span`
   background-color: ${p => p.theme.backgrounds.bodySecondary};
   top: 0;
   left: 0;
-  
+
   border: 2px solid ${p => p.theme.backgrounds.loaderPrimary};
   border-radius: 40px;
 
@@ -128,26 +126,18 @@ export const CategoryLostFound = styled.span`
     transform: ${p => p.theme.transition.first};
   }
 
-
-    @media screen and (min-width: 768px) {
-      font-size: ${p => p.theme.fontSizes.xl};
-      line-height: 1.37;
-    }
-  }
-
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
+    font-size: ${p => p.theme.fontSizes.xl};
+    line-height: 1.37;
     padding: 8px 28px;
     margin-right: 12px;
+    margin-bottom: 18px;
   }
 
-   margin-bottom: 12px;
+  margin-bottom: 12px;
 
   &::after {
     content: 'Lost/found';
-  }
-
-  @media screen and (min-width: 768px) {
-    margin-bottom: 18px;
   }
 `;
 
@@ -159,11 +149,12 @@ export const CategoryForFree = styled(CategoryLostFound)`
 
 export const CategorySell = styled(CategoryLostFound)`
   margin-left: 8px;
+
   &::after {
     content: 'Sell';
   }
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     margin: 0px;
   }
 `;
@@ -175,23 +166,11 @@ export const InputRadio = styled.input`
   height: 0;
   width: 0;
 
-  &:checked ~ ${CategoryForFree} {
-    background: ${p => p.theme.backgrounds.buttonPrimary};
-  }
   &:checked ~ ${CategoryLostFound} {
-    background: ${p => p.theme.backgrounds.buttonPrimary};
-  }
-  &:checked ~ ${CategorySell} {
     background: ${p => p.theme.backgrounds.buttonPrimary};
   }
 
-  &:checked ~ ${CategoryForFree} {
-    color: ${p => p.theme.fontColors.white};
-  }
   &:checked ~ ${CategoryLostFound} {
-    color: ${p => p.theme.fontColors.white};
-  }
-  &:checked ~ ${CategorySell} {
     color: ${p => p.theme.fontColors.white};
   }
 `;
@@ -199,11 +178,10 @@ export const InputRadio = styled.input`
 export const LabelTitle = styled.label`
   position: relative;
   font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: ${p => p.theme.fontWeights.medium};
+  font-size: ${p => p.theme.fontSizes.l};
   line-height: 1.44;
-  color: $textColor;
+  color: ${p => p.theme.fontColors.secondary};
 
   @media screen and (min-width: 768px) {
     font-size: 22px;
@@ -211,20 +189,21 @@ export const LabelTitle = styled.label`
   }
 
   @media screen and (min-width: 1280px) {
-    font-size: 24px;
+    font-size: ${p => p.theme.fontSizes.xxl};
     line-height: 1.1;
   }
 `;
 
 export const FieldRequired = styled.span`
-  color: orange;
+  color: ${p => p.theme.fontColors.buttonSecondary};
 `;
 
 export const ButtonWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column-reverse;
-  @media screen and (min-width: 768px) {
+
+  @media ${device.tablet} {
     flex-wrap: nowrap;
     justify-content: center;
     flex-direction: row;
@@ -236,32 +215,27 @@ export const Button = styled.button`
   height: 40px;
 
   border-radius: 40px;
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: ${p => p.theme.fontWeights.medium};
+  font-size: ${p => p.theme.fontSizes.m};
   line-height: 1.36;
-  letter-spacing: 0.04em;
-  background-color: #fff;
-  color: $textColor;
+  letter-spacing: ${p => p.theme.fonts.letterSpacing};
+  background-color: ${p => p.theme.backgrounds.buttonSecondary} ;
+  color: ${p => p.theme.fontColors.secondary};
   border: 2px solid #f59256;
   cursor: pointer;
 
-  transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: ${p => p.theme.transition.first};
 
   &:first-child {
     margin-top: 16px;
   }
-
-  &:last-of-type {
-    color: $lightColor;
-    border: none;
-    background-color: $orangeColor;
 
     &:hover {
       background-color: #e7884d;
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     width: 180px;
     height: 44px;
 
@@ -280,13 +254,13 @@ export const ErrorMsg = styled.div`
   top: 115%;
   margin-left: 8px;
   font-size: 14px;
-  color: $errorColor;
+  color: red;
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     top: 116%;
   }
 
-  @media screen and (min-width: 768px) {
+  @media ${device.desktop} {
     top: 118%;
   }
 `;
@@ -297,17 +271,16 @@ export const Input = styled.input`
   padding: 11px 60px 12px 14px;
   margin: 8px 0px 16px 0px;
 
-  color: $textColor;
-  background-color: $bakgroundColor;
-  border: 1px solid rgba(245, 146, 86, 0.5);
+  color: ${p => p.theme.fontColors.inputTextColor};
+  background-color: ${p => p.theme.backgrounds.input};
+  border: ${p => p.theme.borders.input};
   border-radius: 40px;
   font-family: 'Manrope';
-  font-size: 14px;
+  font-size: ${p => p.theme.fontSizes.m};
   line-height: 1.36em;
-  letter-spacing: 0.04em;
+  letter-spacing: ${p => p.theme.fonts.letterSpacing};
 
-  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: ${p => p.theme.transition.first};
 
   &:focus {
     background-color: rgba(0, 0, 0, 0.03);
@@ -319,7 +292,7 @@ export const Input = styled.input`
     color: rgba(27, 27, 27, 0.6);
   }
 
-  @media screen and (min-width: 768px) {
+  @media ${device.tablet} {
     width: 448px;
     height: 48px;
     padding: 14px 70px 13px 16px;
@@ -329,7 +302,11 @@ export const Input = styled.input`
     line-height: 1.62;
   }
 
-  @media screen and (min-width: 1280px) {
+  @media ${device.desktop} {
     margin: 10px 0px 18px 0px;
   }
+`;
+
+export const ErrorMessage = styled.p`
+  border: 1px solid rgb(255, 77, 77, 1);
 `;

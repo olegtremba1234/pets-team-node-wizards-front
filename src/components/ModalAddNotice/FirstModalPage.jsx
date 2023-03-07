@@ -5,15 +5,15 @@ import { useState } from 'react';
 import { Input, InputRadio, Label, Form,  ModalText, CategoryLostFound, CategoryForFree, CategorySell, LabelTitle, FieldRequired, ButtonWrap, Button, ErrorMsg, FieldRadioWrap } from './ModalAddNotice.styled';
 
 const FirstStep = ({
-  handleFirstStepSubmit,
-  firstStepValues,
+  handleFirstInputSubmit,
+  firstValues,
   handleModalClose,
   handleDateValidation,
   verifyCategory,
 }) => {
-  const [categoryValue, setCategoryValue] = useState(firstStepValues.category);
+  const [categoryValue, setCategoryValue] = useState(firstValues.category);
 
-  const firstStepSchema = Yup.object({
+  const firstModalSchema = Yup.object({
     category: Yup.string().required('Required'),
     title: Yup.string()
       .min(2, 'Title is too short')
@@ -48,9 +48,9 @@ const FirstStep = ({
   return (
     <>
       <Formik
-        initialValues={firstStepValues}
-        onSubmit={handleFirstStepSubmit}
-        validationSchema={firstStepSchema}
+        initialValues={firstValues}
+        onSubmit={handleFirstInputSubmit}
+        validationSchema={firstModalSchema}
       >
         {({ errors, touched }) => (
           <Form>

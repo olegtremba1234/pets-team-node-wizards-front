@@ -1,10 +1,11 @@
 import { WrapperContainer, ModalWrap, FormWrapper, ModalTitle } from "./ModalAddNotice.styled";
-import FirstStep from "./FirstStep";
+import FirstModalPage from './FirstModalPage'
 import { useState } from "react";
 
 
 const ModalAddNotice = () => {
-  const [firstStepValues, setFirstStepValues] = useState({
+  const [page, setPage] = useState(0);
+  const [firstModalValues, setFirstModalValues] = useState({
     category: 'sell',
     title: '',
     name: '',
@@ -13,14 +14,21 @@ const ModalAddNotice = () => {
   });
 
 
+  const handleFirstInputSubmit = values => {
+    setFirstModalValues(values);
+    setPage(prevPage => prevPage + 1);
+  };
+
+
   return (
     <WrapperContainer>
       <ModalWrap>
         <FormWrapper>
         <ModalTitle>Add pet</ModalTitle>
-        <FirstStep
-              firstStepValues={firstStepValues}
-              setFirstStepValues={setFirstStepValues}
+        <FirstModalPage
+              firstValues={firstModalValues}
+              setFirstValues={setFirstModalValues}
+              handleFirstInputSubmit={handleFirstInputSubmit}
               />
 
         </FormWrapper>
