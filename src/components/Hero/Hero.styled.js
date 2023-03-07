@@ -59,6 +59,8 @@ export const HeroImg = styled.img`
 `;
 
 export const HeroTitle = styled.h1`
+  margin-top: 60px;
+
   color: ${theme.fontColors.secondary};
   font-family: 'Manrope';
   font-style: normal;
@@ -66,6 +68,8 @@ export const HeroTitle = styled.h1`
   font-size: 32px;
   line-height: 44px;
   @media ${device.tablet} {
+    margin-top: 88px;
+
     font-size: 68px;
     line-height: 100px;
   }
