@@ -21,7 +21,6 @@ export const currentPets = createAsyncThunk(
     async (_, thunkAPI) => {
       try {
         const { data } = await axios.get('pets/current');
-        console.log(data);
         return data;
       } catch (err) {
         thunkAPI(err);

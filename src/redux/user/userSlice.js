@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchUser, currentPets } from './userOperations';
 
+
 const useInitialState = {
-  user: {},
+  user: { email: '', name: '', city: '', phone: '', birthday: '' },
+  petUser: [],
   isLoading: false,
   error: null,
 };
