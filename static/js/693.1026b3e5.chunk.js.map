@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/693.1026b3e5.chunk.js","mappings":"iMAAe,SAASA,IACtB,OAAO,yCACR,C","sources":["pages/NoticesPage.jsx"],"sourcesContent":["export default function NoticesPage() {\n  return <div>Notices Page</div>;\n}\n"],"names":["NoticesPage"],"sourceRoot":""}
