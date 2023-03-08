@@ -12,21 +12,20 @@ const Logout = () => {
 
   const onLogout = () => {
     dispatch(logOut());
-    // if (!isUserLogin) {
-      return <Navigate to={'news'} />;
-    // }
+    if (!isUserLogin) {
+      return <Navigate to={'/news'} />;
+    }
   };
 
   return (
-    <div>
+    
       <Button className="" type="button" onClick={onLogout}>
         <Icons className="icon" id="icon-user_logout" />
         <span>Log Out</span>
       </Button>
-    </div>
+    
   );
 };
 
-// onClick={onLogout}
-// variant="contained"
+
 export default Logout;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const PetsDescribed = styled.ul`
   margin-top: 42px;
   font-size: 14px;
-  
+
   @media screen and (min-width: 1280px) {
     margin-top: 24px;
   }
@@ -26,22 +26,21 @@ export const PetsDescribedItem = styled.li`
 `;
 
 export const ItemList = styled.div`
-  margin-left: 32px
+  
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    margin-left: 32px;
+  }
 `;
 
 export const ButtonDel = styled.button`
   position: relative;
   top: 2px;
-  width: 0;
-  left: 185px;
+  left: calc(100% - 30px);
   border: none;
   background-color: inherit;
   cursor: pointer;
-  
-  @media screen and (min-width: 768px) {
-    width: 100%;
-    left: calc(100% - 30px );
-  }
 `;
 
 export const Image = styled.img`
@@ -56,6 +55,10 @@ export const Image = styled.img`
   @media screen and (min-width: 768px) {
     width: 161px;
     height: 161px;
+  }
+
+  @media screen and (min-width: 768px) {
+    margin: 0;
   }
 `;
 
@@ -72,4 +75,3 @@ export const Item = styled.p`
   line-height: 22px;
   letter-spacing: 0.04em;
 `;
-

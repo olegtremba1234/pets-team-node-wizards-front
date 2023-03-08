@@ -89,7 +89,7 @@ export const DataItem = styled.div`
   flex-direction: column;
 
   @media screen and (min-width: 768px) {
-    margin: 20px 52px 0px 32px;
+    margin: 0px 52px 0px 32px;
     width: 100%;
 
   }

@@ -4,7 +4,7 @@ import { UserItem, InfoItem } from './UserDataItem.styled';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
-import { fetchUser } from 'services/apiService';
+import { fetchUser, fetchUserPets } from 'services/apiService';
 // import { userSelector } from 'redux/user/userSelector';
 // import { fetchUserInfo } from 'services/apiService';
 
@@ -61,7 +61,6 @@ const UserDataItem = () => {
 
   useEffect(() => {
     userDataInfo();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
