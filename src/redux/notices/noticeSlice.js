@@ -1,27 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { addNotice } from './noticeOperation';
 
-export const noticesSlice = createSlice({
+const addNoticeSuccessReducer = (state, action) => {
+  state.notices.push(action.payload);
+};
+
+
+const addNoticePendingReducer = state => {
+  state.isLoading = true;
+};
+
+const addNoticeRejectedReducer = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
+
+const noticesSlice = createSlice({
   name: 'notices',
   initialState: {
-    items: [],
+    notices: [],
     isLoading: false,
+    error: null,
   },
-
-    extraReducers: {
-      [addNotice.pending]: state => {
-        state.isLoading = true;
-      },
-      [addNotice.fulfilled]: (state, { payload }) => {
-        state.items = [...state.items, payload];
-        state.isLoading = false;
-        state.error = null;
-      },
-      [addNotice.rejected]: (state, { payload }) => {
-        state.error = payload;
-        state.isLoading = false;
-      },
-    }
+  extraReducers: builder =>
+  builder
+      .addCase(addNotice.fulfilled, addNoticeSuccessReducer)
+      .addCase(addNotice.pending, addNoticePendingReducer)
+      .addCase(addNotice.rejected, addNoticeRejectedReducer ),
 });
 
-export default noticesSlice.reducer;
+
+export const noticesReduсer = noticesSlice.reducer;

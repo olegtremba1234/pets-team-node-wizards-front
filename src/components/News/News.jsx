@@ -21,6 +21,7 @@ import {
 import ModalAddNotice from 'components/ModalAddNotice/ModalAddNotice';
 
 
+
 const News = () => {
   const [news, setNews] = useState([]);
   const [input, setInput] = useState('');
@@ -70,7 +71,7 @@ const News = () => {
     <NewsWrap>
       <StyledContainer>
         <Title>News</Title>
-        <ModalAddNotice/>
+<ModalAddNotice/>
         <SearchForm
           onSubmit={handleSearchSubmit}
           onChange={handleClick}

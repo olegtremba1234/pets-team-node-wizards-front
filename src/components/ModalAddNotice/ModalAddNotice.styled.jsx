@@ -339,7 +339,7 @@ export const Input = styled.input`
     margin-bottom: 0;
   }
 
-  color: ${p => p.theme.fontColors.inputTextColor};
+  color: ${p => p.theme.fontColors.secondary};
   background-color: ${p => p.theme.backgrounds.input};
   border: ${p => p.theme.borders.input};
   border-radius: 40px;
