@@ -6,11 +6,28 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
 import axios from 'axios';
+import { ScrollUpButton, scrollTopPage } from 'components/ScrollUpButton';
+import { SlArrowUp } from "react-icons/sl";
+
+const PAGE_SCROLL_DOWN = 100;
 
 export default function NoticesPage() {
   const token = useSelector(selectToken);
   const [notices, setNotices] = useState([]);
   const { categoryName } = useParams();
+  const [scrollTop, setScrollTop] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollTop(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchAllNotices = async () => {
@@ -56,11 +73,18 @@ export default function NoticesPage() {
     fetchNoticesByCategory(categoryName);
   }, [categoryName, token]);
 
+  const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
+
   return (
     <>
       <SearchForm />
       <Categories />
       <NoticesCategoriesList notices={notices} />
+      {isShowButtonTop && (
+        <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
+          <SlArrowUp />
+        </ScrollUpButton>
+      )}
     </>
   );
 }
