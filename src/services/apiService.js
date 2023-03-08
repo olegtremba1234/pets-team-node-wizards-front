@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
+
 export const fetchNews = async () => {
   const response = await axios('news');
   return response.data;
@@ -43,4 +44,16 @@ export const fetchUserNotices = async token => {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
+};
+
+
+export const addNotice = async body => {
+  
+  try {
+    const response = await axios.post('/notices/my-notices', body)
+  return response.data;
+  } catch(error) {
+    console.log(error)
+  }
+
 };

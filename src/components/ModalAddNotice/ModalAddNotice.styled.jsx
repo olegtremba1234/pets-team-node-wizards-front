@@ -565,3 +565,11 @@ width: 121px;
   width: 200px;
 
   `;
+
+  export const ErrorTextComment = styled(ErrorText)`
+  width: 200px;
+  top: 170px;
+
+  @media ${device.tablet} {
+    top: 150px;
+  `;

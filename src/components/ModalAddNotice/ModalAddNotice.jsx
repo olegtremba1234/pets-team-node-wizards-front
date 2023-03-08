@@ -30,7 +30,8 @@ import {
   GenderFemale,
   ButtonSecond,
   CloseButton,
-  Legend
+  Legend,
+  ErrorTextComment
 } from './ModalAddNotice.styled';
 import { useState } from 'react';
 import { useFormik } from 'formik';
@@ -40,16 +41,17 @@ import { toast } from 'react-toastify';
 import femaleImg from '../ModalAddNotice/images/female.png';
 import maleImg from '../ModalAddNotice/images/male.png';
 import addImg from '../ModalAddNotice/images/add.svg';
-import { addNotice } from 'redux/notices/noticeOperation';
+import { addNotice } from 'services/apiService';
 import { selectIsLoading } from 'redux/notices/noticeSelector';
 import { useSelector } from 'react-redux';
 
 const ModalAddNotice = ({ closeButton }) => {
   const isLoading = useSelector(selectIsLoading);
+
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
   const [imagePreview, setImagePreview] = useState(null);
   const [disableNextButton, setDisableNextButton] = useState(true);
-
+  
   const moveNextRegistration = () => {
     isFirstRegisterStep
       ? setIsFirstRegisterStep(false)
@@ -59,23 +61,8 @@ const ModalAddNotice = ({ closeButton }) => {
   const onImageChange = e => {
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       setImagePreview(URL.createObjectURL(e.target.files[0]));
-      formik.setFieldValue('image', e.currentTarget.files[0]);
+      formik.setFieldValue('petPhotoURL', e.currentTarget.files[0]);
     }
-  };
-
-  const formDataAppender = fields => {
-    const formData = new FormData();
-    const entriesForAppend = Object.entries(fields).reduce(
-      (acc, [key, value]) => {
-        acc[key] = value;
-        return acc;
-      },
-      []
-    );
-    Object.entries(entriesForAppend).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    return formData;
   };
 
   const cityInputValidation = value => {
@@ -103,7 +90,7 @@ const ModalAddNotice = ({ closeButton }) => {
       sex: 'male',
       location: '',
       price: '',
-      image: '',
+      petPhotoURL: '',
       comments: '',
     },
     validationSchema: Yup.object().shape({
@@ -146,10 +133,10 @@ const ModalAddNotice = ({ closeButton }) => {
         .required('Enter your location'),
       sex: Yup.string().required('Select gender'),
       price: Yup.string().when('category', {
-        is: category => category === 'sell',
+        is: category => category.includes('sell'),
         then: () =>
-          Yup.string()
-            .matches(/^[0-9][0-9]*$/, 'only number')
+            Yup.string()
+            .matches(/^[0-9][0-9]*$/, 'Only number')
             .required('Enter a price'),
       }),
       comments: Yup.string()
@@ -159,7 +146,7 @@ const ModalAddNotice = ({ closeButton }) => {
         .max(120, 'Comments is too long'),
     }),
     onSubmit: async () => {
-      await addNotice(formDataAppender(formik.values))
+      await addNotice(formik.values)
         .unwrap()
         .then(() => {
           toast.success('Ви успішно створили оголошення.');
@@ -188,7 +175,7 @@ const ModalAddNotice = ({ closeButton }) => {
       : setDisableNextButton(true);
   }, [formik, disableNextButton]);
 
-
+console.log(formik.values.category)
   return (
     <WrapperContainer>
       <ModalWrap>
@@ -204,24 +191,24 @@ const ModalAddNotice = ({ closeButton }) => {
                   <InputRadio
                     type="radio"
                     name="category"
-                    id="LostFound"
+                    id="lost-found"
                     value="lost-found"
                     onChange={formik.handleChange}
                     checked={formik.values.category === 'lost-found'}
                   />
-                  <LabelLostFound htmlFor="LostFound">
+                  <LabelLostFound htmlFor="lost-found">
                     lost/found
                   </LabelLostFound>
 
                   <InputRadio
                     type="radio"
                     name="category"
-                    id="inGoodHands"
-                    value="for-free"
+                    id="in-good-hands"
+                    value="in-good-hands"
                     onChange={formik.handleChange}
-                    checked={formik.values.category === 'for-free'}
+                    checked={formik.values.category === 'in-good-hands'}
                   />
-                  <LabelFree htmlFor="inGoodHands">in good hands</LabelFree>
+                  <LabelFree htmlFor="in-good-hands">in good hands</LabelFree>
 
                   <InputRadio
                     type="radio"
@@ -355,15 +342,15 @@ const ModalAddNotice = ({ closeButton }) => {
 
                 {formik.values.category === 'sell' ? (
                   <>
-                    <Label htmlFor="pricePet">
+                    <Label htmlFor="price">
                       Price<FieldRequired>*</FieldRequired>
                       {formik.values.price !== '' && formik.errors.price ? (
                         <ErrorText>{formik.errors.price}</ErrorText>
                       ) : null}
                     </Label>
                     <Input
-                      type="number"
-                      id="pricePet"
+                      type="text"
+                      id="price"
                       placeholder="Type price"
                       name="price"
                       onChange={formik.handleChange}
@@ -374,14 +361,14 @@ const ModalAddNotice = ({ closeButton }) => {
 
                 <fieldset>
                   <Legend>
-                  Load the pet's image<FieldRequired>*</FieldRequired>
+                  Load the pet's image
                   </Legend>
-                  {formik.values.image === '' ? (
-                    <AvatarLabel htmlFor="image">
+                  {formik.values.petPhotoURL === '' ? (
+                    <AvatarLabel htmlFor="petPhotoURL">
                       <SelectedImage alt="add" src={addImg} />
                       <FileInput
-                        id="image"
-                        name="image"
+                        id="petPhotoURL"
+                        name="petPhotoURL"
                         type="file"
                         accept="image/png, image/gif, image/jpeg"
                         onChange={e => {
@@ -400,7 +387,7 @@ const ModalAddNotice = ({ closeButton }) => {
                 <Label htmlFor="comments">
                   Comments<FieldRequired>*</FieldRequired>
                   {formik.values.comments !== '' && formik.errors.comments ? (
-                    <ErrorText>{formik.errors.comments}</ErrorText>
+                    <ErrorTextComment>{formik.errors.comments}</ErrorTextComment>
                   ) : null}
                 </Label>
                 <InputTextArea
