@@ -20,7 +20,7 @@ import {
   LinkReadMore,
 } from './News.styled';
 
-const PAGE_SCROLL_DOWN = 300;
+const PAGE_SCROLL_DOWN = 100;
 
 const News = () => {
   const [news, setNews] = useState([]);
