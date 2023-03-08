@@ -25,18 +25,32 @@ export const StyledLink = styled(NavLink)`
   font-size: ${p => p.theme.fontSizes.xxxl_increased};
   line-height: 1.375;
   letter-spacing: ${p => p.theme.fonts.letterSpacing};
-
   color: ${p => p.theme.fontColors.navFont};
-  &.active {
+  transition: all 350ms ease-in-out;
+  &::after {
+    content: '';
+    width: 0px;
+    height: 1px;
+    display: block;
+    background: ${p => p.theme.fontColors.buttonSecondary};
+    transition: 350ms;
+  }
+
+  &.active,
+  &.active::after {
     color: ${p => p.theme.fontColors.buttonSecondary};
-    text-decoration-line: underline;
+    width: 100%;
     font-weight: ${p => p.theme.fontWeights.bold};
   }
   &:hover:not(.active),
   :focus-visible:not(.active) {
     color: ${p => p.theme.fontColors.buttonSecondary};
-    text-decoration-line: underline;
   }
+  &:hover:not(.active)::after,
+  :focus-visible:not(.active)::after {
+    width: 100%;
+  }
+
   @media (min-width: 768px) {
     font-size: ${p => p.theme.fontSizes.xxxxl_increased};
     line-height: 1.35;
