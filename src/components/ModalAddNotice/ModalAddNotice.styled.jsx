@@ -558,9 +558,6 @@ width: 121px;
 @media ${device.tablet} {
   top: 91px;
 
-  @media ${device.desktop} {
-    top: 82px;
-  }
 
   `;
 
