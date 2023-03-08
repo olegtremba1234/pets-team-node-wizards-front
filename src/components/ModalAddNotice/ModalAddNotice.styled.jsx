@@ -111,13 +111,12 @@ export const FieldRadioWrap = styled.div`
   }
 `;
 
-export const CategoryLostFound = styled.span`
+export const LabelLostFound = styled.label`
   display: flex;
   justify-content: center;
   padding: 6px 24px;
   background-color: ${p => p.theme.backgrounds.bodySecondary};
-  top: 0;
-  left: 0;
+
 
   border: 2px solid ${p => p.theme.backgrounds.loaderPrimary};
   border-radius: 40px;
@@ -137,28 +136,21 @@ export const CategoryLostFound = styled.span`
 
   margin-bottom: 12px;
 
-  &::after {
-    content: 'Lost/found';
-  }
 `;
 
-export const CategoryForFree = styled(CategoryLostFound)`
-  &::after {
-    content: 'In good hands';
-  }
+export const LabelSell = styled(LabelLostFound)`
+margin-left: 8px;
+
+@media ${device.tablet} {
+     margin: 0px;
+     }
 `;
 
-export const CategorySell = styled(CategoryLostFound)`
-  margin-left: 8px;
 
-  &::after {
-    content: 'Sell';
-  }
+export const LabelFree = styled(LabelLostFound)`
 
-  @media ${device.tablet} {
-    margin: 0px;
-  }
 `;
+
 
 export const GenderMale = styled.img`
 width: 40px;
@@ -175,9 +167,6 @@ margin-bottom: 12px;
 
 `;
 
-export const Span = styled.span`
-
-`;
 
 
 export const InputRadio = styled.input`
@@ -187,17 +176,12 @@ export const InputRadio = styled.input`
   height: 0;
   width: 0;
 
-  &:checked ~ ${CategoryLostFound} {
-    background: ${p => p.theme.backgrounds.buttonPrimary};
+  &:checked + ${LabelLostFound} {
+    color: ${p => p.theme.fontColors.white};;
+    background-color:  ${p => p.theme.backgrounds.buttonPrimary} ;
   }
 
-  &:checked ~ ${CategoryLostFound} {
-    color: ${p => p.theme.fontColors.white};
-  }
 
-  &:checked ~ ${Span} {
-    color: ${p => p.theme.fontColors.buttonSecondary};
-  }
 `;
 
 export const LabelTitle = styled.label`
@@ -206,6 +190,7 @@ export const LabelTitle = styled.label`
   font-weight: ${p => p.theme.fontWeights.medium};
   font-size: ${p => p.theme.fontSizes.l};
   line-height: 1.44;
+  margin-top: 10px;
   color: ${p => p.theme.fontColors.secondary};
 
   @media screen and (min-width: 768px) {
@@ -282,23 +267,6 @@ export const Button = styled.button`
   }
 `;
 
-export const ErrorMsg = styled.div`
-  position: absolute;
-  top: 115%;
-  margin-left: 8px;
-  font-size: 14px;
-  color: red;
-
-  @media ${device.tablet} {
-    top: 116%;
-  }
-
-  @media ${device.desktop} {
-    top: 118%;
-  }
-`;
-
-
 
 export const Input = styled.input`
   width: 240px;
@@ -343,9 +311,23 @@ export const Input = styled.input`
   }
 `;
 
-export const ErrorInput = styled.p`
-  font-family: 'Raleway', sans-serif;
-  color: ${p => p.theme.fontColors.inputTextColor || '#4d4d4d'}
+export const InputDate = styled(Input)`
+position: relative;
+display: flex;
+justify-content: flex-start;
+
+&::-webkit-calendar-picker-indicator {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
 `;
 
 
@@ -366,7 +348,7 @@ export const GenderLabel = styled.label`
 
   &:hover,
   &:focus {
-    color: $orangeColor;
+    color: ${p => p.theme.fontColors.buttonSecondary};
   }
 
 
@@ -406,11 +388,12 @@ margin-bottom: 32px;
 
 
 export const AvatarLabel = styled.label`
-position: relative;
 margin: 8px 0px 28px 0px;
 width: 116px;
 height: 116px;
 display: flex;
+background: #fdf7f2;
+border-radius: 20px;
 
 @media screen and (min-width: 768px) {
   width: 140px;
@@ -425,26 +408,10 @@ display: flex;
 `;
 
 
-export const AddImage = styled.div`
-  width: 116px;
-  height: 116px;
-  background: #fdf7f2;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  @media screen and (min-width: 768px) {
-    width: 140px;
-    height: 140px;
-  }
-`;
-
 export const SelectedImage = styled.img`
-width: 116px;
-height: 116px;
-background: #fff;
+width: 48px;
+height: 48px;
+margin: auto auto;
 
 @media screen and (min-width: 768px) {
   width: 140px;
@@ -454,7 +421,7 @@ background: #fff;
 
 
 export const FileInput = styled.input`
-  display: none;
+display: none;
 `;
 
 export const InputTextArea = styled.textarea`
@@ -541,14 +508,20 @@ top: 24px;
 
 
 export const ErrorText = styled.p`
-  position: absolute;
+position: absolute;
+color: red;
+font-size: 0.9rem;
+top: 75px;
+left: 14px;
+width: 121px;
 
-  margin-top: 1px;
-  margin-left: 16px;
-  font-size: 11px;
-  color: red;
-  @media ${device.tablet} {
-    margin-left: 32px;
-    max-width: 448px;
-  }
+@media ${device.desktop} {
+  top: 91px;
+
+
+  `;
+
+  export const ErrorTextLocation = styled(ErrorText)`
+  width: 200px;
+
   `;

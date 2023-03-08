@@ -1,121 +1,446 @@
-import { WrapperContainer, ModalWrap, FormWrapper, ModalTitle, CloseButton} from "./ModalAddNotice.styled";
-import FirstModalPage from './FirstModalPage';
-import SecondModalPage from "./SecondModalPage";
+import { WrapperContainer, LabelLostFound, LabelFree, LabelSell, ModalWrap, FormWrapper, ModalTitle, ErrorText, Input, InputRadio, Label, Form,  ModalText, LabelTitle, FieldRequired, ButtonWrap, Button, FieldRadioWrap,  GenderLabel,
+  AvatarLabel,
+  ErrorTextLocation,
+  InputDate,
+  FieldWrap,
+  GenderMale,
+  SelectedImage,
+  FileInput,
+  InputTextArea,
+  Title,
+  GenderFemale,
+} from "./ModalAddNotice.styled";
 import { useState } from "react";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import femaleImg from '../ModalAddNotice/images/female.svg';
+import maleImg from '../ModalAddNotice/images/male.svg';
+import addImg from '../ModalAddNotice/images/add.svg';
+import { addNotice } from "redux/notices/noticeOperation";
+import { selectIsLoading } from "redux/notices/noticeSelector";
+import { useSelector} from 'react-redux';
 
-const ModalAddNotice = () => {
-  const [page, setPage] = useState(0);
-  const [firstModalValues, setFirstModalValues] = useState({
-    category: 'sell',
-    title: '',
-    name: '',
-    birthDate: '',
-    breed: '',
-  });
 
+const ModalAddNotice = ({closeButton}) => {
+  const isLoading = useSelector(selectIsLoading);
+  const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [disableNextButton, setDisableNextButton] = useState(true);
+  const { pathname } = useLocation();
 
-
-  const [secondStepValues, setSecondStepValues] = useState({
-    sex: '',
-    location: '',
-    price: '',
-    avatar: '',
-    comments: '',
-  });
-
-  const handleFirstInputSubmit = values => {
-    setFirstModalValues(values);
-    setPage(prevPage => prevPage + 1);
+  const categorySetByDefault = () => {
+    const enterPoint = pathname.split('/').pop();
+    return enterPoint === 'category' ? 'sell' : enterPoint;
   };
 
- 
-
-
-  const handleBackToFirst = values => {
-    setSecondStepValues(values);
-    setPage(prevPage => prevPage - 1);
+  const moveNextRegistration = () => {
+    isFirstRegisterStep
+      ? setIsFirstRegisterStep(false)
+      : setIsFirstRegisterStep(true);
   };
 
-  const handleSecondStepSubmit = values => {
-    const { comments, avatar, price, location, sex } = values;
+  const onImageChange = e => {
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      setImagePreview(URL.createObjectURL(e.target.files[0]));
+      formik.setFieldValue('image', e.currentTarget.files[0]);
+    }
+  };
+
+
+
+ const formDataAppender = fields => {
     const formData = new FormData();
-
-    formData.append('category', firstModalValues.category);
-    formData.append('title', firstModalValues.title);
-    formData.append('petName', firstModalValues.name);
-    formData.append('breed', firstModalValues.breed);
-    formData.append('sex', sex);
-    formData.append('location', location);
-    formData.append('avatar', avatar);
-    formData.append('comments', comments);
-    firstModalValues.category === 'sell' &&
-      formData.append('price', Number(price));
-    firstModalValues.category !== 'lost-found' &&
-      formData.append('birthDate', firstModalValues.birthDate);
-
-    // dispatch(noticesOperations.addNotice(formData));
+    const entriesForAppend = Object.entries(fields).reduce(
+      (acc, [key, value]) => {
+        acc[key] = value;
+        return acc;
+      },
+      []
+    );
+    Object.entries(entriesForAppend).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    return formData;
   };
 
 
-  const [fileValue] = useState('');
+const cityInputValidation = value => {
+    if (value) {
+      const comma = value.search(',');
+      if (!comma || comma < 4) {
+        return false;
+      }
+      const [, region] = value.split(',');
 
-  const handleDateValidation = value => {
-    if (!value) {
-      return;
+      if (!region?.trim()) {
+        return false;
+      }
+      return true;
     }
-    let result;
-    const [day, month, year] = value.split('.');
-
-    if (day) {
-      result = Number(day) > 31 ? false : true;
-    }
-    if (month) {
-      result = Number(month) > 12 ? false : true;
-    }
-
-    if (year) {
-      result =
-        new Date(`${month}-${day}-${year}`).getTime() > Date.now()
-          ? false
-          : true;
-    }
-    return result;
   };
 
+  const formik = useFormik({
+    initialValues: {
+      category: categorySetByDefault(),
+      title: '',
+      name: '',
+      birthday: `${new Date().toISOString().split('T')[0]}`,
+      breed: '',
+      sex: 'male',
+      location: '',
+      price: 1,
+      image: '',
+      comments: '',
+    },
+    validationSchema: Yup.object().shape({
+      category: Yup.string().required('Choose category'),
+      title: Yup.string()
+        .required('Enter a title')
+        .min(2, 'Title is too short')
+        .matches(
+          /^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/,
+          'The title contains only letters and spaces'
+        )
+        .trim()
+        .max(48, 'Title is too long'),
+      name: Yup.string()
+        .trim()
+        .min(2, 'Name is too short')
+        .required("Enter the name of the animal")
+        .matches(
+          /^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/,
+          'The title contains only letters and spaces'
+        )
+        .max(16, 'Name is too long'),
+      birthday: Yup.date()
+        .required('Choose date of birth')
+        .max(new Date(), 'The date must be in the past'),
+      breed: Yup.string()
+        .required('Enter a breed')
+        .min(2, 'Breed is too short')
+        .matches(/^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/, 'only letters')
+        .trim()
+        .max(24, 'Breed is too long'),
+      location: Yup.string()
+      .min(2, 'Location is too short')
+      .max(48, 'Location is too long')
+      .test(
+        'locationFormat',
+        'Format should be "city, region"',
+        cityInputValidation
+      )
+      .required('Enter your location'),
+      sex: Yup.string().required('Select gender'),
+      price: Yup.string().when('category', {
+        is: category => category === 'sell',
+        then: Yup.string()
+          .required('Enter the price')
+          .matches(/^[0-9][0-9]*$/, 'only numbers'),
+      }),
+      comments: Yup.string()
+        .trim()
+        .required('Enter a description')
+        .min(8, 'Comments is too short')
+        .max(120, 'Comments is too long'),
+    }),
+    onSubmit: async () => {
+      await addNotice(formDataAppender(formik.values))
+        .unwrap()
+        .then(() => {
+          toast.success('Ви успішно створили оголошення.');
+        })
+        .catch(() => {
+          toast.error('Не вдалось створити оголошення.');
+        });
+      formik.resetForm();
+      closeButton();
+    },
+  });
 
 
-  const verifyCategory = value => {
-    return value === 'sell' || value === 'for-free';
-  };
+  useEffect(() => {
+    const firstStepPossibleErrors = [
+      'category',
+      'title',
+      'name',
+      'birthday',
+      'breed',
+    ];
+    const isValidFieldsInFirstStep = !Object.keys(formik.errors).some(error =>
+      firstStepPossibleErrors.includes(error)
+    );
+    isValidFieldsInFirstStep && formik.values.title.length > 0
+      ? setDisableNextButton(false)
+      : setDisableNextButton(true);
+  }, [formik, disableNextButton]);
+
+
   return (
     <WrapperContainer>
       <ModalWrap>
         <FormWrapper>
         <ModalTitle>Add pet</ModalTitle>
-      {page === 0 ? (
-        <FirstModalPage
-              firstModalValues={firstModalValues}
-              setFirstValues={setFirstModalValues}
-              handleFirstInputSubmit={handleFirstInputSubmit}
-              handleDateValidation={handleDateValidation}
-              verifyCategory={verifyCategory}
-              />) : (
-              <SecondModalPage
-              handleBackToFirst={handleBackToFirst}
-              secondStepValues={secondStepValues}
-              // handleAddAvatar={handleAddAvatar}
-              file={fileValue}
-              handleSecondStepSubmit={handleSecondStepSubmit}
-              category={firstModalValues.category}
+        <Form onSubmit={formik.handleSubmit}>
+      {isFirstRegisterStep ? (
+        <>
+        <ModalText>
+          Please add basic information about the pet
+        </ModalText>
+        <FieldRadioWrap>
+
+            <InputRadio
+              type="radio"
+              name="category"
+              id="lost-found"
+              value="lost-found"
+              onChange={formik.handleChange}
+              checked={formik.values.category === 'lost-found'}
+            />
+            <LabelLostFound htmlFor="lost-found">
+            lost/found
+          </LabelLostFound>
+
+
+            <InputRadio
+              type="radio"
+              name="category"
+              id="for-free"
+              value="for-free"
+              onChange={formik.handleChange}
+              checked={formik.values.category === 'for-free'}
+            />
+                <LabelFree htmlFor="for-free">
+                in good hands
+          </LabelFree>
+
+            <InputRadio
+              type="radio"
+              name="category"
+              id="sell"
+              value="sell"
+              onChange={formik.handleChange}
+              checked={formik.values.category === 'sell'}
+            />
+              <LabelSell htmlFor="sell">
+                sell
+          </LabelSell>
+
+          {formik.touched.category && formik.errors.category ? (
+                <ErrorText>{formik.errors.category}</ErrorText>
+              ) : null}
+        </FieldRadioWrap>
+
+        <LabelTitle htmlFor="title">
+          Tittle of ad <FieldRequired>*</FieldRequired>
+          {formik.values.title !== '' && formik.errors.title ? (
+                <ErrorText>{formik.errors.title}</ErrorText>
+              ) : null}
+         </LabelTitle>
+          <Input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Type title"
+            onChange={formik.handleChange}
+            value={formik.values.title}
+          />
+
+        <LabelTitle htmlFor ="name">
+          Name <FieldRequired>*</FieldRequired>
+          {formik.values.name !== '' && formik.errors.name ? (
+                <ErrorText>{formik.errors.name}</ErrorText>
+              ) : null}
+              </LabelTitle>
+          <Input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Type name"
+            onChange={formik.handleChange}
+              value={formik.values.name}
+          />
+          <LabelTitle htmlFor="birthdayPet">
+            Date of birth<FieldRequired>*</FieldRequired>
+            {formik.values.birthday !== '' && formik.errors.birthday ? (
+              <ErrorText>{formik.errors.birthday}</ErrorText>
+            ) : null}
+            </LabelTitle>
+            <InputDate
+              type="date"
+              id="birthdayPet"
+              name="birthday"
+              placeholder="Type date of birth"
+              max={new Date().toISOString().split('T')[0]}
+              onChange={formik.handleChange}
+              value={formik.values.birthday}
+            />
+
+        <LabelTitle htmlFor="breed">
+          Breed<FieldRequired>*</FieldRequired>
+          {formik.values.breed && formik.errors.breed ? (
+                <ErrorText>{formik.errors.breed}</ErrorText>
+              ) : null}
+              </LabelTitle>
+          <Input
+            type="text"
+            id="breed"
+            name="breed"
+            placeholder="Type breed"
+            onChange={formik.handleChange}
+            value={formik.values.breed}
+          />
+          </>
+          ) : (
+            <>
+            <Title>
+              The sex
+              <FieldRequired>*</FieldRequired>
+            </Title>
+            <FieldWrap>
+                <InputRadio
+                  type="radio"
+                  id="malePet"
+                  name="sex"
+                  value="male"
+                  checked={formik.values.sex === 'male'}
+                  onChange={formik.handleChange}
+                />
+                <GenderLabel htmlFor="malePet">
+                <GenderMale src={maleImg}/>
+                Male
+              </GenderLabel>
+
+
+                <InputRadio
+                  type="radio"
+                  id="femalePet"
+                  name="sex"
+                  alt="female"
+                  value="female"
+                  checked={formik.values.sex === 'female'}
+                  onChange={formik.handleChange}
+                />
+                <GenderLabel htmlFor="femalePet">
+                <GenderFemale src={femaleImg}/>
+                  Female
+              </GenderLabel>
+              {formik.touched.sex && formik.errors.sex ? (
+                <ErrorText>{formik.errors.sex}</ErrorText>
+              ) : null}
+            </FieldWrap>
+
+            <Label htmlFor="location">
+              Location<FieldRequired>*</FieldRequired>
+              {formik.values.location !== '' && formik.errors.location ? (
+                <ErrorTextLocation>{formik.errors.location}</ErrorTextLocation>
+              ) : null}
+              </Label>
+              <Input
+                type="text"
+                id="location"
+                placeholder="Type location"
+                name="location"
+                onChange={formik.handleChange}
+              value={formik.values.location}
               />
+
+
+{formik.values.category === 'sell' ? (
+              <>
+              <Label htmlFor="price">
+                Price<FieldRequired>*</FieldRequired>
+                {formik.values.price !== '' && formik.errors.price ? (
+                    <ErrorText>{formik.errors.price}</ErrorText>
+                  ) : null}
+                  </Label>
+                <Input
+                  type="number"
+                  id="price"
+                  placeholder="Type price"
+                  name="price"
+                  onChange={formik.handleChange}
+                  value={formik.values.price}
+                />
+                  </>
+            ) : null}
+
+
+<fieldset>
+               Load the pet's image<FieldRequired>*</FieldRequired>
+              {formik.values.image === '' ? (
+                <AvatarLabel htmlFor="image">
+                 <SelectedImage alt="add" src={addImg} />
+                  <FileInput
+                    id="image"
+                    name="image"
+                    type="file"
+                    accept="image/png, image/gif, image/jpeg"
+                    onChange={e => {
+                      formik.handleChange(e);
+                      onImageChange(e);
+                    }}
+                  />
+                </AvatarLabel>
+              ) : (
+                <div >
+                  <img alt="pet" src={imagePreview} />
+                </div>
               )}
-               <CloseButton
+            </fieldset>
 
-            // onClick={handleModalClose}
+
+            <Label htmlFor="comments">
+              Comments<FieldRequired>*</FieldRequired>
+              {formik.values.comments !== '' && formik.errors.comments ? (
+                <ErrorText>{formik.errors.comments}</ErrorText>
+              ) : null}
+              </Label>
+              <InputTextArea
+                id="comments"
+                name="comments"
+                type="text"
+                maxLength="120"
+                rows={5}
+
+                onChange={formik.handleChange}
+                value={formik.values.comments}
+              ></InputTextArea>
+            </>
+             )}
+             {isFirstRegisterStep && (
+        <ButtonWrap>
+          <Button
+           onClick={closeButton}
+            type="button"
           >
-          </CloseButton>
+            Cancel
+          </Button>
+          <Button type="button"
+           onClick={moveNextRegistration}
+           disabled={disableNextButton}>
 
+            Next
+          </Button>
+        </ButtonWrap>
+        )}
 
+{!isFirstRegisterStep && (
+   <ButtonWrap>
+   <Button  onClick={moveNextRegistration} type="button">
+     Back
+   </Button>
+   <Button
+     type="submit"
+     disabled={!formik.isValid || isLoading}
+   >
+     Done
+   </Button>
+ </ButtonWrap>
+ )}
+      </Form>
         </FormWrapper>
       </ModalWrap>
     </WrapperContainer>
