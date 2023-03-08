@@ -87,12 +87,26 @@ export const ModalText = styled.p`
 `;
 
 export const Label = styled.label`
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 26px;
+display: flex;
+align-items: center;
+
+color: #000000;
   position: relative;
   cursor: pointer;
 
   @media ${device.tablet} {
     display: block;
+
   }
+`;
+
+export const Legend = styled(Label)`
+margin-top: 28px;
 `;
 
 export const FieldRadioWrap = styled.div`
@@ -157,14 +171,15 @@ width: 40px;
 height: 40px;
 margin-bottom: 12px;
 
+@media ${device.tablet} {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 40px;
+  }
+
 `;
 
-export const GenderFemale = styled.img`
-
-width: 40px;
-height: 40px;
-margin-bottom: 12px;
-
+export const GenderFemale = styled(GenderMale)`
 `;
 
 
@@ -243,6 +258,7 @@ export const ButtonWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column-reverse;
+  margin-top: 40px;
 
 
   @media ${device.tablet} {
@@ -299,30 +315,9 @@ export const Button = styled.button`
   }
 `;
 
-export const ButtonSecond = styled.button`
-width: 240px;
-height: 40px;
-font-weight: 500;
-font-size: 16px;
-line-height: 1.36;
-border: none;
-  padding: 6px 92px;
+export const ButtonSecond = styled(Button)`
   color: ${p => p.theme.fontColors.white};
   background-color: ${p => p.theme.backgrounds.buttonPrimary} ;
-  border-radius: 40px;
-  transition:  ${p => p.theme.transition.first} ;
-  @medis ${device.tablet} {
-    grid-column: 3;
-    padding: 8px 50px;
-    max-width: 180px;
-    height: 44px;
-  }
-
-  &:hover,
-  &:focus {
-    background-color: #FF6101;
-    border-color:#FF6101;
-  }
 
   &:disabled {
     background-color: ${p => p.theme.backgrounds.buttonPrimary};
@@ -330,6 +325,7 @@ border: none;
     cursor: default;
     filter: blur(2px);
   }
+
 `;
 
 
@@ -337,7 +333,11 @@ export const Input = styled.input`
   width: 240px;
   height: 40px;
   padding: 11px 60px 12px 14px;
-  margin: 8px 0px 16px 0px;
+  margin: 8px 0px 21px 0px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 
   color: ${p => p.theme.fontColors.inputTextColor};
   background-color: ${p => p.theme.backgrounds.input};
@@ -365,7 +365,7 @@ export const Input = styled.input`
     width: 448px;
     height: 48px;
     padding: 14px 70px 13px 16px;
-    margin: 10px 0px 16px 0px;
+    margin: 12px 0px 28px 0px;
 
     font-size: 16px;
     line-height: 1.62;
@@ -431,11 +431,7 @@ border-radius: 20px;
 @media screen and (min-width: 768px) {
   width: 140px;
   height: 140px;
-  margin: 8px 0px 16px 0px;
-}
-
-@media screen and (min-width: 1280px) {
-  margin: 8px 0px 18px 0px;
+  margin: 12px 0px 28px 0px;
 }
 
 `;
@@ -446,10 +442,6 @@ width: 48px;
 height: 48px;
 margin: auto auto;
 
-@media screen and (min-width: 768px) {
-  width: 140px;
-  height: 140px;
-}
 `;
 
 
@@ -494,7 +486,7 @@ overflow: hidden;
   width: 448px;
   height: 113px;
   padding: 16px 18px;
-  margin: 8px 0px 28px 0px;
+  margin: 12px 0px 0px 0px;
 
   font-size: 18px;
   line-height: 1.39em;
@@ -503,7 +495,22 @@ overflow: hidden;
 
 
 export const Title = styled.h3`
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 26px;
+/* identical to box height, or 110% */
+
+display: flex;
+align-items: center;
+
+color: #000000;
 margin-bottom: 18px;
+
+@media ${device.tablet} {
+  margin-bottom: 28px;
+}
 `;
 
 
@@ -548,7 +555,7 @@ top: 75px;
 left: 14px;
 width: 121px;
 
-@media ${device.desktop} {
+@media ${device.tablet} {
   top: 91px;
 
 
