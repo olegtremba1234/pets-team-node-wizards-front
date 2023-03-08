@@ -20,7 +20,7 @@ export default function NoticeCategoryItem({
   breed,
   location,
   birthday,
-  photoURL,
+  petPhotoURL,
   category,
 }) {
   function getAge(dateString) {
@@ -36,7 +36,7 @@ export default function NoticeCategoryItem({
   return (
     <Card>
       <ImageWrapper>
-        <Image src={photoURL} />
+        <Image src={petPhotoURL} />
         <HeartBtn>
           <AiOutlineHeart size="10x" color="#F59256" />
         </HeartBtn>
