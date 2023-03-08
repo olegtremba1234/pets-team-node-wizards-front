@@ -31,7 +31,7 @@ export const SectionLoginForm = styled.section`
       right 0 bottom 0, left 163px bottom 163px, left 24px bottom 256px;
   }
   @media ${device.desktop} {
-    min-height: calc(100vh - 125px);
+    min-height: calc(100vh - 144px);
     margin-top: 80px;
     background-image: url(${desktop_vector_1}), url(${desktop_vector_2}),
       url(${desktop_vector_3}), url(${tablet_vector_5}), url(${tablet_vector_6});

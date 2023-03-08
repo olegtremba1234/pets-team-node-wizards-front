@@ -6,6 +6,8 @@ import { ToastContainer } from 'react-toastify';
 import { refreshUser } from 'redux/auth/authOperations';
 import { useAuth } from 'hooks/useAuth';
 import { PublicRoute } from './PublicRoute/PublicRoute';
+import { PrivateRoute } from './PrivateRoute/PrivateRoute';
+import Spinner from './Spinner/Spinner';
 
 const Home = lazy(() => import('pages/Home'));
 const UserPage = lazy(() => import('pages/UserPage'));
@@ -25,13 +27,21 @@ export const App = () => {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <>Loading...</>
+    <Spinner />
   ) : (
     <>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
-          <Route path="user" element={<UserPage />} />
+          <Route
+            path="user"
+            element={
+              <PrivateRoute
+                component={UserPage}
+                redirectTo='/login'
+              />
+            }
+          />
           <Route
             path="register"
             element={
@@ -52,11 +62,25 @@ export const App = () => {
               />
             }
           />
-          <Route path="news" element={<NewsPage />} />
+          <Route
+            path="news"
+            element={
+              <PublicRoute
+                component={NewsPage}
+              />
+            }
+          />
           <Route path="notices" element={<NoticesPage />}>
             <Route path=":categoryName" element={<NoticesPage />} />
           </Route>
-          <Route path="friends" element={<OurFriendsPage />} />
+          <Route
+            path="friends"
+            element={
+              <PublicRoute
+                component={OurFriendsPage}
+              />
+            }
+          />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
