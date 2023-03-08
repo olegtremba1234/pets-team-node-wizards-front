@@ -18,6 +18,8 @@ export const StyledContainer = styled.main`
     background-size: 100% 1098px;
   }
   @media ${device.desktop} {
+    position: fixed;
+    bottom: 0;
     background-image: url(${mainBgImgDesktop});
     background-size: 100% 538px;
   }
@@ -38,7 +40,6 @@ export const HeroWrapper = styled.div`
   @media ${device.desktop} {
     width: 1280px;
     padding: 0 16px;
-    display: flex;
   }
 `;
 
@@ -52,9 +53,21 @@ export const HeroImg = styled.img`
   }
 
   @media ${device.desktop} {
-    position: static;
-    display: block;
+    bottom: 0;
+    right: 0;
     width: 590px;
+  }
+`;
+
+export const HeartSvg = styled.img`
+  display: none;
+
+  @media ${device.desktop} {
+    display: block;
+    position: absolute;
+    top: 170px;
+    left: 712px;
+    width: 90px;
   }
 `;
 
@@ -74,6 +87,8 @@ export const HeroTitle = styled.h1`
     line-height: 100px;
   }
   @media ${device.desktop} {
-    margin-top: 60px;
+    margin-top: 0px;
+    padding-top: 60px;
+    width: 588px;
   }
 `;
