@@ -3,6 +3,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
 export const fetchNews = async () => {
   const response = await axios('news');
+  console.log(response.data, 1);
   return response.data;
 };
 
@@ -13,6 +14,7 @@ export const fetchSearchNews = async query => {
 
 export const fetchOurFriends = async () => {
   const response = await axios('/friends');
+  console.log(response.data, 3);
   return response.data;
 };
 export const fetchAllNotices = async () => {
@@ -43,4 +45,18 @@ export const fetchUserNotices = async token => {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
+};
+
+export const fetchUser = async token => {
+  const res = await axios.get('/auth/current', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};
+
+export const fetchUserPets = async token => {
+  const res = await axios.get('/pets/current', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
 };
