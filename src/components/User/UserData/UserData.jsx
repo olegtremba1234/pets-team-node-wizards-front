@@ -1,8 +1,8 @@
 import Logout from '../Logaut/Logout';
 import UserDataItem from '../UserDataItem/UserDataItem';
-import { UserInfo, ImageUser, Button, ImageItem , DataItem} from './userData.styled';
+import { UserInfo, Button, ImageItem, DataItem } from './userData.styled';
 import { Icons } from '../Icons/Icons';
-import {  fetchUserPets } from 'services/apiService';
+import { fetchUserPets } from 'services/apiService';
 import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
 import { useEffect, useState } from 'react';
@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 
 
 const UserData = () => {
-  const defaultAvatar ='https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792__480.png';
+  // const defaultAvatar = 'https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792__480.png';
   const [userInfo, setUserInfo] = useState([]);
 
   const token = useSelector(selectToken);
@@ -27,10 +27,9 @@ const UserData = () => {
     userDataInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(userInfo);
 
   // const { id, name, email, birthday, city, phone,avatarUrl} = userInfo;
- 
+
 
   return (
     <UserInfo>

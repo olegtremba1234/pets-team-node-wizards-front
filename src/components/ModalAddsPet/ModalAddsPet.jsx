@@ -75,7 +75,6 @@ export default function ModalAddsPet() {
     e.preventDefault();
     const newPet = { name, birthDay, breed, avatarURL, comments };
     reset();
-    console.log('newPet >>>> ', newPet);
     return newPet;
   };
 

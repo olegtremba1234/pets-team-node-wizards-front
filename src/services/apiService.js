@@ -3,7 +3,6 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
 export const fetchNews = async () => {
   const response = await axios('news');
-  console.log(response.data, 1);
   return response.data;
 };
 
@@ -14,7 +13,6 @@ export const fetchSearchNews = async query => {
 
 export const fetchOurFriends = async () => {
   const response = await axios('/friends');
-  console.log(response.data, 3);
   return response.data;
 };
 export const fetchAllNotices = async () => {
