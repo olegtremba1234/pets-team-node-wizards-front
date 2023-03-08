@@ -9,7 +9,8 @@ import mainBgImgDesktop from '../../images/hero-images/vectors/vector-desktop.sv
 export const StyledContainer = styled.main`
   /* margin work with*/
   /* width: 100vh; */
-  margin: 0 auto;
+  /* margin: 0 auto; */
+
   background-color: ${theme.backgrounds.bodyPrimary};
   background-image: url(${mainBgImgMobile});
   background-size: 100% 470px;
@@ -23,6 +24,8 @@ export const StyledContainer = styled.main`
   @media ${device.desktop} {
     position: fixed;
     bottom: 0;
+    left: 0;
+    right: 0;
     background-image: url(${mainBgImgDesktop});
     background-size: 100% 538px;
   }
