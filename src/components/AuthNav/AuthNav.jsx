@@ -1,5 +1,5 @@
 import accountImage from '../../icons/account.svg';
-import { StyledLink, AccountLink, Ul } from './AuthNav.styled';
+import { StyledLink, AccountLink, Ul, LoginStyledLink } from './AuthNav.styled';
 import { useLocation } from 'react-router-dom';
 import { isLocationRegister } from 'helpers/getLocationPathname';
 import { useSelector } from 'react-redux';
@@ -21,17 +21,17 @@ export default function AuthNav({ closeMobile }) {
       ) : (
         <>
           <li>
-            <StyledLink
+            <LoginStyledLink
               to="/login"
               onClick={() => closeMobile(false)}
-              style={
+              mode={
                 isLocationReg
                   ? { color: '#111111', backgroundColor: '#ffffff' }
                   : { color: '#ffffff', backgroundColor: '#f59256' }
               }
             >
               Login
-            </StyledLink>
+            </LoginStyledLink>
           </li>
           <li>
             <StyledLink to="/register" onClick={() => closeMobile(false)}>
