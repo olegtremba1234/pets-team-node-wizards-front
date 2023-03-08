@@ -372,7 +372,7 @@ export const Input = styled.input`
   }
 
   @media ${device.desktop} {
-    margin: 10px 0px 18px 0px;
+    margin: 10px 0px 23px 0px;
   }
 `;
 
@@ -558,11 +558,18 @@ width: 121px;
 @media ${device.tablet} {
   top: 91px;
 
+  @media ${device.desktop} {
+    top: 82px;
+  }
 
   `;
 
   export const ErrorTextLocation = styled(ErrorText)`
-  width: 200px;
+  width: 222px;
+
+  @media ${device.desktop} {
+    top: 82px;
+  }
 
   `;
 
@@ -572,4 +579,9 @@ width: 121px;
 
   @media ${device.tablet} {
     top: 150px;
+  }
+
+  @media ${device.desktop} {
+    top: 150px;
+  }
   `;

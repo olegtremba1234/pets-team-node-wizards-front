@@ -51,12 +51,13 @@ const ModalAddNotice = ({ closeButton }) => {
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
   const [imagePreview, setImagePreview] = useState(null);
   const [disableNextButton, setDisableNextButton] = useState(true);
-  
+
   const moveNextRegistration = () => {
     isFirstRegisterStep
       ? setIsFirstRegisterStep(false)
       : setIsFirstRegisterStep(true);
   };
+
 
   const onImageChange = e => {
     if (e.currentTarget.files && e.currentTarget.files[0]) {
@@ -175,7 +176,6 @@ const ModalAddNotice = ({ closeButton }) => {
       : setDisableNextButton(true);
   }, [formik, disableNextButton]);
 
-console.log(formik.values.category)
   return (
     <WrapperContainer>
       <ModalWrap>
