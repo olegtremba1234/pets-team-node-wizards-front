@@ -41,9 +41,11 @@ import { toast } from 'react-toastify';
 import femaleImg from '../ModalAddNotice/images/female.png';
 import maleImg from '../ModalAddNotice/images/male.png';
 import addImg from '../ModalAddNotice/images/add.svg';
-import { addNotice } from 'services/apiService';
+import { addNotice } from 'redux/notices/noticeOperation';
+// import { addNotice } from 'services/apiService';
 import { selectIsLoading } from 'redux/notices/noticeSelector';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const ModalAddNotice = ({ closeButton }) => {
   const isLoading = useSelector(selectIsLoading);
@@ -80,6 +82,8 @@ const ModalAddNotice = ({ closeButton }) => {
       return true;
     }
   };
+
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -147,14 +151,12 @@ const ModalAddNotice = ({ closeButton }) => {
         .max(120, 'Comments is too long'),
     }),
     onSubmit: async () => {
-      await addNotice(formik.values)
-        .unwrap()
-        .then(() => {
-          toast.success('Ви успішно створили оголошення.');
-        })
-        .catch(() => {
-          toast.error('Не вдалось створити оголошення.');
-        });
+    try {
+      await dispatch(addNotice(formik.values)).unwrap();
+      toast.success('Ви успішно створили оголошення.');
+    } catch (error) {
+      toast.error('Не вдалось створити оголошення.');
+    }
       formik.resetForm();
       closeButton();
     },

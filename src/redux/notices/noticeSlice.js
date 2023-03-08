@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { addNotice } from './noticeOperation';
 
 const addNoticeSuccessReducer = (state, action) => {
-  state.items = action.payload;
+  state.notices = action.payload;
 
 };
 
@@ -19,7 +19,7 @@ const addNoticeRejectedReducer = (state, action) => {
 const noticesSlice = createSlice({
   name: 'notices',
   initialState: {
-    item: [],
+    notices: {},
     isLoading: false,
     error: null,
   },
