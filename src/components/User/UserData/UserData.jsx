@@ -14,7 +14,8 @@ import { useEffect, useState } from 'react';
 
 const UserData = () => {
   // const defaultAvatar = 'https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792__480.png';
-  const [userInfo, setUserInfo] = useState([]);
+  // const [userInfo, setUserInfo] = useState([]);
+  const [setUserInfo] = useState([]);
 
   const token = useSelector(selectToken);
 
@@ -28,7 +29,7 @@ const UserData = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const { id, name, email, birthday, city, phone,avatarUrl} = userInfo;
+  // const { id, name, email, birthday, city, phone, avatarUrl } = userInfo;
 
 
   return (
