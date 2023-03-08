@@ -7,7 +7,8 @@ import mainBgImgTablet from '../../images/hero-images/vectors/vector-tablet.svg'
 import mainBgImgDesktop from '../../images/hero-images/vectors/vector-desktop.svg';
 
 export const StyledContainer = styled.main`
-  /* margin doesen't work */
+  /* margin work with*/
+  /* width: 100vh; */
   margin: 0 auto;
   background-color: ${theme.backgrounds.bodyPrimary};
   background-image: url(${mainBgImgMobile});

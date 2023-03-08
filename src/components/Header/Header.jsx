@@ -8,7 +8,7 @@ export default function Header() {
     <HeaderEl>
       <Logo />
       <nav>
-        {/* <Nav /> */}
+        <Nav />
         {/* <AuthNav /> */}
       </nav>
     </HeaderEl>
