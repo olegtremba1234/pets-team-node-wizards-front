@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/pets-team-node-wizards-front/static/css/main.ca545de5.css",
-    "main.js": "/pets-team-node-wizards-front/static/js/main.81274262.js",
-    "static/js/415.1220a5d5.chunk.js": "/pets-team-node-wizards-front/static/js/415.1220a5d5.chunk.js",
+    "main.js": "/pets-team-node-wizards-front/static/js/main.1ed75253.js",
+    "static/js/936.7915be44.chunk.js": "/pets-team-node-wizards-front/static/js/936.7915be44.chunk.js",
     "static/js/262.0b48042c.chunk.js": "/pets-team-node-wizards-front/static/js/262.0b48042c.chunk.js",
     "static/js/736.2b87db31.chunk.js": "/pets-team-node-wizards-front/static/js/736.2b87db31.chunk.js",
     "static/js/940.f210560c.chunk.js": "/pets-team-node-wizards-front/static/js/940.f210560c.chunk.js",
@@ -15,6 +15,7 @@
     "static/js/925.62e302b6.chunk.js": "/pets-team-node-wizards-front/static/js/925.62e302b6.chunk.js",
     "static/js/667.b1ecde4e.chunk.js": "/pets-team-node-wizards-front/static/js/667.b1ecde4e.chunk.js",
     "static/js/426.90b08e76.chunk.js": "/pets-team-node-wizards-front/static/js/426.90b08e76.chunk.js",
+    "static/media/standart.png": "/pets-team-node-wizards-front/static/media/standart.7eb710668ee1cf42c777.png",
     "static/media/tablet_vector_2.png": "/pets-team-node-wizards-front/static/media/tablet_vector_2.05871790f88419184eb0.png",
     "static/media/desktop_vector_3.png": "/pets-team-node-wizards-front/static/media/desktop_vector_3.9eeb186a2442ed72e905.png",
     "static/media/desktop_vector_1.png": "/pets-team-node-wizards-front/static/media/desktop_vector_1.fd7ba10802a1dc685d8c.png",
@@ -24,14 +25,18 @@
     "static/media/tablet_vector_4.png": "/pets-team-node-wizards-front/static/media/tablet_vector_4.8d0dd5b9faa0ccccc10e.png",
     "static/media/register_bg_step1_mob.png": "/pets-team-node-wizards-front/static/media/register_bg_step1_mob.0f61ab901ee451630584.png",
     "static/media/register_bg_step2_mob.png": "/pets-team-node-wizards-front/static/media/register_bg_step2_mob.24566353893c90ded5cf.png",
+    "static/media/vector-desktop.svg": "/pets-team-node-wizards-front/static/media/vector-desktop.5fdbb7080cbe7f445fe7187c358250c9.svg",
     "static/media/default.svg": "/pets-team-node-wizards-front/static/media/default.451e396707bec78ccf98bd7c9c8371f6.svg",
+    "static/media/heart-svg-desctop.svg": "/pets-team-node-wizards-front/static/media/heart-svg-desctop.8a0b43e8a340f29cb2d815e5fb3d8b8c.svg",
+    "static/media/vector-mobile.svg": "/pets-team-node-wizards-front/static/media/vector-mobile.36febe300f40d4ef9e4cf73752a4926c.svg",
+    "static/media/vector-tablet.svg": "/pets-team-node-wizards-front/static/media/vector-tablet.4e26cbf50ac121bc16ab3146db7fe917.svg",
     "index.html": "/pets-team-node-wizards-front/index.html",
     "static/media/burgerMenu.svg": "/pets-team-node-wizards-front/static/media/burgerMenu.f6eea0fbe394c4ba6919de8d6e4fe0f3.svg",
     "static/media/searchIcon.svg": "/pets-team-node-wizards-front/static/media/searchIcon.0c99ea32df4ba8a74069ce68a2833430.svg",
     "static/media/x-circle.svg": "/pets-team-node-wizards-front/static/media/x-circle.8e44172cf3df32c550767c93f355945a.svg",
     "main.ca545de5.css.map": "/pets-team-node-wizards-front/static/css/main.ca545de5.css.map",
-    "main.81274262.js.map": "/pets-team-node-wizards-front/static/js/main.81274262.js.map",
-    "415.1220a5d5.chunk.js.map": "/pets-team-node-wizards-front/static/js/415.1220a5d5.chunk.js.map",
+    "main.1ed75253.js.map": "/pets-team-node-wizards-front/static/js/main.1ed75253.js.map",
+    "936.7915be44.chunk.js.map": "/pets-team-node-wizards-front/static/js/936.7915be44.chunk.js.map",
     "262.0b48042c.chunk.js.map": "/pets-team-node-wizards-front/static/js/262.0b48042c.chunk.js.map",
     "736.2b87db31.chunk.js.map": "/pets-team-node-wizards-front/static/js/736.2b87db31.chunk.js.map",
     "940.f210560c.chunk.js.map": "/pets-team-node-wizards-front/static/js/940.f210560c.chunk.js.map",
@@ -47,6 +52,6 @@
   },
   "entrypoints": [
     "static/css/main.ca545de5.css",
-    "static/js/main.81274262.js"
+    "static/js/main.1ed75253.js"
   ]
 }
