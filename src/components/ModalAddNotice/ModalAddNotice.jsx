@@ -42,14 +42,12 @@ import femaleImg from '../ModalAddNotice/images/female.png';
 import maleImg from '../ModalAddNotice/images/male.png';
 import addImg from '../ModalAddNotice/images/add.svg';
 import { addNotice } from 'redux/notices/noticeOperation';
-// import { addNotice } from 'services/apiService';
 import { selectIsLoading } from 'redux/notices/noticeSelector';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 const ModalAddNotice = ({ closeButton }) => {
   const isLoading = useSelector(selectIsLoading);
-
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
   const [imagePreview, setImagePreview] = useState(null);
   const [disableNextButton, setDisableNextButton] = useState(true);
@@ -61,12 +59,7 @@ const ModalAddNotice = ({ closeButton }) => {
   };
 
 
-  const onImageChange = e => {
-    if (e.currentTarget.files && e.currentTarget.files[0]) {
-      setImagePreview(URL.createObjectURL(e.target.files[0]));
-      formik.setFieldValue('petPhotoURL', e.currentTarget.files[0]);
-    }
-  };
+
 
   const cityInputValidation = value => {
     if (value) {
@@ -84,6 +77,7 @@ const ModalAddNotice = ({ closeButton }) => {
   };
 
   const dispatch = useDispatch();
+
 
   const formik = useFormik({
     initialValues: {
@@ -161,6 +155,22 @@ const ModalAddNotice = ({ closeButton }) => {
       closeButton();
     },
   });
+
+  const onImageChange = (e) => {
+    const [file] = e.currentTarget.files;
+    const reader = new FileReader();
+    if (file) {
+      setImagePreview('petPhotoURL', file);
+      reader.readAsDataURL(file);
+      reader.onloadend = e => {
+        const base64data = reader.result;
+        setImagePreview(base64data);
+        formik.initialValues(prevState => {
+          return { ...prevState, avatar: file };
+        });
+      };
+    }
+  };
 
   useEffect(() => {
     const firstStepPossibleErrors = [

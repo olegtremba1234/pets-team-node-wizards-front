@@ -46,13 +46,3 @@ export const fetchUserNotices = async token => {
   return response.data;
 };
 
-
-export const addNotice = async body => {
-  try {
-    const response = await axios.post('/notices/my-notices', body)
-    return response.data;
-  } catch(error) {
-    console.log(error)
-  }
-
-};
