@@ -8,8 +8,7 @@ export const fetchNews = async () => {
 };
 
 export const fetchSearchNews = async query => {
-  const response = await axios(`news/title?title=${query}`);
-  console.log(response.data, 2);
+  const response = await axios(`/news/search?title=${query}`, {});
   return response.data;
 };
 
@@ -18,12 +17,46 @@ export const fetchOurFriends = async () => {
   console.log(response.data, 3);
   return response.data;
 };
+export const fetchAllNotices = async () => {
+  const response = await axios.get('/notices');
+  return response.data;
+};
 
-// export const fetchUserInfo = async () => {
-//   try {
-//     const res = await axios.get('/auth/current');
-//     return res.data;
-//   } catch (error) {
-//     console.log('error', error);
-//   }
-// };
+export const fetchNoticesByQuery = async query => {
+  const response = await axios.get(`/notices?query=${query}`);
+
+  return response.data;
+};
+
+export const fetchNoticesByCategory = async query => {
+  const response = await axios.get(`/notices/by-category/${query}`);
+  return response.data;
+};
+
+export const fetchFavoriteNotices = async token => {
+  const response = await axios.get('/notices/my-favorites', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};
+
+export const fetchUserNotices = async token => {
+  const response = await axios.get('/notices/my-notices', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};
+
+export const fetchUser = async token => {
+  const res = await axios.get('/auth/current', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};
+
+export const fetchUserPets = async token => {
+  const res = await axios.get('/pets/current', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};

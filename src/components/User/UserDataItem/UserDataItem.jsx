@@ -3,7 +3,9 @@ import { Icons } from '../Icons/Icons';
 import { UserItem, InfoItem } from './UserDataItem.styled';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
-import { userSelector } from 'redux/user/userSelector';
+import { selectToken } from 'redux/auth/authSelectors';
+import { fetchUser } from 'services/apiService';
+// import { userSelector } from 'redux/user/userSelector';
 // import { fetchUserInfo } from 'services/apiService';
 
 const UserDataItem = () => {
@@ -12,6 +14,7 @@ const UserDataItem = () => {
   const [birthdayDisabled, setBirthdayDisabled] = useState(false);
   const [phoneDisabled, setPhoneDisabled] = useState(false);
   const [cityDisabled, setCityDisabled] = useState(false);
+  const [userInfo, setUserInfo] = useState('');
 
   const selectInput = (ev, diz) => {
     const id = ev.previousElementSibling.id;
@@ -19,6 +22,7 @@ const UserDataItem = () => {
     el.disabled = !el.diz;
     el.focus();
   };
+  const token = useSelector(selectToken);
 
   const handleClickEdit = ev => {
     const name = ev.previousElementSibling.name;
@@ -50,15 +54,18 @@ const UserDataItem = () => {
     }
   };
 
-  // const dataReq = async()=>{await}
+  const userDataInfo = async () => {
+    const info = await fetchUser(token).then(setUserInfo);
+    return info;
+  };
 
-  // useEffect(() => {
-  //   const 
-  // }, []);
-  // console.log(userInform);
-  console.log(useSelector(userSelector))
+  useEffect(() => {
+    userDataInfo();
 
-  const { name, email, birthday, city, phone } = useSelector(userSelector);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const { name, email, birthday, city, phone } = userInfo;
 
   // const handleSubmit =(e)=>{
   //     e.preventDefault();

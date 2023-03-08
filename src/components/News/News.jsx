@@ -64,6 +64,8 @@ const News = () => {
       : text;
   };
 
+
+
   return (
     <NewsWrap>
       <StyledContainer>
