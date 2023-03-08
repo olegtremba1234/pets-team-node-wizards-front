@@ -9,11 +9,11 @@ import { WrapperContainer, LabelLostFound, LabelFree, LabelSell, ModalWrap, Form
   InputTextArea,
   Title,
   GenderFemale,
+  ButtonSecond
 } from "./ModalAddNotice.styled";
 import { useState } from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import femaleImg from '../ModalAddNotice/images/female.svg';
@@ -29,12 +29,7 @@ const ModalAddNotice = ({closeButton}) => {
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
   const [imagePreview, setImagePreview] = useState(null);
   const [disableNextButton, setDisableNextButton] = useState(true);
-  const { pathname } = useLocation();
 
-  const categorySetByDefault = () => {
-    const enterPoint = pathname.split('/').pop();
-    return enterPoint === 'category' ? 'sell' : enterPoint;
-  };
 
   const moveNextRegistration = () => {
     isFirstRegisterStep
@@ -84,14 +79,14 @@ const cityInputValidation = value => {
 
   const formik = useFormik({
     initialValues: {
-      category: categorySetByDefault(),
+      category: 'sell',
       title: '',
       name: '',
       birthday: `${new Date().toISOString().split('T')[0]}`,
       breed: '',
       sex: 'male',
       location: '',
-      price: 1,
+      price: '',
       image: '',
       comments: '',
     },
@@ -135,10 +130,10 @@ const cityInputValidation = value => {
       .required('Enter your location'),
       sex: Yup.string().required('Select gender'),
       price: Yup.string().when('category', {
-        is: category => category === 'sell',
-        then: Yup.string()
-          .required('Enter the price')
-          .matches(/^[0-9][0-9]*$/, 'only numbers'),
+        is: (category) => category === 'sell',
+        then: () => Yup.string()
+          .matches(/^[0-9][0-9]*$/, 'only number')
+          .required('Enter a price')
       }),
       comments: Yup.string()
         .trim()
@@ -178,6 +173,7 @@ const cityInputValidation = value => {
   }, [formik, disableNextButton]);
 
 
+  console.log(formik.values.sex)
   return (
     <WrapperContainer>
       <ModalWrap>
@@ -194,12 +190,12 @@ const cityInputValidation = value => {
             <InputRadio
               type="radio"
               name="category"
-              id="lost-found"
+              id="LostFound"
               value="lost-found"
               onChange={formik.handleChange}
               checked={formik.values.category === 'lost-found'}
             />
-            <LabelLostFound htmlFor="lost-found">
+            <LabelLostFound htmlFor="LostFound">
             lost/found
           </LabelLostFound>
 
@@ -207,12 +203,12 @@ const cityInputValidation = value => {
             <InputRadio
               type="radio"
               name="category"
-              id="for-free"
+              id="inGoodHands"
               value="for-free"
               onChange={formik.handleChange}
               checked={formik.values.category === 'for-free'}
             />
-                <LabelFree htmlFor="for-free">
+                <LabelFree htmlFor="inGoodHands">
                 in good hands
           </LabelFree>
 
@@ -350,7 +346,7 @@ const cityInputValidation = value => {
 
 {formik.values.category === 'sell' ? (
               <>
-              <Label htmlFor="price">
+              <Label htmlFor="pricePet">
                 Price<FieldRequired>*</FieldRequired>
                 {formik.values.price !== '' && formik.errors.price ? (
                     <ErrorText>{formik.errors.price}</ErrorText>
@@ -358,7 +354,7 @@ const cityInputValidation = value => {
                   </Label>
                 <Input
                   type="number"
-                  id="price"
+                  id="pricePet"
                   placeholder="Type price"
                   name="price"
                   onChange={formik.handleChange}
@@ -418,12 +414,12 @@ const cityInputValidation = value => {
           >
             Cancel
           </Button>
-          <Button type="button"
+          <ButtonSecond type="button"
            onClick={moveNextRegistration}
            disabled={disableNextButton}>
 
             Next
-          </Button>
+          </ButtonSecond>
         </ButtonWrap>
         )}
 
@@ -432,12 +428,12 @@ const cityInputValidation = value => {
    <Button  onClick={moveNextRegistration} type="button">
      Back
    </Button>
-   <Button
+   <ButtonSecond
      type="submit"
      disabled={!formik.isValid || isLoading}
    >
      Done
-   </Button>
+   </ButtonSecond>
  </ButtonWrap>
  )}
       </Form>

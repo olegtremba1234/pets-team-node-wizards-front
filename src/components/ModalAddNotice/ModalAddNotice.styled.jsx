@@ -168,19 +168,50 @@ margin-bottom: 12px;
 `;
 
 
+export const GenderLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Manrope';
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.44;
+  color: $secondaryTextColor;
+  cursor: pointer;
+
+  &:not(:last-of-type) {
+    margin-right: 42px;
+  }
+
+
+
+
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+    line-height: 1.3;
+
+    &:not(:last-of-type) {
+      margin-right: 80px;
+      align-items: flex-start;
+    }
+  }
+
+`;
 
 export const InputRadio = styled.input`
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+opacity: 0;
+position: absolute;
+z-index: -1;
 
   &:checked + ${LabelLostFound} {
     color: ${p => p.theme.fontColors.white};;
     background-color:  ${p => p.theme.backgrounds.buttonPrimary} ;
   }
 
+
+  &:checked + ${GenderLabel} {
+    color: ${p => p.theme.fontColors.buttonSecondary};
+  }
 
 `;
 
@@ -243,11 +274,12 @@ export const Button = styled.button`
     margin-top: 12px;
   }
 
-    &:hover {
-      background-color: #e7884d;
-      color: white;
-    }
+  &:hover,
+  &:focus {
+    background-color: #FF6101;
+    border-color:#FF6101;
   }
+
 
   @media ${device.tablet} {
     width: 180px;
@@ -264,6 +296,39 @@ export const Button = styled.button`
     &:not(:last-of-type) {
       margin-top: 0px;
     }
+  }
+`;
+
+export const ButtonSecond = styled.button`
+width: 240px;
+height: 40px;
+font-weight: 500;
+font-size: 16px;
+line-height: 1.36;
+border: none;
+  padding: 6px 92px;
+  color: ${p => p.theme.fontColors.white};
+  background-color: ${p => p.theme.backgrounds.buttonPrimary} ;
+  border-radius: 40px;
+  transition:  ${p => p.theme.transition.first} ;
+  @medis ${device.tablet} {
+    grid-column: 3;
+    padding: 8px 50px;
+    max-width: 180px;
+    height: 44px;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: #FF6101;
+    border-color:#FF6101;
+  }
+
+  &:disabled {
+    background-color: ${p => p.theme.backgrounds.buttonPrimary};
+    border-color: #FF6101;
+    cursor: default;
+    filter: blur(2px);
   }
 `;
 
@@ -331,38 +396,6 @@ justify-content: flex-start;
 `;
 
 
-export const GenderLabel = styled.label`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Manrope';
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 1.44;
-  color: $secondaryTextColor;
-  cursor: pointer;
-
-  &:not(:last-of-type) {
-    margin-right: 42px;
-  }
-
-  &:hover,
-  &:focus {
-    color: ${p => p.theme.fontColors.buttonSecondary};
-  }
-
-
-  @media screen and (min-width: 768px) {
-    font-size: 20px;
-    line-height: 1.3;
-
-    &:not(:last-of-type) {
-      margin-right: 80px;
-      align-items: flex-start;
-    }
-  }
-
-`;
 
 export const FieldWrap = styled.div`
 position: relative;
