@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { FaUserCircle } from 'react-icons/fa';
 
 export const StyledLink = styled(NavLink)`
   text-decoration: none;
@@ -34,6 +35,7 @@ export const AccountLink = styled(StyledLink)`
   background-color: ${p => p.theme.backgrounds.buttonPrimary};
   color: ${p => p.theme.fontColors.white};
   display: flex;
+  align-items: center;
   gap: 12px;
   width: fit-content;
   margin: 0 auto;
@@ -62,4 +64,13 @@ export const Ul = styled.ul`
 export const LoginStyledLink = styled(StyledLink)`
   background-color: ${props => props.mode.backgroundColor};
   color: ${props => props.mode.color};
+`;
+
+export const AccountIcon = styled(FaUserCircle)`
+  width: 20px;
+  height: 20px;
+  @media (min-width: 768px) {
+    width: 28px;
+    height: 28px;
+  }
 `;
