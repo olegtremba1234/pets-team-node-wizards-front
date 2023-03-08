@@ -15,22 +15,35 @@ import {
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
 
-export default function NoticeCategoryItem() {
+export default function NoticeCategoryItem({
+  title,
+  breed,
+  location,
+  birthday,
+  photoURL,
+  category,
+}) {
+  function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
   return (
     <Card>
       <ImageWrapper>
-        <Image
-          src={
-            ' https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
-          }
-        />
+        <Image src={photoURL} />
         <HeartBtn>
           <AiOutlineHeart size="10x" color="#F59256" />
         </HeartBtn>
-        <CategoryInfo>In good hands</CategoryInfo>
+        <CategoryInfo>{category}</CategoryInfo>
       </ImageWrapper>
       <InfoWrapper>
-        <Title>Сute dog looking for a home</Title>
+        <Title>{title}</Title>
         <DescriptionWrapper>
           <DescriptionList>
             <li>Breed:</li>
@@ -38,9 +51,9 @@ export default function NoticeCategoryItem() {
             <li>Age:</li>
           </DescriptionList>
           <DescriptionInfo>
-            <li>Pomeranian</li>
-            <li>Lviv</li>
-            <li>one year</li>
+            <li>{breed}</li>
+            <li>{location}</li>
+            <li>{birthday && getAge(birthday)}</li>
           </DescriptionInfo>
         </DescriptionWrapper>
         <LearnMoneBtn>Learn more</LearnMoneBtn>

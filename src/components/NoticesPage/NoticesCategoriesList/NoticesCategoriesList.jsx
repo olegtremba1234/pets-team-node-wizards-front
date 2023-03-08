@@ -1,20 +1,23 @@
 import NoticeCategoryItem from '../NoticeCategoryItem/NoticeCategoryItem';
 import { NoticeList } from './NoticesCategoriesList.styled';
 
-export default function NoticesCategoriesList() {
+export default function NoticesCategoriesList({ notices }) {
   return (
     <NoticeList>
-      <NoticeCategoryItem />
-      <NoticeCategoryItem />
-      <NoticeCategoryItem />
-      <NoticeCategoryItem />
-      <NoticeCategoryItem />
-      <NoticeCategoryItem />
-      <NoticeCategoryItem />
-      <NoticeCategoryItem />
-      <NoticeCategoryItem />
-      <NoticeCategoryItem />
-      <NoticeCategoryItem />
+      {notices &&
+        notices.map(
+          ({ title, breed, location, birthday, photoURL, category, id }) => (
+            <NoticeCategoryItem
+              key={id}
+              title={title}
+              breed={breed}
+              location={location}
+              birthday={birthday}
+              photoURL={photoURL}
+              category={category}
+            />
+          )
+        )}
     </NoticeList>
   );
 }
