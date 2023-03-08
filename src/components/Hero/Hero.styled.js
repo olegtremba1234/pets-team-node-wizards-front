@@ -7,6 +7,8 @@ import mainBgImgTablet from '../../images/hero-images/vectors/vector-tablet.svg'
 import mainBgImgDesktop from '../../images/hero-images/vectors/vector-desktop.svg';
 
 export const StyledContainer = styled.main`
+  /* margin doesen't work */
+  margin: 0 auto;
   background-color: ${theme.backgrounds.bodyPrimary};
   background-image: url(${mainBgImgMobile});
   background-size: 100% 470px;
@@ -65,8 +67,8 @@ export const HeartSvg = styled.img`
   @media ${device.desktop} {
     display: block;
     position: absolute;
-    top: 170px;
-    left: 712px;
+    top: 17%;
+    left: 57%;
     width: 90px;
   }
 `;
