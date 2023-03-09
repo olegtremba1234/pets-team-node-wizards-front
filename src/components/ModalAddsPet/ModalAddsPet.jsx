@@ -19,7 +19,10 @@ import {
   Overlay,
   Textarea,
 } from './ModalAddsPet.styled';
+import {Icons}from "../User/Icons/Icons"
 import { GrClose } from 'react-icons/gr';
+import { ButtonBack } from 'components/User/PetsData/PetsData.styled';
+
 
 export default function ModalAddsPet({ children }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -104,7 +107,7 @@ export default function ModalAddsPet({ children }) {
   const handlePick = () => {
     filePicker.current.click();
   };
-  
+
   const delAvatarChoice = () => {
     setAvatar(null);
   };
@@ -130,6 +133,9 @@ export default function ModalAddsPet({ children }) {
     <>
       <ButtonIcon className="modal-open-btn" onClick={toggleModal}>
         Add pet
+        <ButtonBack>
+          <Icons id="icon-user_plus" />
+        </ButtonBack>
       </ButtonIcon>
       {children}
       {isModalOpen && (

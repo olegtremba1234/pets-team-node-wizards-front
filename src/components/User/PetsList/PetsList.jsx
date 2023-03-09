@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
-// import { userSelector } from 'redux/user/userSelector';
 import { fetchUserPets, fetchPetsDelete } from 'services/apiService';
 import { Icons } from '../Icons/Icons';
 import {
