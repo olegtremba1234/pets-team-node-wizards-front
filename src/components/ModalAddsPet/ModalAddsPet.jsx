@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { postNewPet } from 'services/apiService';
 // import Plus from '../../icons/plus.svg';
 import {
   AvatarWrapper,
   BtnMain,
   BtnWrapper,
+  ButtonIcon,
   CloseBtn,
   Input,
   InputAvatar,
@@ -17,13 +19,13 @@ import {
   Textarea,
 } from './ModalAddsPet.styled';
 
-export default function ModalAddsPet() {
+export default function ModalAddsPet({ children }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOnStepOne, setIsModalOnStepOne] = useState(true);
   const [name, setName] = useState('');
   const [birthDay, setBirthDay] = useState('');
   const [breed, setBreed] = useState('');
-  const [avatarURL, setAvatarURL] = useState('');
+  // const [avatar, setAvatar] = useState('');
   const [comments, setComments] = useState('');
   useEffect(() => {
     const escapeModal = event => {
@@ -63,9 +65,9 @@ export default function ModalAddsPet() {
     if (e.currentTarget.name === 'breed') {
       setBreed(e.currentTarget.value);
     }
-    if (e.currentTarget.name === 'avatar') {
-      setAvatarURL(e.currentTarget.value);
-    }
+    // if (e.currentTarget.name === 'avatar') {
+    //   setAvatar(e.currentTarget.value);
+    // }
     if (e.currentTarget.name === 'comments') {
       setComments(e.currentTarget.value);
     }
@@ -73,7 +75,8 @@ export default function ModalAddsPet() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const newPet = { name, birthDay, breed, avatarURL, comments };
+    const newPet = { name, birthDay, breed, comments };
+    postNewPet(newPet);
     reset();
     return newPet;
   };
@@ -82,16 +85,17 @@ export default function ModalAddsPet() {
     setName('');
     setBirthDay('');
     setBreed('');
-    setAvatarURL('');
+    // setAvatar('');
     setComments('');
     setIsModalOpen(false);
   };
 
   return (
     <>
-      <button className="modal-open-btn" onClick={toggleModal}>
-        Open
-      </button>
+      <ButtonIcon className="modal-open-btn" onClick={toggleModal}>
+        Add pet
+      </ButtonIcon>
+      {children}
       {isModalOpen && (
         <Modal>
           <Overlay onClick={handleClose} />
@@ -105,6 +109,7 @@ export default function ModalAddsPet() {
                     type="text"
                     name="name"
                     placeholder="Type name pet"
+                    value={name}
                     onChange={handleChange}
                   />
                 </Label>
@@ -114,6 +119,7 @@ export default function ModalAddsPet() {
                     type="text"
                     name="birthDay"
                     placeholder="Type date of birth"
+                    value={birthDay}
                     onChange={handleChange}
                   />
                 </Label>
@@ -123,6 +129,7 @@ export default function ModalAddsPet() {
                     type="text"
                     name="breed"
                     placeholder="Type breed"
+                    value={breed}
                     onChange={handleChange}
                   />
                 </Label>
@@ -153,10 +160,10 @@ export default function ModalAddsPet() {
                     Add photo and some comments
                   </LabelAvatar>
                   <InputAvatar
-                    type="text"
+                    type="file"
                     name="avatar"
                     id="avatar"
-                    onChange={handleChange}
+                    // onChange={handleChange}
                   />
                   {/* <img src={Plus} alt="frame" /> */}
                 </AvatarWrapper>
@@ -166,6 +173,7 @@ export default function ModalAddsPet() {
                     type="text"
                     name="comments"
                     placeholder="Type comments"
+                    value={comments}
                     onChange={handleChange}
                   />
                 </Label>
