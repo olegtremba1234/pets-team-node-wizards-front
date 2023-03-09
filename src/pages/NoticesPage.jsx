@@ -16,6 +16,10 @@ import SearchNotices from 'components/NoticesPage/NoticesSearch/SearchNotices';
 import { ScrollUpButton, scrollTopPage } from 'components/ScrollUpButton';
 import { SlArrowUp } from 'react-icons/sl';
 import AddNoticeButton from 'components/NoticesPage/AddNoticeButton/AddNoticeButton';
+import {
+  StyledNoticesPageContainer,
+  StyledTitle,
+} from 'components/NoticesPage/Categories/Categories.styled';
 
 const PAGE_SCROLL_DOWN = 100;
 
@@ -42,50 +46,55 @@ export default function NoticesPage() {
     setQuery(result);
   };
 
-  useEffect(() => {
-    const Interaction_With_API = async () => {
-      if (query && !categoryName) {
-        const result = await fetchNoticesByQuery(query);
-        setNotices(result);
-        setQuery('');
-        return;
-      }
-
-      if (!categoryName) {
-        const result = await fetchAllNotices();
-        setNotices(result);
-        return;
-      }
-      if (categoryName && query) {
-        const result = await fetchNoticesByCategoryAndQuery(
-          query,
-          categoryName,
-          token
-        );
-        setNotices(result);
-        setQuery('');
-        return;
-      }
-
-      if (categoryName === 'favorite-ads') {
-        const result = await fetchFavoriteNotices(token);
-        setNotices(result);
-        return;
-      }
-      if (categoryName === 'my-ads') {
-        const result = await fetchUserNotices(token);
-        setNotices(result);
-        return;
-      }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const Interaction_With_API = async () => {
+    if (!categoryName && !query.length) {
+      const result = await fetchAllNotices();
+      setNotices(result);
+      return;
+    }
+    if (query.length && !categoryName) {
+      const result = await fetchNoticesByQuery(query);
+      setNotices(result);
+      return;
+    }
+    if (categoryName === 'favorite-ads') {
+      const result = await fetchFavoriteNotices(token);
+      setNotices(result);
+      return;
+    }
+    if (categoryName === 'my-ads') {
+      const result = await fetchUserNotices(token);
+      setNotices(result);
+      return;
+    }
+    if (!query.length && categoryName) {
       const result = await fetchNoticesByCategory(categoryName);
       setNotices(result);
-    };
+      return;
+    }
+    if (categoryName && query.length) {
+      const result = await fetchNoticesByCategoryAndQuery(
+        query,
+        categoryName,
+        token
+      );
+      setNotices(result);
+      return;
+    }
+  };
+
+  useEffect(() => {
     Interaction_With_API();
+    if (query.length) {
+      setQuery('');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryName, token, query]);
   const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
   return (
     <>
-    <AddNoticeButton/>
+      <AddNoticeButton />
       <SearchNotices onSubmit={onHandleSubmit} />
       <Categories />
       <NoticesCategoriesList notices={notices} />
@@ -94,6 +103,17 @@ export default function NoticesPage() {
           <SlArrowUp />
         </ScrollUpButton>
       )}
+      <StyledNoticesPageContainer>
+        <StyledTitle>Find your favorite pet</StyledTitle>
+        <SearchNotices onSubmit={onHandleSubmit} />
+        <Categories />
+        <NoticesCategoriesList notices={notices} />
+        {isShowButtonTop && (
+          <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
+            <SlArrowUp />
+          </ScrollUpButton>
+        )}
+      </StyledNoticesPageContainer>
     </>
   );
 }
