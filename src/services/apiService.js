@@ -21,7 +21,7 @@ export const fetchAllNotices = async () => {
 };
 
 export const fetchNoticesByQuery = async query => {
-  const response = await axios.get(`/notices?query=${query}`);
+  const response = await axios.get(`/notices?search=${query}`);
 
   return response.data;
 };
@@ -45,6 +45,28 @@ export const fetchUserNotices = async token => {
   return response.data;
 };
 
+export const fetchNoticesByCategoryAndQuery = async (
+  query,
+  category,
+  token
+) => {
+  if (token && category === 'my-ads') {
+    const response = await axios.get(`/notices/my-notices?search=${query}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }
+  if (token && category === 'favorite-ads') {
+    const response = await axios.get(`/notices/my-favorites?search=${query}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }
+  const response = await axios.get(
+    `/notices/by-category/${category}?search=${query}`
+  );
+  return response.data;
+};
 export const fetchUser = async token => {
   const res = await axios.get('/auth/current', {
     headers: { Authorization: `Bearer ${token}` },
@@ -73,7 +95,7 @@ export const postNewPet = async data => {
   const res = await axios
     .post('/pets', formData, {
       headers: {
-        "Content-Type": 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
       },
     })
     .then(({ data }) => console.log(data));
