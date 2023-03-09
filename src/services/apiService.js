@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
-
 export const fetchNews = async () => {
   const response = await axios('news');
   return response.data;
@@ -44,4 +43,61 @@ export const fetchUserNotices = async token => {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
+};
+
+export const fetchNoticesByCategoryAndQuery = async (
+  query,
+  category,
+  token
+) => {
+  if (token && category === 'my-ads') {
+    const response = await axios.get(`/notices/my-notices?search=${query}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }
+  if (token && category === 'favorite-ads') {
+    const response = await axios.get(`/notices/my-favorites?search=${query}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }
+  const response = await axios.get(
+    `/notices/by-category/${category}?search=${query}`
+  );
+  return response.data;
+};
+export const fetchUser = async token => {
+  const res = await axios.get('/auth/current', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};
+
+export const fetchUserPets = async token => {
+  const res = await axios.get('/pets/current', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};
+
+export const postNewPet = async data => {
+  const { name, birthDay, breed, comments } = data;
+  const avatar = document.querySelector('#avatar');
+  const formData = new FormData();
+
+  formData.append('avatar', avatar.files[0]);
+  formData.append('name', name);
+  formData.append('birthDay', birthDay);
+  formData.append('breed', breed);
+  formData.append('comments', comments);
+
+  const res = await axios
+    .post('/pets', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then(({ data }) => console.log(data));
+  return res;
 };
