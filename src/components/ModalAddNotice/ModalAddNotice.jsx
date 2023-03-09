@@ -49,7 +49,6 @@ import { useDispatch } from 'react-redux';
 const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
   const isLoading = useSelector(selectIsLoading);
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
-  // const [petPhotoURL, setPetPhotoUrl] = useState(null);
   const [disableNextButton, setDisableNextButton] = useState(true);
 
   const dispatch = useDispatch();

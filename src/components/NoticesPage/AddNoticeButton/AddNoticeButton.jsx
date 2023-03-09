@@ -6,24 +6,23 @@ import ModalAddNotice from 'components/ModalAddNotice/ModalAddNotice';
 export default function AddNoticeButton() {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
-  const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] =
+    useState(false);
   useEffect(() => {
-    if (isModalAddTransactionOpen) {
+    if (isModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'visible';
     }
-  }, [isModalAddTransactionOpen]);
+  }, [isModalOpen]);
 
   const handleOpenModal = () => {
-    setIsModalAddTransactionOpen(true);
-    
+    setIsModalOpen(true);
   };
 
   const handleClickClose = () => {
-    setIsModalAddTransactionOpen(false);
-    console.log("click")
-
+    setIsModalOpen(false);
+    console.log('click');
   };
 
   const handleBackdrop = e => {
@@ -46,19 +45,19 @@ export default function AddNoticeButton() {
   }, []);
   return (
     <>
-      {isModalAddTransactionOpen && (
+      {isModalOpen && (
         <ModalAddNotice
           onClose={handleClickClose}
           onClickBackdrop={handleBackdrop}
         />
       )}
       {isMobile ? (
-        <Button  onClick={handleOpenModal}>
+        <Button onClick={handleOpenModal}>
           <Span>+</Span>
           Add pet
         </Button>
       ) : (
-        <Button  onClick={handleOpenModal}>
+        <Button onClick={handleOpenModal}>
           Add pet<Span>+</Span>
         </Button>
       )}
