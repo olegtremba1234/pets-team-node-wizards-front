@@ -60,3 +60,27 @@ export const fetchUserPets = async token => {
   });
   return res.data;
 };
+
+export const fetchUserAvatar = async (form, token) => {
+  try {
+    return await axios({
+      method: 'pat',
+      url: '/auth/avatar',
+      body: form,
+      baseURL:'https://node-wizards-backend.onrender.com/api',
+      headers: { Authorization: `Bearer ${token}` },
+      'Content-Type': 'multipart/form-data',
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+export const fetchPetsDelete = async (token, _id) => {
+  
+  const res = await axios.delete(`/api/pets/:${_id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};

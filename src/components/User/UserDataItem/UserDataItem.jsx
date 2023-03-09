@@ -4,7 +4,8 @@ import { UserItem, InfoItem } from './UserDataItem.styled';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
-import { fetchUser, fetchUserPets } from 'services/apiService';
+import { fetchUser } from 'services/apiService';
+
 // import { userSelector } from 'redux/user/userSelector';
 // import { fetchUserInfo } from 'services/apiService';
 
@@ -72,7 +73,7 @@ const UserDataItem = () => {
 
   return (
     <UserItem>
-      <li className="userInfoItem">
+      <li className="userInfoItem" key={nanoid()}>
         <p className="userInfoName">Name:</p>
         <div className="inputSpace">
           <InfoItem
@@ -99,7 +100,7 @@ const UserDataItem = () => {
         </div>
       </li>
 
-      <li className="userInfoItem">
+      <li className="userInfoItem"  key={nanoid()}>
         <p className="userInfoName">Email:</p>
         <div className="inputSpace">
           <InfoItem
@@ -127,7 +128,7 @@ const UserDataItem = () => {
         </div>
       </li>
 
-      <li className="userInfoItem">
+      <li className="userInfoItem"  key={nanoid()}>
         <p className="userInfoName">Birthday:</p>
         <div className="inputSpace">
           <InfoItem
@@ -154,7 +155,7 @@ const UserDataItem = () => {
         </div>
       </li>
 
-      <li className="userInfoItem">
+      <li className="userInfoItem"  key={nanoid()}>
         <p className="userInfoName">Phone:</p>
         <div className="inputSpace">
           <InfoItem
