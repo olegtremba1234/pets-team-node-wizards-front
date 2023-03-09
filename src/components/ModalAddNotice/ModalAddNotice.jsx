@@ -31,7 +31,7 @@ import {
   ButtonSecond,
   CloseButton,
   Legend,
-  ErrorTextComment
+  ErrorTextComment,
 } from './ModalAddNotice.styled';
 import { useState } from 'react';
 import { useFormik } from 'formik';
@@ -46,11 +46,10 @@ import { selectIsLoading } from 'redux/notices/noticeSelector';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-const ModalAddNotice = ({ closeButton }) => {
+const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
   const isLoading = useSelector(selectIsLoading);
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
-  // const [imagePreview, setImagePreview] = useState(null);
-  const [petPhotoURL, setPetPhotoUrl] = useState('')
+  // const [petPhotoURL, setPetPhotoUrl] = useState(null);
   const [disableNextButton, setDisableNextButton] = useState(true);
 
   const dispatch = useDispatch();
@@ -87,8 +86,7 @@ const ModalAddNotice = ({ closeButton }) => {
       breed: '',
       sex: 'male',
       location: '',
-      price: '',
-      petPhotoURL: '',
+      price: '0',
       comments: '',
     },
     validationSchema: Yup.object().shape({
@@ -127,8 +125,7 @@ const ModalAddNotice = ({ closeButton }) => {
           'locationFormat',
           'Format should be "city, region"',
           cityInputValidation
-        )
-        .required('Enter your location'),
+        ).required('Enter your location'),
       sex: Yup.string().required('Select gender'),
       price: Yup.string().when('category', {
         is: category => category.includes('sell'),
@@ -151,47 +148,44 @@ const ModalAddNotice = ({ closeButton }) => {
       toast.error('Не вдалось створити оголошення.');
     }
       formik.resetForm();
-      closeButton();
+      onClose();
     },
   });
 
 
-  const formDataAppender = () => {
+  // const formDataAppender = () => {
+  //   const petPhotoUrl = document.querySelector('#petPhotoUrl');;
+  //   const formData = new FormData();
+  //   formData.append("petPhotoUrl", petPhotoUrl.files[0]);
+  //   formData.append("category", formik.values.category);
+  //   formData.append("title", formik.values.title);
+  //   formData.append("name", formik.values.name);
+  //   formData.append("birthday", formik.values.birthday);
+  //   formData.append("breed", formik.values.breed);
+  //   formData.append("location", formik.values.location);
+  //   formData.append("price", formik.values.price);
+  //   formData.append("sex", formik.values.sex);
+  //   formData.append("comments", formik.values.comments);
+  //   console.log(formData)
+  // };
+
+  const formDataAppender = fields => {
+    const petImage = document.querySelector('#pet-image');
     const formData = new FormData();
-    formData.append("petPhotoUrl", petPhotoURL);
-    formData.append("category", formik.values.category);
-    formData.append("title", formik.values.title);
-    formData.append("name", formik.values.name);
-    formData.append("birthday", formik.values.birthday);
-    formData.append("breed", formik.values.breed);
-    formData.append("location", formik.values.location);
-    formData.append("price", formik.values.price);
-    formData.append("sex", formik.values.sex);
-    formData.append("comments", formik.values.comments);
+    formData.append('pet-image', petImage.files[0]);
+    const entriesForAppend = Object.entries(fields).reduce(
+      (acc, [key, value]) => {
+        acc[key] = value;
+        return acc;
+      },
+      []
+    );
+    Object.entries(entriesForAppend).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
     console.log(formData)
     return formData;
   };
-
-
-  const onImageChange = (e) => {
-    const file = e.currentTarget.files[0];
-    const reader = new FileReader();
-    if (file) {
-      formik.setFieldValue('petPhotoUrl', file);
-      console.log(formik.setFieldValue('petPhotoUrl', file))
-      reader.readAsDataURL(file);
-      reader.onloadend = e => {
-        const base64data = reader.result;
-        console.log(base64data)
-        setPetPhotoUrl(base64data)
-        console.log(setPetPhotoUrl (base64data))
-        formik.setFormikState(prevState => {
-          return { ...prevState, petPhotoURL: file };
-        });
-        };
-      };
-      };
-
 
   useEffect(() => {
     const firstStepPossibleErrors = [
@@ -210,8 +204,8 @@ const ModalAddNotice = ({ closeButton }) => {
   }, [formik, disableNextButton]);
 
   return (
-    <WrapperContainer>
-      <ModalWrap>
+    <WrapperContainer onClick={onClickBackdrop}>
+      <ModalWrap >
         <FormWrapper>
           <ModalTitle>Add pet</ModalTitle>
           <Form onSubmit={formik.handleSubmit}>
@@ -388,6 +382,7 @@ const ModalAddNotice = ({ closeButton }) => {
                       name="price"
                       onChange={formik.handleChange}
                       value={formik.values.price}
+                      onFocus={(e) => e.target.value = ''}
                     />
                   </>
                 ) : null}
@@ -396,25 +391,14 @@ const ModalAddNotice = ({ closeButton }) => {
                   <Legend>
                   Load the pet's image
                   </Legend>
-                  {formik.values.petPhotoURL === '' ? (
-                    <AvatarLabel htmlFor="petPhotoURL">
+                    <AvatarLabel htmlFor="pet-image">
                       <SelectedImage alt="add" src={addImg} />
                       <FileInput
-                        id="petPhotoURL"
-                        name="petPhotoURL"
+                        id="pet-image"
+                        name="pet-image"
                         type="file"
-                        accept="image/png, image/gif, image/jpeg, image/jpg"
-                        onChange={e => {
-                          formik.handleChange(e);
-                          onImageChange(e);
-                        }}
                       />
                     </AvatarLabel>
-                  ) : (
-                    <div>
-                      <img alt="pet" src={petPhotoURL} />
-                    </div>
-                  )}
                 </fieldset>
 
                 <Label htmlFor="comments">
@@ -436,7 +420,7 @@ const ModalAddNotice = ({ closeButton }) => {
             )}
             {isFirstRegisterStep && (
               <ButtonWrap>
-                <Button onClick={closeButton} type="button">
+                <Button onClick={onClose} type="button">
                   Cancel
                 </Button>
                 <ButtonSecond
@@ -463,9 +447,7 @@ const ModalAddNotice = ({ closeButton }) => {
               </ButtonWrap>
             )}
           </Form>
-          <CloseButton
-
-          ></CloseButton>
+          <CloseButton onClick={onClose}></CloseButton>
         </FormWrapper>
       </ModalWrap>
     </WrapperContainer>

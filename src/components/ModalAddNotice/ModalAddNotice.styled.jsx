@@ -376,6 +376,10 @@ export const Input = styled.input`
   }
 `;
 
+export const InputPrice = styled(Input)`
+color: rgba(17, 17, 17, 0.6);
+`;
+
 export const InputDate = styled(Input)`
 position: relative;
 display: flex;

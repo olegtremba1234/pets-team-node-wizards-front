@@ -15,6 +15,7 @@ import { selectToken } from 'redux/auth/authSelectors';
 import SearchNotices from 'components/NoticesPage/NoticesSearch/SearchNotices';
 import { ScrollUpButton, scrollTopPage } from 'components/ScrollUpButton';
 import { SlArrowUp } from 'react-icons/sl';
+import AddNoticeButton from 'components/NoticesPage/AddNoticeButton/AddNoticeButton';
 
 const PAGE_SCROLL_DOWN = 100;
 
@@ -84,6 +85,7 @@ export default function NoticesPage() {
   const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
   return (
     <>
+    <AddNoticeButton/>
       <SearchNotices onSubmit={onHandleSubmit} />
       <Categories />
       <NoticesCategoriesList notices={notices} />
