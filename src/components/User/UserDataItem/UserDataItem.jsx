@@ -4,16 +4,14 @@ import { UserItem, InfoItem } from './UserDataItem.styled';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
-import { fetchUser } from 'services/apiService';
-// import { userSelector } from 'redux/user/userSelector';
-// import { fetchUserInfo } from 'services/apiService';
+import { fetchUseInfo, fetchUser } from 'services/apiService';
 
 const UserDataItem = () => {
-  const [nameDisabled, setNameDisabled] = useState(false);
-  const [emailDisabled, setEmailDisabled] = useState(false);
-  const [birthdayDisabled, setBirthdayDisabled] = useState(false);
-  const [phoneDisabled, setPhoneDisabled] = useState(false);
-  const [cityDisabled, setCityDisabled] = useState(false);
+  const [nameDisabled, setNameDisabled] = useState(true);
+  const [emailDisabled, setEmailDisabled] = useState(true);
+  const [birthdayDisabled, setBirthdayDisabled] = useState(true);
+  const [phoneDisabled, setPhoneDisabled] = useState(true);
+  const [cityDisabled, setCityDisabled] = useState(true);
   const [userInfo, setUserInfo] = useState('');
 
   const selectInput = (ev, diz) => {
@@ -24,31 +22,75 @@ const UserDataItem = () => {
   };
   const token = useSelector(selectToken);
 
-  const handleClickEdit = ev => {
+  const handleClickEdit = async ev => {
     const name = ev.previousElementSibling.name;
     switch (name) {
       case 'name':
         selectInput(ev, nameDisabled);
         setNameDisabled(!nameDisabled);
+
+        if (!nameDisabled) {
+          await fetchUseInfo(
+            { name: ev.previousElementSibling.value },
+            token
+          ).then(setUserInfo);
+          userDataInfo();
+        }
+
         break;
 
       case 'email':
         selectInput(ev, emailDisabled);
         setEmailDisabled(!emailDisabled);
+        if (!emailDisabled) {
+          await fetchUseInfo(
+            { email: ev.previousElementSibling.value },
+            token
+          ).then(setUserInfo);
+          await userDataInfo();
+        }
         break;
 
       case 'birthday':
         selectInput(ev, birthdayDisabled);
         setBirthdayDisabled(!birthdayDisabled);
+        console.log('1');
+        if (!birthdayDisabled) {
+          await fetchUseInfo(
+            { birthday: ev.previousElementSibling.value },
+            token
+          ).then(setUserInfo);
+          await userDataInfo();
+        }
         break;
 
       case 'phone':
+        const len = ev.previousElementSibling.value;
+        if (len.length < 12) {
+          alert('the phone number is entered incorrectly ');
+          return;
+        }
         selectInput(ev, phoneDisabled);
         setPhoneDisabled(!phoneDisabled);
+        if (!phoneDisabled) {
+          console.log(ev.previousElementSibling.value);
+          await fetchUseInfo(
+            { phone: ev.previousElementSibling.value },
+            token
+          ).then(setUserInfo);
+          await userDataInfo();
+        }
         break;
       case 'city':
         selectInput(ev, cityDisabled);
         setCityDisabled(!cityDisabled);
+        if (!cityDisabled) {
+          await fetchUseInfo(
+            { city: ev.previousElementSibling.value },
+            token
+          ).then(setUserInfo);
+          await userDataInfo();
+        }
         break;
       default:
     }
@@ -56,23 +98,21 @@ const UserDataItem = () => {
 
   const userDataInfo = async () => {
     const info = await fetchUser(token).then(setUserInfo);
+    if (info) {
+    }
     return info;
   };
 
   useEffect(() => {
     userDataInfo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setUserInfo]);
 
   const { name, email, birthday, city, phone } = userInfo;
 
-  // const handleSubmit =(e)=>{
-  //     e.preventDefault();
-  // }
-
   return (
     <UserItem>
-      <li className="userInfoItem">
+      <li className="userInfoItem" key={nanoid()}>
         <p className="userInfoName">Name:</p>
         <div className="inputSpace">
           <InfoItem
@@ -99,7 +139,7 @@ const UserDataItem = () => {
         </div>
       </li>
 
-      <li className="userInfoItem">
+      <li className="userInfoItem" key={nanoid()}>
         <p className="userInfoName">Email:</p>
         <div className="inputSpace">
           <InfoItem
@@ -127,7 +167,7 @@ const UserDataItem = () => {
         </div>
       </li>
 
-      <li className="userInfoItem">
+      <li className="userInfoItem" key={nanoid()}>
         <p className="userInfoName">Birthday:</p>
         <div className="inputSpace">
           <InfoItem
@@ -154,7 +194,7 @@ const UserDataItem = () => {
         </div>
       </li>
 
-      <li className="userInfoItem">
+      <li className="userInfoItem" key={nanoid()}>
         <p className="userInfoName">Phone:</p>
         <div className="inputSpace">
           <InfoItem
