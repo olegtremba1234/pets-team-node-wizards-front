@@ -6,9 +6,6 @@ import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
 import { fetchUseInfo, fetchUser } from 'services/apiService';
 
-// import { userSelector } from 'redux/user/userSelector';
-// import { fetchUserInfo } from 'services/apiService';
-
 const UserDataItem = () => {
   const [nameDisabled, setNameDisabled] = useState(true);
   const [emailDisabled, setEmailDisabled] = useState(true);
@@ -33,8 +30,11 @@ const UserDataItem = () => {
         setNameDisabled(!nameDisabled);
 
         if (!nameDisabled) {
-          await fetchUseInfo({name: ev.previousElementSibling.value},token).then(setUserInfo);
-          await userDataInfo()
+          await fetchUseInfo(
+            { name: ev.previousElementSibling.value },
+            token
+          ).then(setUserInfo);
+          userDataInfo();
         }
 
         break;
@@ -43,34 +43,53 @@ const UserDataItem = () => {
         selectInput(ev, emailDisabled);
         setEmailDisabled(!emailDisabled);
         if (!emailDisabled) {
-          await fetchUseInfo({email: ev.previousElementSibling.value},token).then(setUserInfo);
-          await userDataInfo()
+          await fetchUseInfo(
+            { email: ev.previousElementSibling.value },
+            token
+          ).then(setUserInfo);
+          await userDataInfo();
         }
         break;
 
       case 'birthday':
         selectInput(ev, birthdayDisabled);
         setBirthdayDisabled(!birthdayDisabled);
+        console.log('1');
         if (!birthdayDisabled) {
-          await fetchUseInfo({birthday: ev.previousElementSibling.value},token).then(setUserInfo);
-          await userDataInfo()
+          await fetchUseInfo(
+            { birthday: ev.previousElementSibling.value },
+            token
+          ).then(setUserInfo);
+          await userDataInfo();
         }
         break;
 
       case 'phone':
+        const len = ev.previousElementSibling.value;
+        if (len.length < 12) {
+          alert('the phone number is entered incorrectly ');
+          return;
+        }
         selectInput(ev, phoneDisabled);
         setPhoneDisabled(!phoneDisabled);
         if (!phoneDisabled) {
-          await fetchUseInfo({phone: ev.previousElementSibling.value},token).then(setUserInfo);
-          await userDataInfo()
+          console.log(ev.previousElementSibling.value);
+          await fetchUseInfo(
+            { phone: ev.previousElementSibling.value },
+            token
+          ).then(setUserInfo);
+          await userDataInfo();
         }
         break;
       case 'city':
         selectInput(ev, cityDisabled);
         setCityDisabled(!cityDisabled);
         if (!cityDisabled) {
-          await fetchUseInfo({city: ev.previousElementSibling.value},token).then(setUserInfo);
-          await userDataInfo()
+          await fetchUseInfo(
+            { city: ev.previousElementSibling.value },
+            token
+          ).then(setUserInfo);
+          await userDataInfo();
         }
         break;
       default:
@@ -79,21 +98,17 @@ const UserDataItem = () => {
 
   const userDataInfo = async () => {
     const info = await fetchUser(token).then(setUserInfo);
-    if(info){}
+    if (info) {
+    }
     return info;
   };
 
   useEffect(() => {
     userDataInfo();
-
-    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setUserInfo]);
 
   const { name, email, birthday, city, phone } = userInfo;
-
-  // const handleSubmit =(e)=>{
-  //     e.preventDefault();
-  // }
 
   return (
     <UserItem>

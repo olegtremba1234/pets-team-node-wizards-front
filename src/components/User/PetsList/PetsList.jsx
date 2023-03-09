@@ -15,7 +15,7 @@ import {
 } from './PestList.styled';
 
 const PetsList = () => {
-  const [petsInfo, setPetsInfo] = useState([]);
+  const [petsInfo, setPetsInfo] = useState({});
   const token = useSelector(selectToken);
 
   useEffect(() => {
@@ -25,12 +25,12 @@ const PetsList = () => {
   }, []);
 
   const handleDeletePets = async _idPet => {
-    console.log(_idPet)
+    console.log(petsInfo);
     try {
       await fetchPetsDelete(token, _idPet);
 
       return setPetsInfo(petsInfo =>
-        petsInfo.filter(pets => pets._id !== _idPet)
+        petsInfo.petUser.filter(pets => pets._id !== _idPet)
       );
     } catch (error) {
       console.error();
@@ -42,7 +42,6 @@ const PetsList = () => {
       {petsInfo.petUser &&
         petsInfo.petUser.map(
           ({ _id, name, birthDay, breed, comments, avatarURL }) => (
-          
             <PetsDescribedItem key={_id}>
               <Image src={avatarURL} alt={name} />
 

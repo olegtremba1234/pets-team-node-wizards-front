@@ -21,7 +21,7 @@ export const fetchAllNotices = async () => {
 };
 
 export const fetchNoticesByQuery = async query => {
-  const response = await axios.get(`/notices?query=${query}`);
+  const response = await axios.get(`/notices?search=${query}`);
 
   return response.data;
 };
@@ -45,6 +45,28 @@ export const fetchUserNotices = async token => {
   return response.data;
 };
 
+export const fetchNoticesByCategoryAndQuery = async (
+  query,
+  category,
+  token
+) => {
+  if (token && category === 'my-ads') {
+    const response = await axios.get(`/notices/my-notices?search=${query}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }
+  if (token && category === 'favorite-ads') {
+    const response = await axios.get(`/notices/my-favorites?search=${query}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }
+  const response = await axios.get(
+    `/notices/by-category/${category}?search=${query}`
+  );
+  return response.data;
+};
 export const fetchUser = async token => {
   const res = await axios.get('/auth/current', {
     headers: { Authorization: `Bearer ${token}` },
@@ -60,7 +82,6 @@ export const fetchUserPets = async token => {
 };
 
 export const fetchUserAvatar = async (form, token) => {
-  console.log(form, token)
   try {
     return await axios({
       baseURL: 'https://node-wizards-backend.onrender.com/api',
@@ -69,8 +90,6 @@ export const fetchUserAvatar = async (form, token) => {
       data: form,
 
       headers: { Authorization: `Bearer ${token}` },
-
-     
     });
   } catch (error) {
     throw error;
@@ -81,12 +100,10 @@ export const fetchPetsDelete = async (token, id) => {
   const res = await axios.delete(`/pets/${id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  return res
+  return res;
 };
 
-
-
-export const fetchUseInfo  = async (data, token) => {
+export const fetchUseInfo = async (data, token) => {
   try {
     return await axios({
       baseURL: 'https://node-wizards-backend.onrender.com/api',
@@ -101,3 +118,23 @@ export const fetchUseInfo  = async (data, token) => {
   }
 };
 
+export const postNewPet = async data => {
+  const { name, birthDay, breed, comments } = data;
+  const avatar = document.querySelector('#avatar');
+  const formData = new FormData();
+
+  formData.append('avatar', avatar.files[0]);
+  formData.append('name', name);
+  formData.append('birthDay', birthDay);
+  formData.append('breed', breed);
+  formData.append('comments', comments);
+
+  const res = await axios
+    .post('/pets', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then(({ data }) => console.log(data));
+  return res;
+};

@@ -17,53 +17,38 @@ import { useEffect, useRef, useState } from 'react';
 // import { fetchUserInfo } from 'services/apiService';
 
 const UserData = () => {
-  const defaultAvatar ='https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792__480.png';
+  const defaultAvatar =
+    'https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792__480.png';
 
   const [userInfo, setUserInfo] = useState();
-  // const [update, setUpdate] = useState(false);
+
 
   const filePicker = useRef(null);
 
   const token = useSelector(selectToken);
 
-
-
-
   const userDataInfo = async () => {
     const info = await fetchUserPets(token).then(setUserInfo);
     return info;
   };
-
+ 
   useEffect(() => {
     userDataInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setUserInfo]);
 
-
-
-  const handleOnChange= async(img)=>{
-
-    console.log(img)
- 
+  const handleOnChange = async img => {
     const formData = new FormData();
-    formData.append("avatar", img)
-  
-   const res = await fetchUserAvatar(formData, token)
+    formData.append('avatar', img);
 
-   const data = await res.json()
+    await fetchUserAvatar(formData, token);
+    userDataInfo()
+   
+  };
 
-   console.log(data)
-
-  }
-
-
-
-  const handleSendFile=()=>{
-    filePicker.current.click()
-  }
-
-  // const { id, name, email, birthday, city, phone, avatarUrl } = userInfo;
-
+  const handleSendFile = () => {
+    filePicker.current.click();
+  };
 
   return (
     <UserInfo>
@@ -73,18 +58,17 @@ const UserData = () => {
         ) : (
           <ImageUser src={defaultAvatar} alt="name" />
         )}
-        <input type="file"
-          id='file'
-          accept='image/*, .png,.jpg,.gif,.web'
+        <input
+          type="file"
+          id="file"
+          accept=".png,.jpg,"
           ref={filePicker}
           hidden
-          onChange={(e) => {handleOnChange(e.target.files[0])}}
-            
+          onChange={e => {
+            handleOnChange(e.target.files[0]);
+          }}
         />
-        <Button
-          type="button"
-          onClick={handleSendFile}
-        >
+        <Button type="button" onClick={handleSendFile}>
           <Icons id="camera" />
           Edit photo
         </Button>
