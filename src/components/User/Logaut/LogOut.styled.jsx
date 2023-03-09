@@ -22,9 +22,9 @@ export const Button = styled.button`
     margin-left: 0px;
     }
 
-    @media screen and (min-width: 768px) {
-      margin-top:27px;
-      margin-bottom:18px;
+    @media screen and (min-width: 1280px) {
+      margin-top:15px;
+      margin-bottom:0px;
     }
   
 `;

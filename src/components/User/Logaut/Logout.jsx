@@ -19,7 +19,7 @@ const Logout = () => {
 
   return (
     
-      <Button className="" type="button" onClick={onLogout}>
+      <Button  type="button" onClick={onLogout}>
         <Icons className="icon" id="icon-user_logout" />
         <span>Log Out</span>
       </Button>

@@ -6,7 +6,9 @@ import { Navigate } from 'react-router-dom';
  * - Otherwise render the component
  */
 
-export const PublicRoute = ({ component: Component, redirectTo = '/' }) => {
+export const PublicRoute = ({ component: Component, redirectTo = '/', restricted = false }) => {
     const { isLoggedIn } = useAuth();
-    return isLoggedIn ? <Navigate to={redirectTo} /> : <Component />;
+    const shouldRedirect = isLoggedIn && restricted;
+
+    return shouldRedirect ? <Navigate to={redirectTo} /> : <Component />;
 };

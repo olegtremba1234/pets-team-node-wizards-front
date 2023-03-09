@@ -10,7 +10,6 @@ export const ButtonIcon = styled.button`
 
   @media screen and (min-width: 1280px) {
     font-size: 28px;
-
   }
 `;
 
@@ -34,10 +33,12 @@ export const Overlay = styled.div`
   bottom: 0;
   background: ${p => p.theme.backgrounds.modalOverlay};
   backdrop-filter: ${p => p.theme.backgrounds.backdrop};
+  z-index: 100;
 `;
 
 export const ModalContent = styled.div`
   position: absolute;
+  z-index: 100;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -114,11 +115,10 @@ export const Input = styled.input`
   border-radius: ${p => p.theme.borderRadius.main};
 `;
 
-export const InputAvatar = styled.input`
+export const InputAvatarWrapper = styled.button`
   width: 182px;
   height: 182px;
   padding: 10px 16px;
-  /* background-image: url(../../icons/plus.svg); */
 
   font-family: ${p => p.theme.fontFamily.main};
   font-style: ${p => p.theme.fontStyle.main};
@@ -129,6 +129,16 @@ export const InputAvatar = styled.input`
   background: ${p => p.theme.backgrounds.input};
   border: ${p => p.theme.borders.input};
   border-radius: ${p => p.theme.borderRadius.main};
+`;
+
+export const InputAvatar = styled.input`
+  opacity: 0;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
 `;
 
 export const Textarea = styled.textarea`
@@ -165,6 +175,9 @@ export const BtnWrapper = styled.div`
 
 export const CloseBtn = styled.button`
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 24px;
   right: 24px;
   width: 44px;
