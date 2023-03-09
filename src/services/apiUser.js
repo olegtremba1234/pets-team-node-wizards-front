@@ -15,7 +15,6 @@ export const getCurrentUser = async accessToken => {
   try {
     setToken(accessToken);
     const { data } = await instance.get('/user/current');
-    console.log(data)
     return data;
   } catch (error) {
     setToken();

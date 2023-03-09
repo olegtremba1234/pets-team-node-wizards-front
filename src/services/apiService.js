@@ -3,7 +3,6 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
 export const fetchNews = async () => {
   const response = await axios('news');
-  console.log(response.data, 1);
   return response.data;
 };
 
@@ -14,7 +13,6 @@ export const fetchSearchNews = async query => {
 
 export const fetchOurFriends = async () => {
   const response = await axios('/friends');
-  console.log(response.data, 3);
   return response.data;
 };
 export const fetchAllNotices = async () => {
@@ -62,12 +60,39 @@ export const fetchUserPets = async token => {
 };
 
 export const fetchUserAvatar = async (form, token) => {
+  console.log(form, token)
   try {
     return await axios({
-      method: 'pat',
+      baseURL: 'https://node-wizards-backend.onrender.com/api',
+      method: 'POST',
       url: '/auth/avatar',
-      body: form,
-      baseURL:'https://node-wizards-backend.onrender.com/api',
+      data: form,
+
+      headers: { Authorization: `Bearer ${token}` },
+
+     
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchPetsDelete = async (token, id) => {
+  const res = await axios.delete(`/pets/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res
+};
+
+
+
+export const fetchUseInfo  = async (data, token) => {
+  try {
+    return await axios({
+      baseURL: 'https://node-wizards-backend.onrender.com/api',
+      method: 'PATCH',
+      url: '/auth/current',
+      data: data,
       headers: { Authorization: `Bearer ${token}` },
       'Content-Type': 'multipart/form-data',
     });
@@ -76,11 +101,3 @@ export const fetchUserAvatar = async (form, token) => {
   }
 };
 
-
-export const fetchPetsDelete = async (token, _id) => {
-  
-  const res = await axios.delete(`/api/pets/:${_id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return res.data;
-};

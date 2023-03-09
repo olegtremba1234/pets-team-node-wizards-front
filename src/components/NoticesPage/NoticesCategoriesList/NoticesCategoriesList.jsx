@@ -6,14 +6,14 @@ export default function NoticesCategoriesList({ notices }) {
     <NoticeList>
       {notices &&
         notices.map(
-          ({ title, breed, location, birthday, photoURL, category, id }) => (
+          ({ title, breed, location, birthday, petPhotoURL, category, id }) => (
             <NoticeCategoryItem
               key={id}
               title={title}
               breed={breed}
               location={location}
               birthday={birthday}
-              photoURL={photoURL}
+              petPhotoURL={petPhotoURL}
               category={category}
             />
           )
