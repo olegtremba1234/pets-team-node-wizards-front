@@ -49,8 +49,11 @@ import { useDispatch } from 'react-redux';
 const ModalAddNotice = ({ closeButton }) => {
   const isLoading = useSelector(selectIsLoading);
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
-  const [imagePreview, setImagePreview] = useState(null);
+  // const [imagePreview, setImagePreview] = useState(null);
+  const [petPhotoURL, setPetPhotoUrl] = useState('')
   const [disableNextButton, setDisableNextButton] = useState(true);
+
+  const dispatch = useDispatch();
 
   const moveNextRegistration = () => {
     isFirstRegisterStep
@@ -74,7 +77,6 @@ const ModalAddNotice = ({ closeButton }) => {
     }
   };
 
-  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -143,7 +145,7 @@ const ModalAddNotice = ({ closeButton }) => {
     }),
     onSubmit: async () => {
     try {
-      await dispatch(addNotice(formik.values)).unwrap();
+      await dispatch(addNotice(formDataAppender(formik.values))).unwrap();
       toast.success('Ви успішно створили оголошення.');
     } catch (error) {
       toast.error('Не вдалось створити оголошення.');
@@ -154,23 +156,42 @@ const ModalAddNotice = ({ closeButton }) => {
   });
 
 
+  const formDataAppender = () => {
+    const formData = new FormData();
+    formData.append("petPhotoUrl", petPhotoURL);
+    formData.append("category", formik.values.category);
+    formData.append("title", formik.values.title);
+    formData.append("name", formik.values.name);
+    formData.append("birthday", formik.values.birthday);
+    formData.append("breed", formik.values.breed);
+    formData.append("location", formik.values.location);
+    formData.append("price", formik.values.price);
+    formData.append("sex", formik.values.sex);
+    formData.append("comments", formik.values.comments);
+    console.log(formData)
+    return formData;
+  };
 
 
   const onImageChange = (e) => {
-    const [file] = e.currentTarget.files;
+    const file = e.currentTarget.files[0];
     const reader = new FileReader();
     if (file) {
-      setImagePreview('petPhotoURL', file);
+      formik.setFieldValue('petPhotoUrl', file);
+      console.log(formik.setFieldValue('petPhotoUrl', file))
       reader.readAsDataURL(file);
       reader.onloadend = e => {
         const base64data = reader.result;
-        setImagePreview(base64data);
-        formik.initialValues(prevState => {
+        console.log(base64data)
+        setPetPhotoUrl(base64data)
+        console.log(setPetPhotoUrl (base64data))
+        formik.setFormikState(prevState => {
           return { ...prevState, petPhotoURL: file };
         });
+        };
       };
-    }
-  };
+      };
+
 
   useEffect(() => {
     const firstStepPossibleErrors = [
@@ -367,7 +388,6 @@ const ModalAddNotice = ({ closeButton }) => {
                       name="price"
                       onChange={formik.handleChange}
                       value={formik.values.price}
-                      // onFocus={(e) => e.target.value = ""}
                     />
                   </>
                 ) : null}
@@ -383,7 +403,7 @@ const ModalAddNotice = ({ closeButton }) => {
                         id="petPhotoURL"
                         name="petPhotoURL"
                         type="file"
-                        accept="image/png, image/gif, image/jpeg"
+                        accept="image/png, image/gif, image/jpeg, image/jpg"
                         onChange={e => {
                           formik.handleChange(e);
                           onImageChange(e);
@@ -392,7 +412,7 @@ const ModalAddNotice = ({ closeButton }) => {
                     </AvatarLabel>
                   ) : (
                     <div>
-                      <img alt="pet" src={imagePreview} />
+                      <img alt="pet" src={petPhotoURL} />
                     </div>
                   )}
                 </fieldset>

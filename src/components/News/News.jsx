@@ -18,8 +18,6 @@ import {
   Wrapper,
   LinkReadMore,
 } from './News.styled';
-import ModalAddNotice from 'components/ModalAddNotice/ModalAddNotice';
-
 
 
 const News = () => {
@@ -71,7 +69,6 @@ const News = () => {
     <NewsWrap>
       <StyledContainer>
         <Title>News</Title>
-<ModalAddNotice/>
         <SearchForm
           onSubmit={handleSearchSubmit}
           onChange={handleClick}
