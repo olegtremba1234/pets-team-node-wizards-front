@@ -138,3 +138,8 @@ export const postNewPet = async data => {
     .then(({ data }) => console.log(data));
   return res;
 };
+
+export const fetchNoticeById = async id => {
+  const res = await axios.get(`/notices/certain/${id}`);
+  return res.data;
+};

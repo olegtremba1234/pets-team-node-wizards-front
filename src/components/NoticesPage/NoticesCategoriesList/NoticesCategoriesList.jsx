@@ -15,6 +15,7 @@ export default function NoticesCategoriesList({ notices }) {
               birthday={birthday}
               petPhotoURL={petPhotoURL}
               category={category}
+              id={id}
             />
           )
         )}

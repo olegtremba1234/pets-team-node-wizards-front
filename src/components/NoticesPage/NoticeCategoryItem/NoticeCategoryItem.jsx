@@ -14,6 +14,8 @@ import {
 } from './NoticeCategoryItem.styled';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
+import { useState } from 'react';
+import ModalNotice from 'components/ModalNotice';
 
 export default function NoticeCategoryItem({
   title,
@@ -22,7 +24,9 @@ export default function NoticeCategoryItem({
   birthday,
   petPhotoURL,
   category,
+  id,
 }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   function getAge(dateString) {
     var today = new Date();
     var birthDate = new Date(dateString);
@@ -56,11 +60,14 @@ export default function NoticeCategoryItem({
             <li>{birthday && getAge(birthday)}</li>
           </DescriptionInfo>
         </DescriptionWrapper>
-        <LearnMoneBtn>Learn more</LearnMoneBtn>
+        <LearnMoneBtn onClick={() => setIsModalOpen(true)}>
+          Learn more
+        </LearnMoneBtn>
         <DeleteBtn>
           Delete <BsTrash color="#F59256" />
         </DeleteBtn>
       </InfoWrapper>
+      {isModalOpen && <ModalNotice id={id} setIsModalOpen={setIsModalOpen} />}
     </Card>
   );
 }

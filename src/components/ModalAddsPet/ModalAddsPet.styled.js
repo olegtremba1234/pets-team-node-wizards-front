@@ -33,6 +33,7 @@ export const Overlay = styled.div`
   bottom: 0;
   background: ${p => p.theme.backgrounds.modalOverlay};
   backdrop-filter: ${p => p.theme.backgrounds.backdrop};
+  z-index: 100;
 `;
 
 export const ModalContent = styled.div`
@@ -131,14 +132,14 @@ export const InputAvatarWrapper = styled.button`
 `;
 
 export const InputAvatar = styled.input`
-opacity: 0;
-height: 0;
-width: 0;
-line-height: 0;
-overflow: hidden;
-padding: 0;
-margin: 0;
-`
+  opacity: 0;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+`;
 
 export const Textarea = styled.textarea`
   height: 116px;
