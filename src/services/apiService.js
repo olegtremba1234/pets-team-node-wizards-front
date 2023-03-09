@@ -81,6 +81,43 @@ export const fetchUserPets = async token => {
   return res.data;
 };
 
+export const fetchUserAvatar = async (form, token) => {
+  try {
+    return await axios({
+      baseURL: 'https://node-wizards-backend.onrender.com/api',
+      method: 'POST',
+      url: '/auth/avatar',
+      data: form,
+
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchPetsDelete = async (token, id) => {
+  const res = await axios.delete(`/pets/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res;
+};
+
+export const fetchUseInfo = async (data, token) => {
+  try {
+    return await axios({
+      baseURL: 'https://node-wizards-backend.onrender.com/api',
+      method: 'PATCH',
+      url: '/auth/current',
+      data: data,
+      headers: { Authorization: `Bearer ${token}` },
+      'Content-Type': 'multipart/form-data',
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const postNewPet = async data => {
   const { name, birthDay, breed, comments } = data;
   const avatar = document.querySelector('#avatar');

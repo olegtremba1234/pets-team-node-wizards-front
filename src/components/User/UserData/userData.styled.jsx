@@ -9,29 +9,30 @@ export const UserInfo = styled.div`
   border-radius: 20px;
   background-color: #ffffff;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
 
   @media screen and (min-width: 768px) {
     width: 100%;
     border-radius: 0px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    margin:0px;
+    margin: 0px;
     height: 311px;
-    flex-direction:row-reverse;
+    flex-direction: row-reverse;
   }
 
   @media screen and (min-width: 1280px) {
     width: 411px;
     margin-left: 0;
     height: 541px;
-    flex-direction:column;
+    flex-direction: column;
   }
 `;
 
 export const ImageUser = styled.img`
   display: flex;
   width: 233px;
+  height: 233px;
   object-position: center top;
   margin: 0 auto;
   border-radius: 50%;
@@ -46,7 +47,8 @@ export const ImageItem = styled.div`
   @media screen and (min-width: 768px) {
     margin-right: 40px;
     margin-top: 4px;
-    width:233px
+    width: 233px;
+    height:233px;
   }
 
   @media screen and (min-width: 1280px) {
@@ -77,10 +79,15 @@ export const Button = styled.button`
   cursor: pointer;
 
   @media screen and (min-width: 768px) {
-    margin:0px;
+    margin: 0px;
     position: relative;
     left: 147px;
-    height:30px;
+    height: auto;
+  }
+
+  @media screen and (min-width:1280px) {
+    left:200px;
+    top: -22px
   }
 `;
 
@@ -89,15 +96,12 @@ export const DataItem = styled.div`
   flex-direction: column;
 
   @media screen and (min-width: 768px) {
-    margin: 0px 52px 0px 32px;
+    margin:0px 52px 0px 32px;
     width: 100%;
-
   }
 
   @media screen and (min-width: 1280px) {
     width: 379px;
-    
-    
+    margin-top: 36px;
   }
-    
-`
+`;
