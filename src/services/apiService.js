@@ -67,3 +67,37 @@ export const fetchNoticesByCategoryAndQuery = async (
   );
   return response.data;
 };
+export const fetchUser = async token => {
+  const res = await axios.get('/auth/current', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};
+
+export const fetchUserPets = async token => {
+  const res = await axios.get('/pets/current', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};
+
+export const postNewPet = async data => {
+  const { name, birthDay, breed, comments } = data;
+  const avatar = document.querySelector('#avatar');
+  const formData = new FormData();
+
+  formData.append('avatar', avatar.files[0]);
+  formData.append('name', name);
+  formData.append('birthDay', birthDay);
+  formData.append('breed', breed);
+  formData.append('comments', comments);
+
+  const res = await axios
+    .post('/pets', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then(({ data }) => console.log(data));
+  return res;
+};

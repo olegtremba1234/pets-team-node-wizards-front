@@ -13,7 +13,6 @@ import {
 import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
 import SearchNotices from 'components/NoticesPage/NoticesSearch/SearchNotices';
-import axios from 'axios';
 import { ScrollUpButton, scrollTopPage } from 'components/ScrollUpButton';
 import { SlArrowUp } from 'react-icons/sl';
 
@@ -25,9 +24,6 @@ export default function NoticesPage() {
   const [query, setQuery] = useState('');
   const { categoryName } = useParams();
   const [scrollTop, setScrollTop] = useState(0);
-  const onHandleSubmit = result => {
-    setQuery(result);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,45 +36,62 @@ export default function NoticesPage() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const onHandleSubmit = result => {
+    setQuery(result);
+  };
+
   useEffect(() => {
-    if (query && !categoryName) {
-      const result = fetchNoticesByQuery(query);
-      setNotices(result);
-      setQuery('');
-      return;
-    }
+    const Interaction_With_API = async () => {
+      if (query && !categoryName) {
+        const result = await fetchNoticesByQuery(query);
+        setNotices(result);
+        setQuery('');
+        return;
+      }
 
-    if (!categoryName) {
-      const result = fetchAllNotices();
-      setNotices(result);
-      return;
-    }
-    if (categoryName && query) {
-      const result = fetchNoticesByCategoryAndQuery(query, categoryName, token);
-      setNotices(result);
-      setQuery('');
-      return;
-    }
+      if (!categoryName) {
+        const result = await fetchAllNotices();
+        setNotices(result);
+        return;
+      }
+      if (categoryName && query) {
+        const result = await fetchNoticesByCategoryAndQuery(
+          query,
+          categoryName,
+          token
+        );
+        setNotices(result);
+        setQuery('');
+        return;
+      }
 
-    if (categoryName === 'favorite-ads') {
-      const result = fetchFavoriteNotices(token);
+      if (categoryName === 'favorite-ads') {
+        const result = await fetchFavoriteNotices(token);
+        setNotices(result);
+        return;
+      }
+      if (categoryName === 'my-ads') {
+        const result = await fetchUserNotices(token);
+        setNotices(result);
+        return;
+      }
+      const result = await fetchNoticesByCategory(categoryName);
       setNotices(result);
-      return;
-    }
-    if (categoryName === 'my-ads') {
-      const result = fetchUserNotices(token);
-      setNotices(result);
-      return;
-    }
-    const result = fetchNoticesByCategory(categoryName);
-    setNotices(result);
+    };
+    Interaction_With_API();
   }, [categoryName, token, query]);
-
+  const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
   return (
     <>
-      <SearchNotices onSubmit={onHandleSubmit} />
+      <SearchNotices />
       <Categories />
       <NoticesCategoriesList notices={notices} />
+      {isShowButtonTop && (
+        <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
+          <SlArrowUp />
+        </ScrollUpButton>
+      )}
     </>
   );
 }
