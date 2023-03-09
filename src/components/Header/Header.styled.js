@@ -18,7 +18,7 @@ export const HeaderContainer = styled.div`
     width: 768px;
   }
   @media (min-width: 1280px) {
-    padding: 16px 20px;
+    padding: 20px 16px;
     padding-bottom: 0;
     gap: 80px;
     justify-content: flex-start;
