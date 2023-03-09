@@ -1,7 +1,7 @@
 import ModalAddsPet from 'components/ModalAddsPet';
-import { Icons } from '../Icons/Icons';
+
 import PetsList from '../PetsList/PetsList';
-import { AddPets, ButtonBack, Pets, BtnWrapper } from './PetsData.styled';
+import { AddPets, Pets, BtnWrapper } from './PetsData.styled';
 
 const PetsData = () => {
   return (
@@ -10,9 +10,9 @@ const PetsData = () => {
         <h3>My pets:</h3>
         <BtnWrapper>
           <ModalAddsPet>
-            <ButtonBack>
-              <Icons id="icon-user_plus" />
-            </ButtonBack>
+            
+              {/* <Icons id="icon-user_plus"/> */}
+           
           </ModalAddsPet>
         </BtnWrapper>
       </AddPets>

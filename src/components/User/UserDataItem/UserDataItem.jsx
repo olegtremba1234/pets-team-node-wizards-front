@@ -66,7 +66,8 @@ const UserDataItem = () => {
 
       case 'phone':
         const len = ev.previousElementSibling.value;
-        if (len.length < 12) {
+        console.log(len.length)
+        if (len.length < 13) {
           alert('the phone number is entered incorrectly ');
           return;
         }
@@ -105,7 +106,7 @@ const UserDataItem = () => {
 
   useEffect(() => {
     userDataInfo();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setUserInfo]);
 
   const { name, email, birthday, city, phone } = userInfo;
