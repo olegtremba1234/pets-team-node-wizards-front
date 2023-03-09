@@ -30,8 +30,8 @@ const PetsList = () => {
     <PetsDescribed>
       {petsInfo.petUser &&
         petsInfo.petUser.map(
-          ({ id, name, birthDay, breed, comments, avatarURL }) => (
-            <PetsDescribedItem key={id}>
+          ({ _id, name, birthDay, breed, comments, avatarURL }) => (
+            <PetsDescribedItem key={_id}>
               <Image src={avatarURL} alt={name} />
               
               <ItemList>
