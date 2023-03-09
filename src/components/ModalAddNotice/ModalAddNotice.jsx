@@ -59,8 +59,6 @@ const ModalAddNotice = ({ closeButton }) => {
   };
 
 
-
-
   const cityInputValidation = value => {
     if (value) {
       const comma = value.search(',');
@@ -77,7 +75,6 @@ const ModalAddNotice = ({ closeButton }) => {
   };
 
   const dispatch = useDispatch();
-
 
   const formik = useFormik({
     initialValues: {
@@ -156,6 +153,9 @@ const ModalAddNotice = ({ closeButton }) => {
     },
   });
 
+
+
+
   const onImageChange = (e) => {
     const [file] = e.currentTarget.files;
     const reader = new FileReader();
@@ -166,7 +166,7 @@ const ModalAddNotice = ({ closeButton }) => {
         const base64data = reader.result;
         setImagePreview(base64data);
         formik.initialValues(prevState => {
-          return { ...prevState, avatar: file };
+          return { ...prevState, petPhotoURL: file };
         });
       };
     }
@@ -367,6 +367,7 @@ const ModalAddNotice = ({ closeButton }) => {
                       name="price"
                       onChange={formik.handleChange}
                       value={formik.values.price}
+                      // onFocus={(e) => e.target.value = ""}
                     />
                   </>
                 ) : null}
