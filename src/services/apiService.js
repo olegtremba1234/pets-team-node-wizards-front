@@ -139,7 +139,14 @@ export const postNewPet = async data => {
   return res;
 };
 
-export const fetchNoticeById = async id => {
+export const fetchNoticeById = async (id, token) => {
   const res = await axios.get(`/notices/certain/${id}`);
   return res.data;
+};
+
+export const deleteOwnNoticeById = async (id, token) => {
+  const res = await axios.delete(`/notices/my-notices/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res;
 };

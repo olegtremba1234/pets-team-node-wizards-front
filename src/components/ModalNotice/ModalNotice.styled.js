@@ -157,7 +157,7 @@ export const Comment = styled.p`
   margin-top: 28px;
   font-family: ${p => p.theme.fontFamily.main}, sans-serif;
   font-style: ${p => p.theme.fontStyle.main};
-  font-weight: 600;
+  font-weight: ${p => p.theme.fontWeights.medium};
   font-size: ${p => p.theme.fontSizes.s};
   line-height: 1.357;
   letter-spacing: 0.04em;
@@ -166,6 +166,10 @@ export const Comment = styled.p`
     font-size: ${p => p.theme.fontSizes.m};
     line-height: 1.5;
   }
+`;
+
+export const SpanComment = styled.span`
+  font-weight: 600;
 `;
 
 export const CloseBtn = styled.button`

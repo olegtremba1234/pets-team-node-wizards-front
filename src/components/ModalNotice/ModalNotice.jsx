@@ -1,5 +1,9 @@
 import { useEffect, useState, Fragment } from 'react';
-import { fetchNoticeById } from 'services/apiService';
+import {
+  deleteOwnNoticeById,
+  fetchNoticeById,
+  fetchUserNotices,
+} from 'services/apiService';
 import {
   ModalWindow,
   ContentWrapper,
@@ -20,14 +24,36 @@ import {
   HeartIcon,
   LinkContact,
   CloseIcon,
+  SpanComment,
 } from './ModalNotice.styled';
 import { Overlay } from 'components/ModalAddsPet/ModalAddsPet.styled';
 import defaultCat from './images/defaultCat.jpg';
 import Media from 'react-media';
 import transormDate from 'helpers/transformDate';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import getIsNoticeOfUser from 'helpers/getIsNoticeOfUser';
 
 export default function ModalNotice({ id, setIsModalOpen }) {
   const [noticeDetails, setNoticesDetails] = useState(null);
+  const [userNotices, setUserNotices] = useState(null);
+  const [isOwnNotice, setIsOwnNotice] = useState(false);
+
+  const token = useSelector(state => state.auth.accessToken);
+
+  const handleAddToFavorite = id => {
+    if (!token) {
+      toast.error('Oops..You must be logged in to add to favorites');
+      return;
+    }
+    // addToFavorite(id, token).catch(console.log);
+  };
+
+  const handleDelete = id => {
+    deleteOwnNoticeById(id, token)
+      .then(toast.success('Deleted successfully'))
+      .catch(console.log);
+  };
 
   useEffect(() => {
     fetchNoticeById(id).then(setNoticesDetails).catch(console.log);
@@ -50,6 +76,17 @@ export default function ModalNotice({ id, setIsModalOpen }) {
       setIsModalOpen(false);
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      fetchUserNotices(token).then(setUserNotices).catch(console.log);
+      if (noticeDetails && userNotices) {
+        const isOwnNoticeRes = getIsNoticeOfUser(userNotices, noticeDetails.id);
+        setIsOwnNotice(isOwnNoticeRes);
+      }
+    }
+    // eslint-disable-next-line
+  }, [token, noticeDetails]);
 
   return (
     <>
@@ -110,37 +147,56 @@ export default function ModalNotice({ id, setIsModalOpen }) {
                 </TableWrapper>
               </div>
             </ContentWrapper>
-            <Comment>{noticeDetails.comments}</Comment>
+            <Comment>
+              <SpanComment>Comments: </SpanComment>
+              {noticeDetails.comments}
+            </Comment>
             <ButtonWrapper>
-              <Li>
-                <Media
-                  queries={{
-                    small: '(max-width: 767px)',
-                    medium: '(min-width: 768px) and (max-width: 1279px)',
-                    large: '(min-width: 1280px)',
-                  }}
-                >
-                  {matches => (
-                    <Fragment>
-                      {matches.small && (
-                        <LinkContact href={`tel:${noticeDetails.phone}`}>
-                          Contact
-                        </LinkContact>
+              {isOwnNotice ? (
+                <Li>
+                  <ButtonAdd
+                    type="button"
+                    onClick={() => handleDelete(noticeDetails.id)}
+                  >
+                    Delete
+                  </ButtonAdd>
+                </Li>
+              ) : (
+                <>
+                  <Li>
+                    <Media
+                      queries={{
+                        small: '(max-width: 767px)',
+                        medium: '(min-width: 768px) and (max-width: 1279px)',
+                        large: '(min-width: 1280px)',
+                      }}
+                    >
+                      {matches => (
+                        <Fragment>
+                          {matches.small && (
+                            <LinkContact href={`tel:${noticeDetails.phone}`}>
+                              Contact
+                            </LinkContact>
+                          )}
+                          {(matches.medium || matches.large) && (
+                            <LinkContact href={`mailto:${noticeDetails.email}`}>
+                              Contact
+                            </LinkContact>
+                          )}
+                        </Fragment>
                       )}
-                      {(matches.medium || matches.large) && (
-                        <LinkContact href={`mailto:${noticeDetails.email}`}>
-                          Contact
-                        </LinkContact>
-                      )}
-                    </Fragment>
-                  )}
-                </Media>
-              </Li>
-              <Li>
-                <ButtonAdd type="button">
-                  Add to <HeartIcon />
-                </ButtonAdd>
-              </Li>
+                    </Media>
+                  </Li>
+                  <Li>
+                    <ButtonAdd
+                      type="button"
+                      onClick={() => handleAddToFavorite(noticeDetails.id)}
+                    >
+                      Add to <HeartIcon />
+                    </ButtonAdd>
+                  </Li>
+                </>
+              )}
             </ButtonWrapper>
           </ModalWindow>
         </Overlay>
