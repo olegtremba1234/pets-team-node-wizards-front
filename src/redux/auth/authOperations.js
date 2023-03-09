@@ -62,7 +62,7 @@ export const logOut = createAsyncThunk('/auth/logout', async (_, thunkAPI) => {
     await axios.get('/auth/logout');
     token.unset();
   } catch (error) {
-    return alert('Sorry, there was a login error');
+    return console.log(error);
   }
 });
 
@@ -83,3 +83,5 @@ export const refreshUser = createAsyncThunk(
     }
   }
 );
+
+

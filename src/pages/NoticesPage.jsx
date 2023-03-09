@@ -13,16 +13,33 @@ import {
 import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
 import SearchNotices from 'components/NoticesPage/NoticesSearch/SearchNotices';
+import axios from 'axios';
+import { ScrollUpButton, scrollTopPage } from 'components/ScrollUpButton';
+import { SlArrowUp } from 'react-icons/sl';
+
+const PAGE_SCROLL_DOWN = 100;
 
 export default function NoticesPage() {
   const token = useSelector(selectToken);
   const [notices, setNotices] = useState([]);
   const [query, setQuery] = useState('');
   const { categoryName } = useParams();
+  const [scrollTop, setScrollTop] = useState(0);
   const onHandleSubmit = result => {
     setQuery(result);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollTop(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   useEffect(() => {
     if (query && !categoryName) {
       const result = fetchNoticesByQuery(query);

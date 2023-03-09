@@ -111,6 +111,7 @@ export const CategoryInfo = styled.div`
 export const ImageWrapper = styled.div`
   margin-bottom: 20px;
   position: relative;
+  height: 288px;
 `;
 export const DescriptionWrapper = styled.div`
   display: flex;

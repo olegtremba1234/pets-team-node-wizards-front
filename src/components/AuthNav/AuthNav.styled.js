@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { FaUserCircle } from 'react-icons/fa';
 
 export const StyledLink = styled(NavLink)`
   text-decoration: none;
@@ -13,7 +14,7 @@ export const StyledLink = styled(NavLink)`
   line-height: 1.357;
   letter-spacing: ${p => p.theme.fonts.letterSpacing};
   color: ${p => p.theme.fontColors.primary};
-
+  transition: all 350ms ease;
   &.active {
     background-color: ${p => p.theme.backgrounds.buttonPrimary};
     color: ${p => p.theme.fontColors.white};
@@ -31,13 +32,18 @@ export const StyledLink = styled(NavLink)`
 `;
 
 export const AccountLink = styled(StyledLink)`
-  background-color: #f59256;
+  background-color: ${p => p.theme.backgrounds.buttonPrimary};
   color: ${p => p.theme.fontColors.white};
   display: flex;
+  align-items: center;
   gap: 12px;
   width: fit-content;
   margin: 0 auto;
   text-transform: capitalize;
+  &:hover:not(.active),
+  :focus-visible:not(.active) {
+    transform: scale(1.03);
+  }
 `;
 
 export const Ul = styled.ul`
@@ -52,5 +58,19 @@ export const Ul = styled.ul`
   }
   @media (min-width: 1280px) {
     margin: 0;
+  }
+`;
+
+export const LoginStyledLink = styled(StyledLink)`
+  background-color: ${props => props.mode.backgroundColor};
+  color: ${props => props.mode.color};
+`;
+
+export const AccountIcon = styled(FaUserCircle)`
+  width: 20px;
+  height: 20px;
+  @media (min-width: 768px) {
+    width: 28px;
+    height: 28px;
   }
 `;
