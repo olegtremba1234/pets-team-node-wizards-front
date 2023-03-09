@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { postNewPet } from 'services/apiService';
-// import Plus from '../../icons/plus.svg';
+// import * as Yup from 'yup';
+import { ReactComponent as Plus } from '../../icons/plus.svg';
 import {
   AvatarWrapper,
   BtnMain,
@@ -10,6 +10,7 @@ import {
   CloseBtn,
   Input,
   InputAvatar,
+  InputAvatarWrapper,
   Label,
   LabelAvatar,
   Modal,
@@ -18,6 +19,7 @@ import {
   Overlay,
   Textarea,
 } from './ModalAddsPet.styled';
+import { GrClose } from 'react-icons/gr';
 
 export default function ModalAddsPet({ children }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,8 +27,11 @@ export default function ModalAddsPet({ children }) {
   const [name, setName] = useState('');
   const [birthDay, setBirthDay] = useState('');
   const [breed, setBreed] = useState('');
-  // const [avatar, setAvatar] = useState('');
+  const [avatar, setAvatar] = useState(null);
+  const [avatarFileName, setAvatarFileName] = useState('');
   const [comments, setComments] = useState('');
+  const filePicker = useRef(null);
+
   useEffect(() => {
     const escapeModal = event => {
       if (event.code === 'Escape') {
@@ -40,6 +45,25 @@ export default function ModalAddsPet({ children }) {
       window.removeEventListener('keydown', escapeModal);
     };
   });
+
+  // const addPetSchema = Yup.object({
+  //   name: Yup.string('Type name pet')
+  //     .min(2, 'Too Short!')
+  //     .max(16, 'Too Long!')
+  //     .required('Required'),
+  //   birthDay: Yup.string('Date of birth')
+  //     .min(10, 'Too Short!')
+  //     .max(12, 'Too Long!')
+  //     .required('Required'),
+  //   breed: Yup.string('Type breed')
+  //     .min(2, 'Too Short!')
+  //     .max(16, 'Too Long!')
+  //     .required('Required'),
+  //   comments: Yup.string('Add comment')
+  //     .min(8, 'Please enter a comment more than 7 character')
+  //     .max(120, 'Please enter a comment less than 120 character')
+  //     .required('Required'),
+  // });
 
   const handleClose = event => {
     if (event.currentTarget === event.target) {
@@ -65,12 +89,24 @@ export default function ModalAddsPet({ children }) {
     if (e.currentTarget.name === 'breed') {
       setBreed(e.currentTarget.value);
     }
-    // if (e.currentTarget.name === 'avatar') {
-    //   setAvatar(e.currentTarget.value);
-    // }
+    if (e.currentTarget.name === 'avatar') {
+      const pathString = e.currentTarget.value;
+      const fileName = pathString.split('\\').slice(-1).toString();
+      console.log('fileName >>>', fileName);
+      setAvatarFileName(fileName);
+      setAvatar(pathString);
+    }
     if (e.currentTarget.name === 'comments') {
       setComments(e.currentTarget.value);
     }
+  };
+
+  const handlePick = () => {
+    filePicker.current.click();
+  };
+  
+  const delAvatarChoice = () => {
+    setAvatar(null);
   };
 
   const handleSubmit = e => {
@@ -85,7 +121,7 @@ export default function ModalAddsPet({ children }) {
     setName('');
     setBirthDay('');
     setBreed('');
-    // setAvatar('');
+    setAvatar(null);
     setComments('');
     setIsModalOpen(false);
   };
@@ -148,7 +184,7 @@ export default function ModalAddsPet({ children }) {
                 </BtnWrapper>
               </form>
               <CloseBtn className="modal-open-btn" onClick={toggleModal}>
-                X
+                <GrClose size={20} />
               </CloseBtn>
             </ModalContent>
           ) : (
@@ -159,13 +195,21 @@ export default function ModalAddsPet({ children }) {
                   <LabelAvatar htmlFor="addAvatar">
                     Add photo and some comments
                   </LabelAvatar>
+                  <InputAvatarWrapper type="button" onClick={handlePick}>
+                    {avatar ? (
+                      <div onClick={delAvatarChoice}>{avatarFileName}</div>
+                    ) : (
+                      <Plus />
+                    )}
+                  </InputAvatarWrapper>
                   <InputAvatar
                     type="file"
                     name="avatar"
                     id="avatar"
-                    // onChange={handleChange}
+                    ref={filePicker}
+                    accept="image/*,.png,.jpg"
+                    onChange={handleChange}
                   />
-                  {/* <img src={Plus} alt="frame" /> */}
                 </AvatarWrapper>
                 <Label>
                   Comments
@@ -187,7 +231,7 @@ export default function ModalAddsPet({ children }) {
                 </BtnWrapper>
               </form>
               <CloseBtn className="modal-open-btn" onClick={toggleModal}>
-                X
+                <GrClose size={20} />
               </CloseBtn>
             </ModalContent>
           )}
