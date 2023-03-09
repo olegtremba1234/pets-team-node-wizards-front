@@ -19,11 +19,28 @@ import {
 import { useState, useEffect } from 'react';
 import { fetchOurFriends } from 'services/apiService';
 import defaultImage from '../OurFriends/image/default.svg';
+import { ScrollUpButton, scrollTopPage } from 'components/ScrollUpButton';
+import { SlArrowUp } from "react-icons/sl";
+
+const PAGE_SCROLL_DOWN = 100;
 
 const OurFriends = ({ data }) => {
   const [friends, setFriends] = useState([]);
+  const [scrollTop, setScrollTop] = useState(0);
 
   let days = ['MN', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollTop(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     fetchOurFriends().then(setFriends);
@@ -33,6 +50,8 @@ const OurFriends = ({ data }) => {
     const filtered = arr.find(item => item.isOpen === true);
     return `${filtered.from}-${filtered.to}`;
   };
+
+  const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
 
   return (
     <FriendsWrap>
@@ -120,6 +139,11 @@ const OurFriends = ({ data }) => {
           )}
         </FriendsCardsWrap>
       </StyledContainer>
+      {isShowButtonTop && (
+        <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
+          <SlArrowUp />
+        </ScrollUpButton>
+      )}
     </FriendsWrap>
   );
 };

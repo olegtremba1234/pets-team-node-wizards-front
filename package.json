@@ -2,7 +2,7 @@
   "name": "react-homework-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://olegtremba1234.github.io/pets-team-node-wizards-front/",
+  "homepage": "",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.3",
@@ -17,7 +17,7 @@
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-icons": "^4.7.1",
+    "react-icons": "^4.8.0",
     "react-loader-spinner": "^5.3.4",
     "react-media": "^1.10.0",
     "react-phone-input-2": "^2.15.1",

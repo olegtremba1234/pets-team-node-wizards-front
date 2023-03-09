@@ -10,12 +10,10 @@ import {
 
 import { configureStore } from '@reduxjs/toolkit';
 import { authReduсer } from './auth/authSlice';
-import { noticesReduсer } from './notices/noticeSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReduсer,
-    notices: noticesReduсer,
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware({

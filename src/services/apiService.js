@@ -22,7 +22,7 @@ export const fetchAllNotices = async () => {
 };
 
 export const fetchNoticesByQuery = async query => {
-  const response = await axios.get(`/notices?query=${query}`);
+  const response = await axios.get(`/notices?search=${query}`);
 
   return response.data;
 };
@@ -45,4 +45,3 @@ export const fetchUserNotices = async token => {
   });
   return response.data;
 };
-

@@ -4,7 +4,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SearchForm from '../SearchForm/SearchForm';
 import moment from 'moment';
-
+import { ScrollUpButton, scrollTopPage } from 'components/ScrollUpButton';
+import { SlArrowUp } from "react-icons/sl";
 import { useState, useEffect } from 'react';
 import {
   NewsWrap,
@@ -19,12 +20,24 @@ import {
   LinkReadMore,
 } from './News.styled';
 
-
 const News = () => {
   const [news, setNews] = useState([]);
   const [input, setInput] = useState('');
   const [searchNews, setSearchNews] = useState(null);
   const [isHiden, setIsHiden] = useState(false);
+  const [scrollTop, setScrollTop] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollTop(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     fetchNews().then(setNews);
@@ -64,6 +77,8 @@ const News = () => {
       ? `${text.slice(0, max).split(' ').slice(0, -1).join(' ')}...`
       : text;
   };
+
+  const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
 
   return (
     <NewsWrap>
@@ -112,6 +127,11 @@ const News = () => {
           </NewsList>
         )}
       </StyledContainer>
+      {isShowButtonTop && (
+        <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
+          <SlArrowUp />
+        </ScrollUpButton>
+      )}
     </NewsWrap>
   );
 };

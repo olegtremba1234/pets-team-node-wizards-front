@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-
+import { GrClose } from 'react-icons/gr';
 const fadeInOut = keyframes`
   from {
    opacity:0;
@@ -18,22 +18,31 @@ export const DivMobile = styled.div`
   width: 100%;
   height: 100%;
   background-color: ${p => p.theme.backgrounds.bodyPrimary};
-  padding: 16px 20px;
 
-  @media (min-width: 768px) {
-    padding: 24px 32px;
-  }
   animation: ${fadeInOut} 500ms ease-in-out;
 `;
 
 export const Button = styled.button`
   background-color: transparent;
   border: 1px transparent solid;
-  position: absolute;
-  top: 16px;
-  right: 20px;
+`;
+
+export const CloseIcon = styled(GrClose)`
+  width: 40px;
+  height: 40px;
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ModalContainer = styled.div`
+  padding: 16px 20px;
+
   @media (min-width: 768px) {
-    top: 24px;
-    right: 32px;
+    padding: 24px 32px;
+    width: 768px;
   }
+  margin: 0 auto;
 `;

@@ -1,5 +1,19 @@
 import styled from 'styled-components';
 
+export const ButtonIcon = styled.button`
+  display: flex;
+  border: none;
+  background-color: inherit;
+  font-size: 20px;
+  align-items: center;
+  cursor: pointer;
+
+  @media screen and (min-width: 1280px) {
+    font-size: 28px;
+
+  }
+`;
+
 export const Modal = styled.div`
   position: fixed;
   width: 100vw;
