@@ -84,7 +84,7 @@ export default function NoticesPage() {
   const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
   return (
     <>
-      <SearchNotices />
+      <SearchNotices onSubmit={onHandleSubmit} />
       <Categories />
       <NoticesCategoriesList notices={notices} />
       {isShowButtonTop && (
