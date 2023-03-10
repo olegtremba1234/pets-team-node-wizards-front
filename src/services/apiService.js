@@ -122,9 +122,6 @@ export const postNewPet = async data => {
   const { name, birthDay, breed, comments } = data;
   const avatar = document.querySelector('#avatar');
   const formData = new FormData();
-
-  console.log('avatar.files[0]', avatar.files[0])
-  console.log('avatar.files', avatar.files)
   
   formData.append('avatar', avatar.files[0]);
   formData.append('name', name);
@@ -138,7 +135,7 @@ export const postNewPet = async data => {
         'Content-Type': 'multipart/form-data',
       },
     })
-    .then(({ data }) => console.log(data))
+    .then(console.log)
     .catch(console.log);
   return res;
 };
