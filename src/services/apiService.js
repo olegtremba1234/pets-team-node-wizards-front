@@ -135,7 +135,8 @@ export const postNewPet = async data => {
         'Content-Type': 'multipart/form-data',
       },
     })
-    .then(({ data }) => console.log(data));
+    .then(({ data }) => console.log(data))
+    .catch(console.log);
   return res;
 };
 
