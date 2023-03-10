@@ -151,3 +151,11 @@ export const deleteOwnNoticeById = async (id, token) => {
   });
   return res;
 };
+
+export const addNoticeToFavourite = async (id, token) => {
+  const res = await axios.post(`/notices/my-favorites/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return res;
+};

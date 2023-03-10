@@ -12,10 +12,14 @@ import {
   DescriptionWrapper,
   InfoWrapper,
 } from './NoticeCategoryItem.styled';
+import { toast } from 'react-toastify';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
 import { useState } from 'react';
 import ModalNotice from 'components/ModalNotice';
+import { addNoticeToFavourite, deleteOwnNoticeById } from 'services/apiService';
+import { selectToken } from 'redux/auth/authSelectors';
+import { useSelector } from 'react-redux';
 
 export default function NoticeCategoryItem({
   title,
@@ -26,6 +30,7 @@ export default function NoticeCategoryItem({
   category,
   id,
 }) {
+  const token = useSelector(selectToken);
   const [isModalOpen, setIsModalOpen] = useState(false);
   function getAge(dateString) {
     var today = new Date();
@@ -37,11 +42,26 @@ export default function NoticeCategoryItem({
     }
     return age;
   }
+  const handleAddToFavorite = id => {
+    if (!token) {
+      toast.error('Oops..You must be logged in to add to favorites');
+      return;
+    }
+    addNoticeToFavourite(id, token)
+      .then(() => toast.success('Added to favorite successfully'))
+      .catch(console.log);
+  };
+
+  const handleDelete = id => {
+    deleteOwnNoticeById(id, token)
+      .then(() => toast.success('Deleted successfully'))
+      .catch(console.log);
+  };
   return (
     <Card>
       <ImageWrapper>
         <Image src={petPhotoURL} />
-        <HeartBtn>
+        <HeartBtn onClick={() => handleAddToFavorite(id)}>
           <AiOutlineHeart size="10x" color="#F59256" />
         </HeartBtn>
         <CategoryInfo>{category}</CategoryInfo>
@@ -63,7 +83,7 @@ export default function NoticeCategoryItem({
         <LearnMoneBtn onClick={() => setIsModalOpen(true)}>
           Learn more
         </LearnMoneBtn>
-        <DeleteBtn>
+        <DeleteBtn onClick={() => handleDelete(id)}>
           Delete <BsTrash color="#F59256" />
         </DeleteBtn>
       </InfoWrapper>
