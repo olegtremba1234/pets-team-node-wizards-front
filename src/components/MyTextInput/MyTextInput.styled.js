@@ -7,10 +7,6 @@ export const Label = styled.label`
 
   margin-bottom: 28px;
 
-  &:last-of-type {
-    margin-bottom: 40px;
-  }
-
   font-family: ${p => p.theme.fontFamily.main};
   font-style: ${p => p.theme.fontStyle.main};
   font-weight: ${p => p.theme.fontWeights.medium};

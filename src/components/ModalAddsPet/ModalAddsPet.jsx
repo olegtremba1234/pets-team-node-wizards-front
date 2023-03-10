@@ -27,6 +27,7 @@ import addPetSchemaSecondStep from 'services/formik/addPetSchemaSecondStep';
 
 export default function ModalAddsPet({ children }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [avatar, setAvatar] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [avatarFileName, setAvatarFileName] = useState(null);
@@ -179,7 +180,7 @@ export default function ModalAddsPet({ children }) {
                   id="avatar"
                   ref={filePicker}
                   accept="image/*,.png,.jpg"
-                  onChangeCapture={handleAvatarChange}
+                  // onChangeCapture={handleAvatarChange}
                 />
               </InputAvatarWrapper>
             </AvatarWrapper>
@@ -219,21 +220,21 @@ export default function ModalAddsPet({ children }) {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleAvatarChange = e => {
-    const pathString = e.currentTarget.value;
-    const fileName = pathString.split('\\').slice(-1).toString();
+  // const handleAvatarChange = e => {
+  //   const pathString = e.currentTarget.value;
+  //   const fileName = pathString.split('\\').slice(-1).toString();
 
-    console.log('avatar before >>>', avatar);
-    console.log('avatarFileName before >>>', avatarFileName);
-    console.log('pathString >>>', pathString);
-    console.log('fileName >>>', fileName);
+  //   console.log('avatar before >>>', avatar);
+  //   console.log('avatarFileName before >>>', avatarFileName);
+  //   console.log('pathString >>>', pathString);
+  //   console.log('fileName >>>', fileName);
 
-    setAvatarFileName(fileName);
-    setAvatar(pathString);
+  //   setAvatarFileName(fileName);
+  //   setAvatar(pathString);
 
-    console.log('avatar after >>>', avatar);
-    console.log('avatarFileName after >>>', avatarFileName);
-  };
+  //   console.log('avatar after >>>', avatar);
+  //   console.log('avatarFileName after >>>', avatarFileName);
+  // };
 
   const handlePick = e => {
     filePicker.current.click();

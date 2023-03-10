@@ -123,6 +123,7 @@ export const BtnWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 24px;
+  padding-top: 12px;
 `;
 
 export const CloseBtn = styled.button`
