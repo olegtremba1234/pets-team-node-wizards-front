@@ -25,6 +25,7 @@ import {
 const PAGE_SCROLL_DOWN = 100;
 
 export default function NoticesPage() {
+  const addedNotice = useSelector(state => state.notices.notices);
   const token = useSelector(selectToken);
   const [notices, setNotices] = useState([]);
   const [query, setQuery] = useState('');
@@ -51,27 +52,27 @@ export default function NoticesPage() {
   const Interaction_With_API = async () => {
     if (!categoryName && !query.length) {
       const result = await fetchAllNotices();
-      setNotices(result);
+      setNotices(result.reverse());
       return;
     }
     if (query.length && !categoryName) {
       const result = await fetchNoticesByQuery(query);
-      setNotices(result);
+      setNotices(result.reverse());
       return;
     }
     if (categoryName === 'favorite-ads') {
       const result = await fetchFavoriteNotices(token);
-      setNotices(result);
+      setNotices(result.reverse());
       return;
     }
     if (categoryName === 'my-ads') {
       const result = await fetchUserNotices(token);
-      setNotices(result);
+      setNotices(result.reverse());
       return;
     }
     if (!query.length && categoryName) {
       const result = await fetchNoticesByCategory(categoryName);
-      setNotices(result);
+      setNotices(result.reverse());
       return;
     }
     if (categoryName && query.length) {
@@ -80,7 +81,7 @@ export default function NoticesPage() {
         categoryName,
         token
       );
-      setNotices(result);
+      setNotices(result.reverse());
       return;
     }
   };
@@ -91,8 +92,13 @@ export default function NoticesPage() {
       setQuery('');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryName, token, query]);
+  }, [categoryName, token, query, addedNotice]);
   const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
+
+  const handleDelete = id => {
+    setNotices(prev => prev.filter(item => item.id !== id));
+  };
+
   return (
     <StyledNoticesPageContainer>
       <StyledTitle>Find your favorite pet</StyledTitle>
@@ -101,7 +107,7 @@ export default function NoticesPage() {
         <Categories />
         <AddNoticeButton />
       </AddButtonAndCategoriesWrapper>
-      <NoticesCategoriesList notices={notices} />
+      <NoticesCategoriesList notices={notices} callback={handleDelete} />
       {isShowButtonTop && (
         <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
           <SlArrowUp />
