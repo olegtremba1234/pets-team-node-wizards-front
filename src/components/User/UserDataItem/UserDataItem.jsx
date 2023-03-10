@@ -7,7 +7,6 @@ import { selectToken } from 'redux/auth/authSelectors';
 import { fetchUseInfo, fetchUser } from 'services/apiService';
 import { toast } from 'react-toastify';
 
-
 const UserDataItem = () => {
   const [nameDisabled, setNameDisabled] = useState(true);
   const [emailDisabled, setEmailDisabled] = useState(true);
@@ -67,10 +66,10 @@ const UserDataItem = () => {
 
       case 'phone':
         const len = ev.previousElementSibling.value;
-        
+
         if (len.length < 13 || len.length > 13) {
-          toast.error("The phone number is incorrect")
-         
+          toast.error('The phone number is incorrect');
+
           return;
         }
         selectInput(ev, phoneDisabled);
