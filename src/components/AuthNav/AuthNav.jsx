@@ -30,8 +30,16 @@ export default function AuthNav({ closeMobile }) {
               onClick={() => closeMobile(false)}
               mode={
                 isLocationReg
-                  ? { color: '#111111', backgroundColor: '#ffffff' }
-                  : { color: '#ffffff', backgroundColor: '#f59256' }
+                  ? {
+                      color: '#111111',
+                      backgroundColor: '#ffffff',
+                      hover: '#f59256',
+                    }
+                  : {
+                      color: '#ffffff',
+                      backgroundColor: '#f59256',
+                      hover: '#FF6101',
+                    }
               }
             >
               Login

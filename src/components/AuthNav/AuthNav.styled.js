@@ -42,7 +42,7 @@ export const AccountLink = styled(StyledLink)`
   text-transform: capitalize;
   &:hover:not(.active),
   :focus-visible:not(.active) {
-    transform: scale(1.03);
+    background-color: ${p => p.theme.hoverButtonColor.primary};
   }
 `;
 
@@ -64,6 +64,10 @@ export const Ul = styled.ul`
 export const LoginStyledLink = styled(StyledLink)`
   background-color: ${props => props.mode.backgroundColor};
   color: ${props => props.mode.color};
+  &:hover:not(.active),
+  :focus-visible:not(.active) {
+    background-color: ${props => props.mode.hover};
+  }
 `;
 
 export const AccountIcon = styled(FaUserCircle)`

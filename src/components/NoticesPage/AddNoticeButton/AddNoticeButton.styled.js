@@ -11,6 +11,7 @@ export const Button = styled.button`
   display: flex;
   gap: 12px;
   align-items: center;
+
   @media (max-width: 767px) {
     font-size: 12px;
     background: #f59256;
@@ -22,7 +23,19 @@ export const Button = styled.button`
     line-height: 16px;
     color: #ffffff;
     gap: 10px;
+    position: fixed;
+    z-index: 1;
+    bottom: 10px;
+    right: 20px;
   }
+
+  @media (min-width: 768px) {
+    width: 195px;
+  }
+
+  @media (min-width: 1280px) {
+    width: 150px;
+  } ;
 `;
 
 export const Span = styled.span`

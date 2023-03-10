@@ -256,6 +256,13 @@ export const ButtonAdd = styled.button`
   }
 `;
 
+export const ButtonRemoveFromFavorite = styled(ButtonAdd)`
+  @media (min-width: 768px) {
+    min-width: 160px;
+    padding: 7px 0;
+  }
+`;
+
 export const LinkContact = styled.a`
   width: 100%;
   text-decoration: none;
@@ -283,9 +290,7 @@ export const LinkContact = styled.a`
   }
   &:hover,
   :focus {
-    background-color: ${p => p.theme.backgrounds.bodySecondary};
-    border: 2px solid #f59256;
-    color: ${p => p.theme.fontColors.primary};
+    background-color: ${p => p.theme.hoverButtonColor.primary};
   }
   transition: all 350ms ease-in-out;
 `;
