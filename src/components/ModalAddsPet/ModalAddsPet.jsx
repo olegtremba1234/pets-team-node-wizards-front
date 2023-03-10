@@ -29,7 +29,6 @@ export default function ModalAddsPet({ children }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [avatar, setAvatar] = useState(null);
-  // eslint-disable-next-line no-unused-vars
   const [avatarFileName, setAvatarFileName] = useState(null);
   const filePicker = useRef(null);
   const [data, setData] = useState({
@@ -55,7 +54,6 @@ export default function ModalAddsPet({ children }) {
   });
 
   const makeRequest = formData => {
-    console.log('Formik submit >>>', formData);
     postNewPet(formData);
   };
 
