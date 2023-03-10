@@ -1,5 +1,6 @@
 import { useEffect, useState, Fragment } from 'react';
 import {
+  addNoticeToFavourite,
   deleteOwnNoticeById,
   fetchNoticeById,
   fetchUserNotices,
@@ -46,12 +47,12 @@ export default function ModalNotice({ id, setIsModalOpen }) {
       toast.error('Oops..You must be logged in to add to favorites');
       return;
     }
-    // addToFavorite(id, token).catch(console.log);
+    addNoticeToFavourite(id, token);
   };
 
   const handleDelete = id => {
     deleteOwnNoticeById(id, token)
-      .then(toast.success('Deleted successfully'))
+      .then(() => toast.success('Deleted successfully'))
       .catch(console.log);
   };
 
