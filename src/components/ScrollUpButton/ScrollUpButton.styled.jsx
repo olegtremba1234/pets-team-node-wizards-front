@@ -13,9 +13,9 @@ export const Button = styled.button`
   border-radius: 50%;
   border: 2px solid ${p => p.theme.backgrounds.buttonPrimary};
   background-color: ${p => p.theme.backgrounds.input};
-cursor: pointer;
+  cursor: pointer;
 
   & > svg {
     color: ${p => p.theme.fontColors.primary};
-}
+  }
 `;
