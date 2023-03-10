@@ -135,11 +135,19 @@ export const postNewPet = async data => {
         'Content-Type': 'multipart/form-data',
       },
     })
-    .then(({ data }) => console.log(data));
+    .then(({ data }) => console.log(data))
+    .catch(console.log);
   return res;
 };
 
-export const fetchNoticeById = async id => {
+export const fetchNoticeById = async (id, token) => {
   const res = await axios.get(`/notices/certain/${id}`);
   return res.data;
+};
+
+export const deleteOwnNoticeById = async (id, token) => {
+  const res = await axios.delete(`/notices/my-notices/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res;
 };
