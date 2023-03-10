@@ -33,7 +33,7 @@ export default function ModalAddsPet({ children, infoModal }) {
   const filePicker = useRef(null);
   const [data, setData] = useState({
     name: '',
-    birthDay: '',
+    birthDay: `${new Date().toISOString().split('T')[0]}`,
     breed: '',
     comments: '',
   });
@@ -62,7 +62,7 @@ export default function ModalAddsPet({ children, infoModal }) {
   const resetData = () => {
     setData({
       name: '',
-      birthDay: '',
+      birthDay: `${new Date().toISOString().split('T')[0]}`,
       breed: '',
       comments: '',
     });
@@ -102,23 +102,28 @@ export default function ModalAddsPet({ children, infoModal }) {
         onSubmit={handleSubmit}
         validationSchema={addPetSchemaFirstStep}
       >
-        {() => (
+        {({ values }) => (
           <Form>
             <MyTextInput
               label="Name"
               name="name"
+              id="name"
               type="text"
               placeholder="Type name pet"
             />
             <MyTextInput
               label="Date of birth"
               name="birthDay"
-              type="text"
+              id="birthDay"
+              type="date"
+              max={new Date().toISOString().split('T')[0]}
+              value={values.birthDay}
               placeholder="Type date of birth"
             />
             <MyTextInput
               label="Breed"
               name="breed"
+              id="breed"
               type="text"
               placeholder="Type breed"
             />
@@ -126,7 +131,7 @@ export default function ModalAddsPet({ children, infoModal }) {
               <BtnMain type="button" onClick={resetData}>
                 Cancel
               </BtnMain>
-              <BtnMain type="submit">Next</BtnMain>
+              <BtnMain className='emphasis-btn' type="submit">Next</BtnMain>
             </BtnWrapper>
           </Form>
         )}
@@ -175,6 +180,7 @@ export default function ModalAddsPet({ children, infoModal }) {
             <MyTextArea
               label="Comments"
               name="comments"
+              id="comments"
               type="text"
               placeholder="Type comments"
             />
@@ -182,7 +188,7 @@ export default function ModalAddsPet({ children, infoModal }) {
               <BtnMain type="button" onClick={() => props.prev(values)}>
                 Back
               </BtnMain>
-              <BtnMain type="submit">Submit</BtnMain>
+              <BtnMain className='emphasis-btn' type="submit">Done</BtnMain>
             </BtnWrapper>
           </Form>
         )}

@@ -6,14 +6,9 @@ export const Section = styled.section`
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 36px;
-  margin-bottom: 30px;
-
-  @media ${device.tablet} {
-    margin-top: 40px;
-    margin-bottom: 60px;
-  }
+  margin-right: auto;
 `;
+
 export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   border: 2px solid #f59256;
@@ -32,11 +27,11 @@ export const StyledNavLink = styled(NavLink)`
     background-color: #f59256;
     color: white;
   }
-
+  height: 35px;
   @media ${device.tablet} {
     font-size: 20px;
     padding-top: 10px;
-
+    height: 47px;
     &:last-child {
       margin-left: 11px;
     }
@@ -66,17 +61,31 @@ export const StyledTitle = styled.h2`
   }
 `;
 
+export const AddButtonAndCategoriesWrapper = styled.div`
+  display: flex;
+  margin-bottom: 30px;
+  align-items: baseline;
+  @media ${device.tablet} {
+    margin-top: 40px;
+    margin-bottom: 60px;
+  }
+`;
+
 export const StyledNoticesPageContainer = styled.div`
   padding-left: 20px;
   padding-right: 20px;
-
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
   @media ${device.tablet} {
     padding-left: 32px;
     padding-right: 32px;
+    width: 768px;
   }
 
   @media ${device.desktop} {
     padding-left: 16px;
     padding-right: 16px;
+    width: 1280px;
   }
 `;

@@ -48,6 +48,7 @@ export const DescriptionInfo = styled.ul`
   gap: 8;
 `;
 export const LearnMoneBtn = styled.button`
+  cursor: pointer;
   background: #ffffff;
   border: 2px solid #f59256;
   border-radius: 40px;
@@ -64,6 +65,7 @@ export const LearnMoneBtn = styled.button`
   }
 `;
 export const DeleteBtn = styled.button`
+  cursor: pointer;
   background: #ffffff;
   border: 2px solid #f59256;
   border-radius: 40px;
@@ -91,6 +93,7 @@ export const HeartBtn = styled.button`
   border: none;
   top: 12px;
   right: 12px;
+  cursor: pointer;
 `;
 export const CategoryInfo = styled.div`
   position: absolute;

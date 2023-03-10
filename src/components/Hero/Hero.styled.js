@@ -18,6 +18,7 @@ export const StyledContainer = styled.main`
     background-size: 100% 1098px;
   }
   @media ${device.desktop} {
+    z-index: -1;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -68,7 +69,7 @@ export const HeartSvg = styled.img`
     display: block;
     position: absolute;
     top: 17%;
-    left: 57%;
+    left: 52%;
     width: 90px;
   }
 `;

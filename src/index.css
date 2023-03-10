@@ -195,3 +195,7 @@ code {
   transform: scale(1.02);
   border: 1px solid #ff6101 !important;
 }
+
+ html {
+      overflow-y: scroll;
+    }
