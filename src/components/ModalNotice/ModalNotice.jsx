@@ -3,7 +3,6 @@ import {
   addNoticeToFavourite,
   deleteOwnNoticeById,
   fetchNoticeById,
-  addToFavorite,
   deleteNoticeFromFavorite,
 } from 'services/apiService';
 import {
@@ -47,15 +46,16 @@ export default function ModalNotice({ id, setIsModalOpen }) {
       toast.error('Oops...You must be logged in to add to favorites');
       return;
     }
-    addNoticeToFavourite(id, token);
-    addToFavorite(id, token)
+    addNoticeToFavourite(id, token)
       .then(() => {
         setIsFavorite(true);
         toast.success('Added to favorite list successfully');
       })
       .catch(err => {
         console.log(err.message);
-        toast.error('Oops...Something went wrong. Failed to add to favorite ');
+        toast.error(
+          'Oops...Something went wrong. Failed to add to the favorite list'
+        );
       });
   };
 
@@ -68,7 +68,7 @@ export default function ModalNotice({ id, setIsModalOpen }) {
       .catch(err => {
         console.log(err);
         toast.error(
-          'Oops...Something went wrong. Failed to delete from favorite list'
+          'Oops...Something went wrong. Failed to delete from the favorite list'
         );
       });
   };
@@ -86,13 +86,14 @@ export default function ModalNotice({ id, setIsModalOpen }) {
   };
 
   useEffect(() => {
-    fetchNoticeById(id)
+    fetchNoticeById(id, token)
       .then(data => {
         setNoticesDetails(data);
         setIsFavorite(data.isFavorite);
       })
       .catch(console.log);
-  }, [id]);
+  }, [id, token]);
+
   useEffect(() => {
     const escapeModal = event => {
       if (event.code === 'Escape') {
@@ -106,6 +107,7 @@ export default function ModalNotice({ id, setIsModalOpen }) {
       window.removeEventListener('keydown', escapeModal);
     };
   });
+
   const handleCloseModal = event => {
     if (event.currentTarget === event.target) {
       setIsModalOpen(false);
