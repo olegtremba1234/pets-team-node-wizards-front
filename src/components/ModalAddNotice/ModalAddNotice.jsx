@@ -76,6 +76,22 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
     }
   };
 
+  const formDataAppender = fields => {
+    const formData = new FormData();
+    const entriesForAppend = Object.entries(fields).reduce(
+      (acc, [key, value]) => {
+        acc[key] = value;
+        return acc;
+      },
+      []
+    );
+    Object.entries(entriesForAppend).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    return formData;
+  };
+
+
   const formik = useFormik({
     initialValues: {
       category: 'sell',
@@ -96,7 +112,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
         .min(2, 'Title is too short')
         .matches(
           /^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/,
-          'The title contains only letters and spaces'
+          'Only letters and spaces'
         )
         .trim()
         .max(48, 'Title is too long'),
@@ -106,7 +122,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
         .required('Enter the name of the animal')
         .matches(
           /^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/,
-          'The title contains only letters and spaces'
+          'Only letters and spaces'
         )
         .max(16, 'Name is too long'),
       birthday: Yup.date()
@@ -115,7 +131,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
       breed: Yup.string()
         .required('Enter a breed')
         .min(2, 'Breed is too short')
-        .matches(/^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/, 'only letters')
+        .matches(/^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/, 'Only letters')
         .trim()
         .max(24, 'Breed is too long'),
       location: Yup.string()
@@ -142,15 +158,17 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
         .max(120, 'Comments is too long'),
     }),
     onSubmit: async () => {
-      try {
-        await dispatch(addNotice(formDataAppender(formik.values))).unwrap();
+        await dispatch(addNotice(formDataAppender(formik.values)))
+        .unwrap()
+        .then(() => {
         toast.success('Ви успішно створили оголошення.');
-      } catch (error) {
+      })
+      .catch(() => {
         toast.error('Не вдалось створити оголошення.');
-      }
-      formik.resetForm();
-      onClose();
-    },
+      });
+    formik.resetForm();
+    onClose();
+  },
   });
 
   const onImageChange = e => {
@@ -160,21 +178,6 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
     }
   };
 
-  const formDataAppender = fields => {
-    const formData = new FormData();
-    const entriesForAppend = Object.entries(fields).reduce(
-      (acc, [key, value]) => {
-        acc[key] = value;
-        return acc;
-      },
-      []
-    );
-    Object.entries(entriesForAppend).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    console.log(formData);
-    return formData;
-  };
 
   useEffect(() => {
     const firstStepPossibleErrors = [
@@ -442,7 +445,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
                 </Button>
                 <ButtonSecond
                   type="submit"
-                  disabled={!formik.isValid || isLoading}
+                  disabled={!formik.isValid ||  isLoading}
                 >
                   Done
                 </ButtonSecond>

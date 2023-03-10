@@ -564,10 +564,8 @@ export const ErrorTextComment = styled(ErrorText)`
   top: 170px;
 
   @media ${device.tablet} {
-    top: 150px;
+    top: 162px;
   }
 
-  @media ${device.desktop} {
-    top: 150px;
-  }
+ 
 `;
