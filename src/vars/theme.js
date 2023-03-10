@@ -23,10 +23,6 @@ export const theme = Object.freeze({
   hoverButtonColor: {
     primary: '#FF6101',
   },
-  hovers: {
-    primary: '#f59356af',
-    secondary: '#ffffffd0',
-  },
   transitions: {
     primary: '',
   },
