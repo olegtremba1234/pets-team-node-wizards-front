@@ -143,7 +143,7 @@ export const CloseBtn = styled.button`
 
   :hover,
   :focus {
-    background-color: ${p => p.theme.backgrounds.buttonPrimary};
+    background-color: ${p => p.theme.hoverButtonColor.primary};
     color: ${p => p.theme.fontColors.white};
   }
   :active {
@@ -156,7 +156,6 @@ export const BtnMain = styled.button`
   min-width: 180px;
   height: 44px;
   z-index: 101;
-
 
   border: ${p => p.theme.borders.buttonModal};
   border-radius: ${p => p.theme.borderRadius.main};
@@ -176,9 +175,14 @@ export const BtnMain = styled.button`
   color: ${p => p.theme.fontColors.buttonPrimary};
   cursor: pointer;
 
+  &.emphasis-btn {
+    background-color: ${p => p.theme.backgrounds.buttonPrimary};
+    color: ${p => p.theme.fontColors.white};
+  }
+
   :hover,
   :focus {
-    background-color: ${p => p.theme.backgrounds.buttonPrimary};
+    background-color: ${p => p.theme.hoverButtonColor.primary};
     color: ${p => p.theme.fontColors.white};
   }
   :active {
