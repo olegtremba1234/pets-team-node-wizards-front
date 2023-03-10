@@ -32,6 +32,7 @@ import {
   CloseButton,
   Legend,
   ErrorTextComment,
+  AddedImage,
 } from './ModalAddNotice.styled';
 import { useState } from 'react';
 import { useFormik } from 'formik';
@@ -50,6 +51,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
   const isLoading = useSelector(selectIsLoading);
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
   const [disableNextButton, setDisableNextButton] = useState(true);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -58,7 +60,6 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
       ? setIsFirstRegisterStep(false)
       : setIsFirstRegisterStep(true);
   };
-
 
   const cityInputValidation = value => {
     if (value) {
@@ -75,7 +76,6 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
     }
   };
 
-
   const formik = useFormik({
     initialValues: {
       category: 'sell',
@@ -86,6 +86,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
       sex: 'male',
       location: '',
       price: '0',
+      'pet-image': '',
       comments: '',
     },
     validationSchema: Yup.object().shape({
@@ -124,12 +125,13 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
           'locationFormat',
           'Format should be "city, region"',
           cityInputValidation
-        ).required('Enter your location'),
+        )
+        .required('Enter your location'),
       sex: Yup.string().required('Select gender'),
       price: Yup.string().when('category', {
         is: category => category.includes('sell'),
         then: () =>
-            Yup.string()
+          Yup.string()
             .matches(/^[0-9][0-9]*$/, 'Only number')
             .required('Enter a price'),
       }),
@@ -140,38 +142,26 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
         .max(120, 'Comments is too long'),
     }),
     onSubmit: async () => {
-    try {
-      await dispatch(addNotice(formDataAppender(formik.values))).unwrap();
-      toast.success('Ви успішно створили оголошення.');
-    } catch (error) {
-      toast.error('Не вдалось створити оголошення.');
-    }
+      try {
+        await dispatch(addNotice(formDataAppender(formik.values))).unwrap();
+        toast.success('Ви успішно створили оголошення.');
+      } catch (error) {
+        toast.error('Не вдалось створити оголошення.');
+      }
       formik.resetForm();
       onClose();
     },
   });
 
-
-  // const formDataAppender = () => {
-  //   const petPhotoUrl = document.querySelector('#petPhotoUrl');;
-  //   const formData = new FormData();
-  //   formData.append("petPhotoUrl", petPhotoUrl.files[0]);
-  //   formData.append("category", formik.values.category);
-  //   formData.append("title", formik.values.title);
-  //   formData.append("name", formik.values.name);
-  //   formData.append("birthday", formik.values.birthday);
-  //   formData.append("breed", formik.values.breed);
-  //   formData.append("location", formik.values.location);
-  //   formData.append("price", formik.values.price);
-  //   formData.append("sex", formik.values.sex);
-  //   formData.append("comments", formik.values.comments);
-  //   console.log(formData)
-  // };
+  const onImageChange = e => {
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      setImagePreview(URL.createObjectURL(e.target.files[0]));
+      formik.setFieldValue('pet-image', e.currentTarget.files[0]);
+    }
+  };
 
   const formDataAppender = fields => {
-    const petImage = document.querySelector('#pet-image');
     const formData = new FormData();
-    formData.append('pet-image', petImage.files[0]);
     const entriesForAppend = Object.entries(fields).reduce(
       (acc, [key, value]) => {
         acc[key] = value;
@@ -182,7 +172,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
     Object.entries(entriesForAppend).forEach(([key, value]) => {
       formData.append(key, value);
     });
-    console.log(formData)
+    console.log(formData);
     return formData;
   };
 
@@ -204,7 +194,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
 
   return (
     <WrapperContainer onClick={onClickBackdrop}>
-      <ModalWrap >
+      <ModalWrap>
         <FormWrapper>
           <ModalTitle>Add pet</ModalTitle>
           <Form onSubmit={formik.handleSubmit}>
@@ -381,29 +371,42 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
                       name="price"
                       onChange={formik.handleChange}
                       value={formik.values.price}
-                      onFocus={(e) => e.target.value = ''}
+                      onFocus={e => (e.target.value = '')}
                     />
                   </>
                 ) : null}
 
                 <fieldset>
                   <Legend>
-                  Load the pet's image
+                    Load the pet's image<FieldRequired>*</FieldRequired>
                   </Legend>
+                  {formik.values['pet-image'] === '' ? (
                     <AvatarLabel htmlFor="pet-image">
                       <SelectedImage alt="add" src={addImg} />
                       <FileInput
                         id="pet-image"
                         name="pet-image"
                         type="file"
+                        accept="image/png, image/gif, image/jpeg"
+                        onChange={e => {
+                          formik.handleChange(e);
+                          onImageChange(e);
+                        }}
                       />
                     </AvatarLabel>
+                  ) : (
+                    <AddedImage>
+                      <img alt="pet" src={imagePreview} />
+                    </AddedImage>
+                  )}
                 </fieldset>
 
                 <Label htmlFor="comments">
                   Comments<FieldRequired>*</FieldRequired>
                   {formik.values.comments !== '' && formik.errors.comments ? (
-                    <ErrorTextComment>{formik.errors.comments}</ErrorTextComment>
+                    <ErrorTextComment>
+                      {formik.errors.comments}
+                    </ErrorTextComment>
                   ) : null}
                 </Label>
                 <InputTextArea

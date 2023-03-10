@@ -22,7 +22,6 @@ export default function AddNoticeButton() {
 
   const handleClickClose = () => {
     setIsModalOpen(false);
-    console.log('click');
   };
 
   const handleBackdrop = e => {
