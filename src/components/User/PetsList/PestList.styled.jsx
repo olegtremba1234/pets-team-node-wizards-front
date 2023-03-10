@@ -51,6 +51,7 @@ export const Image = styled.img`
   border-radius: 20px;
   margin: auto;
   margin-bottom: 17px;
+  object-fit: cover;
 
   @media screen and (min-width: 768px) {
     width: 161px;
