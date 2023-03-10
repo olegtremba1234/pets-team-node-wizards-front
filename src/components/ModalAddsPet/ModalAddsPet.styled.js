@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from 'vars/device';
 
 export const ButtonIcon = styled.button`
   display: flex;
@@ -46,28 +47,43 @@ export const ModalContent = styled.div`
   background: ${p => p.theme.backgrounds.bodySecondary};
   box-shadow: ${p => p.theme.shadows.modal};
   border-radius: ${p => p.theme.borderRadius.main};
-  width: 608px;
-  padding: 40px 80px;
 
-  &.step-2 {
-    padding: 40px 106px;
+  width: 280px;
+  padding: 40px 20px;
+
+  @media ${device.tablet} {
+    width: 608px;
+    padding: 40px 80px;
+
+    &.step-2 {
+      padding: 40px 106px;
+    }
   }
 `;
 
 export const ModalTitle = styled.h2`
-  margin-bottom: 40px;
+  margin-bottom: 28px;
   text-align: center;
 
   &.step-2 {
-    margin-bottom: 20px;
-  }
+      margin-bottom: 20px;
+    }
 
   font-family: ${p => p.theme.fontFamily.main};
   font-style: ${p => p.theme.fontStyle.main};
   font-weight: ${p => p.theme.fontWeights.medium};
-  font-size: ${p => p.theme.fontSizes.xxxxl};
+  font-size: ${p => p.theme.fontSizes.xxl};
   line-height: 1.36;
   color: ${p => p.theme.fontColors.primary};
+
+  @media ${device.tablet} {
+    margin-bottom: 40px;
+    font-size: ${p => p.theme.fontSizes.xxxxl};
+
+    &.step-2 {
+      margin-bottom: 20px;
+    }
+  }
 `;
 
 export const LabelAvatar = styled.label`
@@ -77,14 +93,19 @@ export const LabelAvatar = styled.label`
   font-family: ${p => p.theme.fontFamily.main};
   font-style: ${p => p.theme.fontStyle.main};
   font-weight: ${p => p.theme.fontWeights.medium};
-  font-size: ${p => p.theme.fontSizes.xxl};
-  line-height: 1.1;
+  font-size: ${p => p.theme.fontSizes.m};
+  line-height: 1.37;
   color: ${p => p.theme.fontColors.primary};
+
+  @media ${device.tablet} {
+    font-size: ${p => p.theme.fontSizes.xxl};
+    line-height: 1.1;
+  }
 `;
 
 export const InputAvatarWrapper = styled.button`
-  width: 182px;
-  height: 182px;
+  width: 208px;
+  height: 208px;
   padding: 10px 16px;
   overflow: hidden;
 
@@ -97,6 +118,11 @@ export const InputAvatarWrapper = styled.button`
   background: ${p => p.theme.backgrounds.input};
   border: ${p => p.theme.borders.input};
   border-radius: ${p => p.theme.borderRadius.main};
+  @media ${device.tablet} {
+    width: 182px;
+  height: 182px;
+
+  }
 `;
 
 export const InputAvatar = styled.input`
@@ -114,15 +140,27 @@ export const AvatarWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   gap: 20px;
+  
+  @media ${device.tablet} {
+    margin-bottom: 40px;
+  }
 `;
 
 export const BtnWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 24px;
+
+  @media ${device.tablet} {
+    flex-direction: row;
+    gap: 24px;
+    padding-top: 12px;
+  }
 `;
 
 export const CloseBtn = styled.button`
@@ -130,12 +168,19 @@ export const CloseBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 24px;
-  right: 24px;
-  width: 44px;
-  height: 44px;
+  top: 20px;
+  right: 20px;
+  width: 34px;
+  height: 34px;
   border-radius: ${p => p.theme.borderRadius.main};
   padding: 2px 2px;
+
+  @media ${device.tablet} {
+    top: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+  }
 
   cursor: pointer;
   border: none;
@@ -153,8 +198,8 @@ export const CloseBtn = styled.button`
 `;
 
 export const BtnMain = styled.button`
-  min-width: 180px;
-  height: 44px;
+  min-width: 240px;
+  height: 40px;
   z-index: 101;
 
   border: ${p => p.theme.borders.buttonModal};
@@ -188,5 +233,10 @@ export const BtnMain = styled.button`
   :active {
     background-color: ${p => p.theme.backgrounds.buttonPrimary};
     color: ${p => p.theme.fontColors.white};
+  }
+
+  @media ${device.tablet} {
+    min-width: 180px;
+    height: 44px;
   }
 `;
