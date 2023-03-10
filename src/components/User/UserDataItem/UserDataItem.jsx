@@ -5,6 +5,8 @@ import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
 import { fetchUseInfo, fetchUser } from 'services/apiService';
+import { toast } from 'react-toastify';
+
 
 const UserDataItem = () => {
   const [nameDisabled, setNameDisabled] = useState(true);
@@ -54,7 +56,6 @@ const UserDataItem = () => {
       case 'birthday':
         selectInput(ev, birthdayDisabled);
         setBirthdayDisabled(!birthdayDisabled);
-        console.log('1');
         if (!birthdayDisabled) {
           await fetchUseInfo(
             { birthday: ev.previousElementSibling.value },
@@ -66,15 +67,15 @@ const UserDataItem = () => {
 
       case 'phone':
         const len = ev.previousElementSibling.value;
-        console.log(len.length)
-        if (len.length < 13) {
-          alert('the phone number is entered incorrectly ');
+        
+        if (len.length < 13 || len.length > 13) {
+          toast.error("The phone number is incorrect")
+         
           return;
         }
         selectInput(ev, phoneDisabled);
         setPhoneDisabled(!phoneDisabled);
         if (!phoneDisabled) {
-          console.log(ev.previousElementSibling.value);
           await fetchUseInfo(
             { phone: ev.previousElementSibling.value },
             token

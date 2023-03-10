@@ -151,3 +151,28 @@ export const deleteOwnNoticeById = async (id, token) => {
   });
   return res;
 };
+
+export const addNoticeToFavourite = async (id, token) => {
+  const res = await axios.post(`/notices/my-favorites/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return res;
+};
+export const addToFavorite = async (id, token) => {
+  const res = await axios.post(`/notices/my-favorites/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res;
+};
+
+export const deleteNoticeFromFavorite = async (id, token) => {
+  try {
+    const res = await axios.delete(`/notices/my-favorites/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

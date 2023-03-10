@@ -1,4 +1,4 @@
-import Logo from 'components/Logo';
+import LogoNotClicable from 'components/Logo/LogoNotClicable';
 import {
   DivMobile,
   Button,
@@ -12,7 +12,7 @@ export default function MobileMenu({ closeMobile, children }) {
     <DivMobile>
       <ModalContainer>
         <Wrapper>
-          <Logo />
+          <LogoNotClicable />
           <Button type="button" onClick={() => closeMobile(false)}>
             <CloseIcon />
           </Button>
