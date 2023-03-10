@@ -11,6 +11,7 @@ import {
   ImageWrapper,
   DescriptionWrapper,
   InfoWrapper,
+  ButtonWrapper,
 } from './NoticeCategoryItem.styled';
 import { toast } from 'react-toastify';
 import { AiOutlineHeart } from 'react-icons/ai';
@@ -29,9 +30,13 @@ export default function NoticeCategoryItem({
   petPhotoURL,
   category,
   id,
+  isOwn,
+  isFavorite,
+  handleDeleteItem,
 }) {
   const token = useSelector(selectToken);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   function getAge(dateString) {
     var today = new Date();
     var birthDate = new Date(dateString);
@@ -61,8 +66,19 @@ export default function NoticeCategoryItem({
     <Card>
       <ImageWrapper>
         <Image src={petPhotoURL} />
-        <HeartBtn onClick={() => handleAddToFavorite(id)}>
-          <AiOutlineHeart size="10x" color="#F59256" />
+        <HeartBtn
+          isLiked={isLiked}
+          isFavorite={isFavorite}
+          disabled={isFavorite || isLiked}
+          onClick={() => {
+            handleAddToFavorite(id);
+            setIsLiked(true);
+          }}
+        >
+          <AiOutlineHeart
+            size="10x"
+            color={isFavorite || isLiked ? '#fff' : '#F59256'}
+          />
         </HeartBtn>
         <CategoryInfo>{category}</CategoryInfo>
       </ImageWrapper>
@@ -80,12 +96,21 @@ export default function NoticeCategoryItem({
             <li>{birthday && getAge(birthday)}</li>
           </DescriptionInfo>
         </DescriptionWrapper>
-        <LearnMoneBtn onClick={() => setIsModalOpen(true)}>
-          Learn more
-        </LearnMoneBtn>
-        <DeleteBtn onClick={() => handleDelete(id)}>
-          Delete <BsTrash color="#F59256" />
-        </DeleteBtn>
+        <ButtonWrapper>
+          <LearnMoneBtn onClick={() => setIsModalOpen(true)}>
+            Learn more
+          </LearnMoneBtn>
+          {isOwn && (
+            <DeleteBtn
+              onClick={() => {
+                handleDelete(id);
+                handleDeleteItem(id);
+              }}
+            >
+              Delete <BsTrash color="#F59256" />
+            </DeleteBtn>
+          )}
+        </ButtonWrapper>
       </InfoWrapper>
       {isModalOpen && <ModalNotice id={id} setIsModalOpen={setIsModalOpen} />}
     </Card>

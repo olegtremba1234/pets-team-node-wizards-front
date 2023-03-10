@@ -16,6 +16,7 @@ export const Card = styled.div`
 export const Image = styled.img`
   width: 100%;
   object-position: center top;
+  height: 288px;
 `;
 export const Title = styled.h2`
   font-weight: 700;
@@ -94,6 +95,8 @@ export const HeartBtn = styled.button`
   top: 12px;
   right: 12px;
   cursor: pointer;
+  background-color: ${props => props.isFavorite && '#F59256'};
+  background-color: ${props => props.isLiked && '#F59256'};
 `;
 export const CategoryInfo = styled.div`
   position: absolute;
@@ -122,6 +125,8 @@ export const DescriptionWrapper = styled.div`
   margin-bottom: 20px;
 `;
 export const InfoWrapper = styled.div`
+  height: 100%;
+  justify-content: space-between;
   padding: 20px 20px 12px 20px;
   display: flex;
   flex-direction: column;
@@ -131,4 +136,8 @@ export const InfoWrapper = styled.div`
   @media (max-width: 767px) {
     padding: 20px 16px 12px 16px;
   }
+`;
+export const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

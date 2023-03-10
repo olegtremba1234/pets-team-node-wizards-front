@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
+  cursor: pointer;
   color: #111111;
   background-color: transparent;
   border: none;
