@@ -561,8 +561,6 @@ width: 121px;
 
 @media ${device.tablet} {
   top: 91px;
-
-
   `;
 
   export const ErrorTextLocation = styled(ErrorText)`
@@ -571,7 +569,6 @@ width: 121px;
   @media ${device.desktop} {
     top: 82px;
   }
-
   `;
 
   export const ErrorTextComment = styled(ErrorText)`
