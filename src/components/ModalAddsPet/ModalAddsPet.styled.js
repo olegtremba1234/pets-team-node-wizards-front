@@ -15,6 +15,7 @@ export const ButtonIcon = styled.button`
 
 export const Modal = styled.div`
   position: fixed;
+  z-index: 100;
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -38,7 +39,7 @@ export const Overlay = styled.div`
 
 export const ModalContent = styled.div`
   position: absolute;
-  z-index: 100;
+  z-index: 101;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -69,25 +70,6 @@ export const ModalTitle = styled.h2`
   color: ${p => p.theme.fontColors.primary};
 `;
 
-export const Label = styled.label`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  margin-bottom: 28px;
-
-  &:last-of-type {
-    margin-bottom: 40px;
-  }
-
-  font-family: ${p => p.theme.fontFamily.main};
-  font-style: ${p => p.theme.fontStyle.main};
-  font-weight: ${p => p.theme.fontWeights.medium};
-  font-size: ${p => p.theme.fontSizes.xxl};
-  line-height: 1.1;
-  color: ${p => p.theme.fontColors.primary};
-`;
-
 export const LabelAvatar = styled.label`
   display: flex;
   flex-direction: column;
@@ -100,25 +82,11 @@ export const LabelAvatar = styled.label`
   color: ${p => p.theme.fontColors.primary};
 `;
 
-export const Input = styled.input`
-  height: 48px;
-  padding: 10px 16px;
-
-  font-family: ${p => p.theme.fontFamily.main};
-  font-style: ${p => p.theme.fontStyle.main};
-  font-weight: ${p => p.theme.fontWeights.normal};
-  font-size: ${p => p.theme.fontSizes.m};
-  line-height: 1.66;
-  color: ${p => p.theme.fontColors.inputTextColor};
-  background: ${p => p.theme.backgrounds.input};
-  border: ${p => p.theme.borders.input};
-  border-radius: ${p => p.theme.borderRadius.main};
-`;
-
 export const InputAvatarWrapper = styled.button`
   width: 182px;
   height: 182px;
   padding: 10px 16px;
+  overflow: hidden;
 
   font-family: ${p => p.theme.fontFamily.main};
   font-style: ${p => p.theme.fontStyle.main};
@@ -139,22 +107,6 @@ export const InputAvatar = styled.input`
   overflow: hidden;
   padding: 0;
   margin: 0;
-`;
-
-export const Textarea = styled.textarea`
-  height: 116px;
-  padding: 10px 16px;
-  resize: none;
-
-  font-family: ${p => p.theme.fontFamily.main};
-  font-style: ${p => p.theme.fontStyle.main};
-  font-weight: ${p => p.theme.fontWeights.normal};
-  font-size: ${p => p.theme.fontSizes.m};
-  line-height: 1.66;
-  color: ${p => p.theme.fontColors.inputTextColor};
-  background: ${p => p.theme.backgrounds.input};
-  border: ${p => p.theme.borders.input};
-  border-radius: ${p => p.theme.borderRadius.secondary};
 `;
 
 export const AvatarWrapper = styled.div`
@@ -203,6 +155,8 @@ export const CloseBtn = styled.button`
 export const BtnMain = styled.button`
   min-width: 180px;
   height: 44px;
+  z-index: 101;
+
 
   border: ${p => p.theme.borders.buttonModal};
   border-radius: ${p => p.theme.borderRadius.main};
