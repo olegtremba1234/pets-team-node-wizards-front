@@ -13,9 +13,18 @@ import {
   ItemList,
 } from './PestList.styled';
 
-const PetsList = () => {
+const PetsList = ({ refresh, refreshStop }) => {
   const [petsInfo, setPetsInfo] = useState({});
   const token = useSelector(selectToken);
+
+  if (refresh) {
+    const fetchPetData = async () => {
+      const petData = await fetchUserPets(token);
+      setPetsInfo(petData);
+      refreshStop(false);
+    };
+    fetchPetData();
+  }
 
   const handleDeletePets = async petId => {
     try {
@@ -30,14 +39,13 @@ const PetsList = () => {
   };
 
   useEffect(() => {
-      const fetchPetData = async( )=>{
-        const petData = await fetchUserPets(token);
-        setPetsInfo(petData);
-      }
-      fetchPetData()
+    const fetchPetData = async () => {
+      const petData = await fetchUserPets(token);
+      setPetsInfo(petData);
+    };
+    fetchPetData();
   }, [token]);
 
- 
   return (
     <PetsDescribed>
       {petsInfo.petUser &&
