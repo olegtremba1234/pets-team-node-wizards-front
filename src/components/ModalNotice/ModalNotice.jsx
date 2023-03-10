@@ -40,8 +40,7 @@ export default function ModalNotice({ id, setIsModalOpen }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const token = useSelector(state => state.auth.accessToken);
-  console.log(token);
-  console.log(noticeDetails);
+
   const handleAddToFavorite = id => {
     if (!token) {
       toast.error('Oops...You must be logged in to add to favorites');
