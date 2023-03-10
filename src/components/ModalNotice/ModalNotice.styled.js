@@ -290,9 +290,7 @@ export const LinkContact = styled.a`
   }
   &:hover,
   :focus {
-    background-color: ${p => p.theme.backgrounds.bodySecondary};
-    border: 2px solid #f59256;
-    color: ${p => p.theme.fontColors.primary};
+    background-color: ${p => p.theme.hoverButtonColor.primary};
   }
   transition: all 350ms ease-in-out;
 `;
