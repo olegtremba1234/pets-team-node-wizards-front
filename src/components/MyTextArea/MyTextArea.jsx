@@ -5,7 +5,7 @@ import { Label, Textarea } from './MyTextArea.styled';
 export default function MyTextArea({ label, ...props }) {
   const [field] = useField(props);
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative',  }}>
       <Label htmlFor={field.name}>
         {label}
         <Textarea {...field} {...props} autoComplete="off" />

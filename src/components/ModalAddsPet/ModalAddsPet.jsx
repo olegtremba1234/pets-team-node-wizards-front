@@ -5,20 +5,18 @@ import { ReactComponent as Plus } from '../../icons/plus.svg';
 import {
   AvatarWrapper,
   BtnMain,
-  // BtnWrapper,
+  BtnWrapper,
   ButtonIcon,
   CloseBtn,
   InputAvatar,
   InputAvatarWrapper,
-  // Label,
   LabelAvatar,
   Modal,
   ModalContent,
   ModalTitle,
   Overlay,
-  // Textarea,
 } from './ModalAddsPet.styled';
-import {Icons}from "../User/Icons/Icons"
+import { Icons } from '../User/Icons/Icons';
 import { GrClose } from 'react-icons/gr';
 import { ButtonBack } from 'components/User/PetsData/PetsData.styled';
 
@@ -91,6 +89,11 @@ export default function ModalAddsPet({ children }) {
       props.next(values);
     };
 
+    const modalContentElement = document.querySelector('#modal-content');
+    modalContentElement?.classList.remove('step-2');
+    const modalTitleElement = document.querySelector('#modal-title');
+    modalTitleElement?.classList.remove('step-2');
+
     return (
       <Formik
         initialValues={props.data}
@@ -117,8 +120,12 @@ export default function ModalAddsPet({ children }) {
               type="text"
               placeholder="Type breed"
             />
-
-            <BtnMain type="submit">Next Next Next</BtnMain>
+            <BtnWrapper>
+              <BtnMain type="button" onClick={resetData}>
+                Cancel
+              </BtnMain>
+              <BtnMain type="submit">Next</BtnMain>
+            </BtnWrapper>
           </Form>
         )}
       </Formik>
@@ -129,6 +136,11 @@ export default function ModalAddsPet({ children }) {
     const handleSubmit = values => {
       props.next(values, true);
     };
+
+    const modalContentElement = document.querySelector('#modal-content');
+    modalContentElement?.classList.add('step-2');
+    const modalTitleElement = document.querySelector('#modal-title');
+    modalTitleElement?.classList.add('step-2');
 
     return (
       <Formik
@@ -164,12 +176,12 @@ export default function ModalAddsPet({ children }) {
               type="text"
               placeholder="Type comments"
             />
-
-            <button type="button" onClick={() => props.prev(values)}>
-              Back
-            </button>
-
-            <button type="submit">Submit</button>
+            <BtnWrapper>
+              <BtnMain type="button" onClick={() => props.prev(values)}>
+                Back
+              </BtnMain>
+              <BtnMain type="submit">Submit</BtnMain>
+            </BtnWrapper>
           </Form>
         )}
       </Formik>
@@ -219,8 +231,8 @@ export default function ModalAddsPet({ children }) {
       {isModalOpen && (
         <Modal>
           <Overlay onClick={handleClose} />
-          <ModalContent>
-            <ModalTitle>Add pet</ModalTitle>
+          <ModalContent id="modal-content">
+            <ModalTitle id="modal-title">Add pet</ModalTitle>
             {steps[currentStep]}
             <CloseBtn className="modal-open-btn" onClick={toggleModal}>
               <GrClose size={20} />
