@@ -256,6 +256,13 @@ export const ButtonAdd = styled.button`
   }
 `;
 
+export const ButtonRemoveFromFavorite = styled(ButtonAdd)`
+  @media (min-width: 768px) {
+    min-width: 160px;
+    padding: 7px 0;
+  }
+`;
+
 export const LinkContact = styled.a`
   width: 100%;
   text-decoration: none;
