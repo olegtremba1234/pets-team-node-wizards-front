@@ -27,9 +27,9 @@ import addPetSchemaSecondStep from 'services/formik/addPetSchemaSecondStep';
 
 export default function ModalAddsPet({ children, infoModal }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [avatar, setAvatar] = useState(null);
   // eslint-disable-next-line no-unused-vars
-  const [avatarFileName, setAvatarFileName] = useState('');
+  const [avatar, setAvatar] = useState(null);
+  const [avatarFileName, setAvatarFileName] = useState(null);
   const filePicker = useRef(null);
   const [data, setData] = useState({
     name: '',
@@ -57,6 +57,9 @@ export default function ModalAddsPet({ children, infoModal }) {
     console.log('Formik submit >>>', formData);
     await postNewPet(formData);
     infoModal();
+    const makeRequest = formData => {
+      postNewPet(formData);
+    };
   };
 
   const resetData = () => {
@@ -68,6 +71,8 @@ export default function ModalAddsPet({ children, infoModal }) {
     });
     setIsModalOpen(false);
     setCurrentStep(0);
+    setAvatarFileName(null);
+    setAvatar(null);
   };
 
   const handleNextStep = (newData, final = false) => {
@@ -131,7 +136,9 @@ export default function ModalAddsPet({ children, infoModal }) {
               <BtnMain type="button" onClick={resetData}>
                 Cancel
               </BtnMain>
-              <BtnMain className='emphasis-btn' type="submit">Next</BtnMain>
+              <BtnMain className="emphasis-btn" type="submit">
+                Next
+              </BtnMain>
             </BtnWrapper>
           </Form>
         )}
@@ -162,20 +169,24 @@ export default function ModalAddsPet({ children, infoModal }) {
                 Add photo and some comments
               </LabelAvatar>
               <InputAvatarWrapper type="button" onClick={handlePick}>
-                {avatar ? (
-                  <div onClick={delAvatarChoice}>{avatarFileName}</div>
+                {avatarFileName ? (
+                  <div
+                  // onClick={delAvatarChoice}
+                  >
+                    {avatarFileName}
+                  </div>
                 ) : (
                   <Plus />
                 )}
+                <InputAvatar
+                  type="file"
+                  name="avatar"
+                  id="avatar"
+                  ref={filePicker}
+                  accept="image/*,.png,.jpg"
+                  // onChangeCapture={handleAvatarChange}
+                />
               </InputAvatarWrapper>
-              <InputAvatar
-                type="file"
-                name="avatar"
-                id="avatar"
-                ref={filePicker}
-                accept="image/*,.png,.jpg"
-                // onChange={handleAvatarChange}
-              />
             </AvatarWrapper>
             <MyTextArea
               label="Comments"
@@ -188,7 +199,9 @@ export default function ModalAddsPet({ children, infoModal }) {
               <BtnMain type="button" onClick={() => props.prev(values)}>
                 Back
               </BtnMain>
-              <BtnMain className='emphasis-btn' type="submit">Done</BtnMain>
+              <BtnMain className="emphasis-btn" type="submit">
+                Done
+              </BtnMain>
             </BtnWrapper>
           </Form>
         )}
@@ -215,17 +228,26 @@ export default function ModalAddsPet({ children, infoModal }) {
   //   const pathString = e.currentTarget.value;
   //   const fileName = pathString.split('\\').slice(-1).toString();
 
+  //   console.log('avatar before >>>', avatar);
+  //   console.log('avatarFileName before >>>', avatarFileName);
+  //   console.log('pathString >>>', pathString);
+  //   console.log('fileName >>>', fileName);
+
   //   setAvatarFileName(fileName);
   //   setAvatar(pathString);
+
+  //   console.log('avatar after >>>', avatar);
+  //   console.log('avatarFileName after >>>', avatarFileName);
   // };
 
   const handlePick = e => {
     filePicker.current.click();
   };
 
-  const delAvatarChoice = () => {
-    setAvatar(null);
-  };
+  // const delAvatarChoice = () => {
+  //   setAvatar(null);
+  //   setAvatarFileName(null)
+  // };
 
   return (
     <>
