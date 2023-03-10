@@ -25,7 +25,7 @@ import MyTextArea from 'components/MyTextArea';
 import addPetSchemaFirstStep from 'services/formik/addPetSchemaFirstStep';
 import addPetSchemaSecondStep from 'services/formik/addPetSchemaSecondStep';
 
-export default function ModalAddsPet({ children }) {
+export default function ModalAddsPet({ children, infoModal }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [avatar, setAvatar] = useState(null);
   // eslint-disable-next-line no-unused-vars
@@ -53,9 +53,10 @@ export default function ModalAddsPet({ children }) {
     };
   });
 
-  const makeRequest = formData => {
+  const makeRequest = async formData => {
     console.log('Formik submit >>>', formData);
-    postNewPet(formData);
+    await postNewPet(formData);
+    infoModal();
   };
 
   const resetData = () => {
@@ -74,6 +75,7 @@ export default function ModalAddsPet({ children }) {
     if (final) {
       makeRequest(newData);
       resetData();
+
       return;
     }
     setCurrentStep(prev => prev + 1);
