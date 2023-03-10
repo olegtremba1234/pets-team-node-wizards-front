@@ -5,7 +5,7 @@ import {
   Label,
   SearchBtn,
   IconSearch,
-} from '../../SearchForm/SearchForm.styled';
+} from './SearchNotices.styled';
 
 const SearchNotices = ({ onSubmit }) => {
   const onSubmitSearch = e => {
