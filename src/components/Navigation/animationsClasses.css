@@ -1,15 +1,15 @@
 .fade-enter {
-   opacity:  0;}
+transform: translateX(100%) translateY(-100%);}
 
 .fade-enter-active {
-    opacity: 1;
-    transition: opacity 500ms ease-in-out;
+    transform: translate(0);
+    transition: transform 500ms ease-in-out;
 }
 
 .fade-exit {
-    opacity: 1;}
+    transform: translate(0);}
 
 .fade-exit-active {
-    opacity: 0;
-    transition: opacity 500ms ease-in-out;
+    transform: translateX(100%) translateY(-100%);
+    transition: transform 300ms ease-in-out;
 }

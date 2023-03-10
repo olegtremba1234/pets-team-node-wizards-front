@@ -37,18 +37,15 @@ export const ImageUser = styled.img`
   margin: 0 auto;
   border-radius: 50%;
   filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.11));
-
-  @media screen and (min-width: 768px) {
-    /* margin-left: auto;
-    margin-right:40px; */
-  }
+  object-fit: cover;
 `;
+
 export const ImageItem = styled.div`
   @media screen and (min-width: 768px) {
     margin-right: 40px;
     margin-top: 4px;
     width: 233px;
-    height:233px;
+    height: 233px;
   }
 
   @media screen and (min-width: 1280px) {
@@ -85,9 +82,9 @@ export const Button = styled.button`
     height: auto;
   }
 
-  @media screen and (min-width:1280px) {
-    left:200px;
-    top: -22px
+  @media screen and (min-width: 1280px) {
+    left: 200px;
+    top: -22px;
   }
 `;
 
@@ -96,7 +93,7 @@ export const DataItem = styled.div`
   flex-direction: column;
 
   @media screen and (min-width: 768px) {
-    margin:0px 52px 0px 32px;
+    margin: 0px 52px 0px 32px;
     width: 100%;
   }
 

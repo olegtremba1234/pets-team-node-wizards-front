@@ -17,25 +17,27 @@ const PetsList = () => {
   const [petsInfo, setPetsInfo] = useState({});
   const token = useSelector(selectToken);
 
-  useEffect(() => {
-    fetchUserPets(token).then(setPetsInfo);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleDeletePets = async _idPet => {
-    console.log(petsInfo);
+  const handleDeletePets = async petId => {
     try {
-      await fetchPetsDelete(token, _idPet);
+      await fetchPetsDelete(token, petId);
 
-      return setPetsInfo(petsInfo =>
-        petsInfo.petUser.filter(pets => pets._id !== _idPet)
-      );
+      setPetsInfo(prevState => ({
+        petUser: prevState.petUser.filter(pets => pets._id !== petId),
+      }));
     } catch (error) {
       console.error();
     }
   };
 
+  useEffect(() => {
+      const fetchPetData = async( )=>{
+        const petData = await fetchUserPets(token);
+        setPetsInfo(petData);
+      }
+      fetchPetData()
+  }, [token]);
+
+ 
   return (
     <PetsDescribed>
       {petsInfo.petUser &&

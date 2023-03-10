@@ -17,6 +17,7 @@ import { ScrollUpButton, scrollTopPage } from 'components/ScrollUpButton';
 import { SlArrowUp } from 'react-icons/sl';
 import AddNoticeButton from 'components/NoticesPage/AddNoticeButton/AddNoticeButton';
 import {
+  AddButtonAndCategoriesWrapper,
   StyledNoticesPageContainer,
   StyledTitle,
 } from 'components/NoticesPage/Categories/Categories.styled';
@@ -93,27 +94,19 @@ export default function NoticesPage() {
   }, [categoryName, token, query]);
   const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
   return (
-    <>
-      <AddNoticeButton />
+    <StyledNoticesPageContainer>
+      <StyledTitle>Find your favorite pet</StyledTitle>
       <SearchNotices onSubmit={onHandleSubmit} />
-      <Categories />
+      <AddButtonAndCategoriesWrapper>
+        <Categories />
+        <AddNoticeButton />
+      </AddButtonAndCategoriesWrapper>
       <NoticesCategoriesList notices={notices} />
       {isShowButtonTop && (
         <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
           <SlArrowUp />
         </ScrollUpButton>
       )}
-      <StyledNoticesPageContainer>
-        <StyledTitle>Find your favorite pet</StyledTitle>
-        <SearchNotices onSubmit={onHandleSubmit} />
-        <Categories />
-        <NoticesCategoriesList notices={notices} />
-        {isShowButtonTop && (
-          <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
-            <SlArrowUp />
-          </ScrollUpButton>
-        )}
-      </StyledNoticesPageContainer>
-    </>
+    </StyledNoticesPageContainer>
   );
 }

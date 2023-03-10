@@ -144,7 +144,9 @@ export const postNewPet = async data => {
 };
 
 export const fetchNoticeById = async (id, token) => {
-  const res = await axios.get(`/notices/certain/${id}`);
+  const res = await axios.get(`/notices/certain/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return res.data;
 };
 
@@ -153,4 +155,22 @@ export const deleteOwnNoticeById = async (id, token) => {
     headers: { Authorization: `Bearer ${token}` },
   });
   return res;
+};
+
+export const addNoticeToFavourite = async (id, token) => {
+  const res = await axios.post(`/notices/my-favorites/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return res;
+};
+export const deleteNoticeFromFavorite = async (id, token) => {
+  try {
+    const res = await axios.delete(`/notices/my-favorites/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -1,8 +1,9 @@
 import { useEffect, useState, Fragment } from 'react';
 import {
+  addNoticeToFavourite,
   deleteOwnNoticeById,
   fetchNoticeById,
-  fetchUserNotices,
+  deleteNoticeFromFavorite,
 } from 'services/apiService';
 import {
   ModalWindow,
@@ -25,6 +26,7 @@ import {
   LinkContact,
   CloseIcon,
   SpanComment,
+  ButtonRemoveFromFavorite,
 } from './ModalNotice.styled';
 import { Overlay } from 'components/ModalAddsPet/ModalAddsPet.styled';
 import defaultCat from './images/defaultCat.jpg';
@@ -32,32 +34,66 @@ import Media from 'react-media';
 import transormDate from 'helpers/transformDate';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import getIsNoticeOfUser from 'helpers/getIsNoticeOfUser';
 
 export default function ModalNotice({ id, setIsModalOpen }) {
   const [noticeDetails, setNoticesDetails] = useState(null);
-  const [userNotices, setUserNotices] = useState(null);
-  const [isOwnNotice, setIsOwnNotice] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const token = useSelector(state => state.auth.accessToken);
 
   const handleAddToFavorite = id => {
     if (!token) {
-      toast.error('Oops..You must be logged in to add to favorites');
+      toast.error('Oops...You must be logged in to add to favorites');
       return;
     }
-    // addToFavorite(id, token).catch(console.log);
+    addNoticeToFavourite(id, token)
+      .then(() => {
+        setIsFavorite(true);
+        toast.success('Added to favorite list successfully');
+      })
+      .catch(err => {
+        console.log(err.message);
+        toast.error(
+          'Oops...Something went wrong. Failed to add to the favorite list'
+        );
+      });
+  };
+
+  const handleRemoveFromFavorite = id => {
+    deleteNoticeFromFavorite(id, token)
+      .then(() => {
+        toast.success('Deleted from favorite list successfully');
+        setIsFavorite(false);
+      })
+      .catch(err => {
+        console.log(err);
+        toast.error(
+          'Oops...Something went wrong. Failed to delete from the favorite list'
+        );
+      });
   };
 
   const handleDelete = id => {
     deleteOwnNoticeById(id, token)
-      .then(toast.success('Deleted successfully'))
-      .catch(console.log);
+      .then(() => {
+        toast.success('Deleted successfully');
+        setIsModalOpen(false);
+      })
+      .catch(err => {
+        console.log(err);
+        toast.error('Oops...Something went wrong. Failed to delete');
+      });
   };
 
   useEffect(() => {
-    fetchNoticeById(id).then(setNoticesDetails).catch(console.log);
-  }, [id]);
+    fetchNoticeById(id, token)
+      .then(data => {
+        setNoticesDetails(data);
+        setIsFavorite(data.isFavorite);
+      })
+      .catch(console.log);
+  }, [id, token]);
+
   useEffect(() => {
     const escapeModal = event => {
       if (event.code === 'Escape') {
@@ -71,22 +107,12 @@ export default function ModalNotice({ id, setIsModalOpen }) {
       window.removeEventListener('keydown', escapeModal);
     };
   });
+
   const handleCloseModal = event => {
     if (event.currentTarget === event.target) {
       setIsModalOpen(false);
     }
   };
-
-  useEffect(() => {
-    if (token) {
-      fetchUserNotices(token).then(setUserNotices).catch(console.log);
-      if (noticeDetails && userNotices) {
-        const isOwnNoticeRes = getIsNoticeOfUser(userNotices, noticeDetails.id);
-        setIsOwnNotice(isOwnNoticeRes);
-      }
-    }
-    // eslint-disable-next-line
-  }, [token, noticeDetails]);
 
   return (
     <>
@@ -152,15 +178,36 @@ export default function ModalNotice({ id, setIsModalOpen }) {
               {noticeDetails.comments}
             </Comment>
             <ButtonWrapper>
-              {isOwnNotice ? (
-                <Li>
-                  <ButtonAdd
-                    type="button"
-                    onClick={() => handleDelete(noticeDetails.id)}
-                  >
-                    Delete
-                  </ButtonAdd>
-                </Li>
+              {noticeDetails.isOwn ? (
+                <>
+                  <Li>
+                    <ButtonAdd
+                      type="button"
+                      onClick={() => handleDelete(noticeDetails.id)}
+                    >
+                      Delete
+                    </ButtonAdd>
+                  </Li>
+                  <Li>
+                    {isFavorite ? (
+                      <ButtonRemoveFromFavorite
+                        type="button"
+                        onClick={() =>
+                          handleRemoveFromFavorite(noticeDetails.id)
+                        }
+                      >
+                        Remove from <HeartIcon />
+                      </ButtonRemoveFromFavorite>
+                    ) : (
+                      <ButtonAdd
+                        type="button"
+                        onClick={() => handleAddToFavorite(noticeDetails.id)}
+                      >
+                        Add to <HeartIcon />
+                      </ButtonAdd>
+                    )}
+                  </Li>
+                </>
               ) : (
                 <>
                   <Li>
@@ -188,12 +235,23 @@ export default function ModalNotice({ id, setIsModalOpen }) {
                     </Media>
                   </Li>
                   <Li>
-                    <ButtonAdd
-                      type="button"
-                      onClick={() => handleAddToFavorite(noticeDetails.id)}
-                    >
-                      Add to <HeartIcon />
-                    </ButtonAdd>
+                    {isFavorite ? (
+                      <ButtonRemoveFromFavorite
+                        type="button"
+                        onClick={() =>
+                          handleRemoveFromFavorite(noticeDetails.id)
+                        }
+                      >
+                        Remove from <HeartIcon />
+                      </ButtonRemoveFromFavorite>
+                    ) : (
+                      <ButtonAdd
+                        type="button"
+                        onClick={() => handleAddToFavorite(noticeDetails.id)}
+                      >
+                        Add to <HeartIcon />
+                      </ButtonAdd>
+                    )}
                   </Li>
                 </>
               )}
