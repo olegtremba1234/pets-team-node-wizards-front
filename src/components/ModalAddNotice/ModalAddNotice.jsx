@@ -154,7 +154,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop, notices }) => {
       .catch(() => {
         toast.error('Не вдалось створити оголошення.');
       })
-      
+
     formik.resetForm(formik.initialValues);
     onClose();
 
@@ -435,7 +435,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop, notices }) => {
                 </Button>
                 <ButtonSecond
                   type="submit"
-                  disabled={!formik.isValid ||  isLoading}
+                  disabled={!(formik.isValid && formik.dirty)}
                 >
                   Done
                 </ButtonSecond>
