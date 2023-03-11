@@ -555,7 +555,7 @@ export const ErrorTextLocation = styled(ErrorText)`
   width: 222px;
 
   @media ${device.tablet} {
-    top: 93px;
+    top: 97px;
   }
 `;
 

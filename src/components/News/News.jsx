@@ -1,11 +1,15 @@
 import React from 'react';
-import { fetchNews, fetchSearchNews } from 'services/apiService';
+import {
+  fetchAllNews,
+  fetchNextNews,
+  fetchSearchNews,
+} from 'services/apiService';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SearchForm from '../SearchForm/SearchForm';
 import moment from 'moment';
 import { ScrollUpButton, scrollTopPage } from 'components/ScrollUpButton';
-import { SlArrowUp } from "react-icons/sl";
+import { SlArrowUp } from 'react-icons/sl';
 import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {
@@ -21,7 +25,6 @@ import {
   LinkReadMore,
 } from './News.styled';
 
-
 const PAGE_SCROLL_DOWN = 100;
 
 const News = () => {
@@ -30,7 +33,7 @@ const News = () => {
   const [searchNews, setSearchNews] = useState(null);
   const [isHiden, setIsHiden] = useState(false);
   const [scrollTop, setScrollTop] = useState(0);
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
@@ -38,39 +41,38 @@ const News = () => {
       setScrollTop(window.scrollY);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-
   useEffect(() => {
- async function getNews() {
-    try {
-
-      const { data } = await fetchNews(page);
-        setNews([...news, ...data])
-        if (data.length < 6) {
-        setHasMore(false);
-       toast.success('Це всі новини');
+    async function getNews() {
+      try {
+        if (page !== 1) {
+          const { data } = await fetchNextNews(page);
+          setNews(news => [...news, ...data]);
+          if (data.length < 6) {
+            setHasMore(false);
+            toast.success('Це всі новини');
+          }
+        }
+      } catch (error) {
+        return toast.error('От халепа! Спробуйте ще раз');
       }
-
-
-    } catch (error) {
-
-      return toast.error('От халепа! Спробуйте ще раз');
     }
-  }
-  getNews()
-
+    getNews();
   }, [page]);
 
-  const nextPage = () =>{
-    setPage(page + 1);
+  useEffect(() => {
+    fetchAllNews().then(setNews);
+  }, []);
 
-  }
+  const nextPage = () => {
+    setPage(page + 1);
+  };
 
   const handleSearchSubmit = async e => {
     e.preventDefault();
@@ -139,14 +141,13 @@ const News = () => {
           </NewsList>
         ) : (
           <InfiniteScroll
-          dataLength={news.length}
-          next={nextPage}
-          hasMore={hasMore}
-          scrollThreshold={1}
-        >
-          <NewsList>
-            {news.map(({ _id, title, description, date, url }) => {
-              return (
+            dataLength={news.length}
+            next={nextPage}
+            hasMore={hasMore}
+            scrollThreshold={1}
+          >
+            <NewsList>
+              {news.map(({ _id, title, description, date, url }) => (
                 <NewsItem key={_id}>
                   <NewsTitle>{shortenText(title, 45)}</NewsTitle>
                   <Description>{shortenText(description, 215)}</Description>
@@ -157,9 +158,8 @@ const News = () => {
                     </LinkReadMore>
                   </Wrapper>
                 </NewsItem>
-              );
-            })}
-          </NewsList>
+              ))}
+            </NewsList>
           </InfiniteScroll>
         )}
       </StyledContainer>

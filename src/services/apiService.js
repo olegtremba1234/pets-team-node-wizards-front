@@ -1,8 +1,15 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
-export const fetchNews = async page => {
- return await axios(`news/?page=${page}`);
+
+export const fetchAllNews = async () => {
+  const response = await axios(`news`);
+  return response.data
+
+};
+
+export const fetchNextNews = async page => {
+  return await axios(`news/?page=${page}`);
 
 };
 

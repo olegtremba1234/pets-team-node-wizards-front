@@ -43,15 +43,12 @@ import femaleImg from '../ModalAddNotice/images/female.png';
 import maleImg from '../ModalAddNotice/images/male.png';
 import addImg from '../ModalAddNotice/images/add.svg';
 import { addNotice } from 'redux/notices/noticeOperation';
-import { selectIsLoading } from 'redux/notices/noticeSelector';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { formDataAppender } from 'helpers/formDataAppender';
 
 
 
 const ModalAddNotice = ({ onClose, onClickBackdrop, notices }) => {
-  const isLoading = useSelector(selectIsLoading);
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
   const [disableNextButton, setDisableNextButton] = useState(true);
   const [imagePreview, setImagePreview] = useState(null);
