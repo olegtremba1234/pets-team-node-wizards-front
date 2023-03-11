@@ -14,7 +14,6 @@ export const addNotice = createAsyncThunk(
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(response)
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
