@@ -3,9 +3,8 @@ import { addNotice } from './noticeOperation';
 
 const addNoticeSuccessReducer = (state, action) => {
   state.notices = action.payload;
-
+  state.isLoading = false;
 };
-
 
 const addNoticePendingReducer = state => {
   state.isLoading = true;
@@ -24,11 +23,10 @@ const noticesSlice = createSlice({
     error: null,
   },
   extraReducers: builder =>
-  builder
+    builder
       .addCase(addNotice.fulfilled, addNoticeSuccessReducer)
       .addCase(addNotice.pending, addNoticePendingReducer)
-      .addCase(addNotice.rejected, addNoticeRejectedReducer ),
+      .addCase(addNotice.rejected, addNoticeRejectedReducer),
 });
-
 
 export const noticesReduсer = noticesSlice.reducer;
