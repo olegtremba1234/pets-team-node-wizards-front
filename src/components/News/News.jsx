@@ -54,13 +54,13 @@ const News = () => {
         setNews([...news, ...data])
         if (data.length < 6) {
         setHasMore(false);
-       toast.success('Thats all News');
+       toast.success('Це всі новини');
       }
 
 
     } catch (error) {
 
-      return toast.error('Oops, try again');
+      return toast.error('От халепа! Спробуйте ще раз');
     }
   }
   getNews()
