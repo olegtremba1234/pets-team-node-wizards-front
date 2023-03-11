@@ -133,7 +133,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop, notices }) => {
         is: category => category.includes('sell'),
         then: () =>
             Yup.string()
-            .matches(/^[0-9][0-9]*$/, 'Only number')
+            .matches(/^([0]([.][0-9]+)?|[1-9]([0-9]+)?([.][0-9]+)?)$/,'Only number')
             .required('Enter a price'),
       }),
       comments: Yup.string()
