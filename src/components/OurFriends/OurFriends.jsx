@@ -108,7 +108,7 @@ const OurFriends = ({ data }) => {
                     <CardsItem>
                       Address: <br />
                       {address ? (
-                        <CardAddress href={addressUrl}>
+                        <CardAddress href={addressUrl} target="blank">
                           <span>{address}</span>
                         </CardAddress>
                       ) : (
