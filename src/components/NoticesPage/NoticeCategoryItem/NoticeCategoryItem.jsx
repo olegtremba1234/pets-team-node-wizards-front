@@ -76,7 +76,7 @@ export default function NoticeCategoryItem({
           }}
         >
           <AiOutlineHeart
-            size="10x"
+            size="100%"
             color={isFavorite || isLiked ? '#fff' : '#F59256'}
           />
         </HeartBtn>
