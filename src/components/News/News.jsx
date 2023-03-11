@@ -7,6 +7,7 @@ import moment from 'moment';
 import { ScrollUpButton, scrollTopPage } from 'components/ScrollUpButton';
 import { SlArrowUp } from "react-icons/sl";
 import { useState, useEffect } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   NewsWrap,
   StyledContainer,
@@ -20,6 +21,7 @@ import {
   LinkReadMore,
 } from './News.styled';
 
+
 const PAGE_SCROLL_DOWN = 100;
 
 const News = () => {
@@ -28,6 +30,8 @@ const News = () => {
   const [searchNews, setSearchNews] = useState(null);
   const [isHiden, setIsHiden] = useState(false);
   const [scrollTop, setScrollTop] = useState(0);
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,9 +45,32 @@ const News = () => {
     };
   }, []);
 
+
   useEffect(() => {
-    fetchNews().then(setNews);
-  }, []);
+ async function getNews() {
+    try {
+
+      const { data } = await fetchNews(page);
+        setNews([...news, ...data])
+        if (data.length < 6) {
+        setHasMore(false);
+       toast.success('Thats all News');
+      }
+
+
+    } catch (error) {
+
+      return toast.error('Oops, try again');
+    }
+  }
+  getNews()
+
+  }, [page]);
+
+  const nextPage = () =>{
+    setPage(page + 1);
+
+  }
 
   const handleSearchSubmit = async e => {
     e.preventDefault();
@@ -111,6 +138,12 @@ const News = () => {
             })}
           </NewsList>
         ) : (
+          <InfiniteScroll
+          dataLength={news.length}
+          next={nextPage}
+          hasMore={hasMore}
+          scrollThreshold={1}
+        >
           <NewsList>
             {news.map(({ _id, title, description, date, url }) => {
               return (
@@ -127,6 +160,7 @@ const News = () => {
               );
             })}
           </NewsList>
+          </InfiniteScroll>
         )}
       </StyledContainer>
       {isShowButtonTop && (

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
-export const fetchNews = async () => {
-  const response = await axios('news');
-  return response.data;
+export const fetchNews = async page => {
+ return await axios(`news/?page=${page}`);
+
 };
 
 export const fetchSearchNews = async query => {
@@ -122,7 +122,7 @@ export const postNewPet = async data => {
   const { name, birthDay, breed, comments } = data;
   const avatar = document.querySelector('#avatar');
   const formData = new FormData();
-  
+
   formData.append('avatar', avatar.files[0]);
   formData.append('name', name);
   formData.append('birthDay', birthDay);
