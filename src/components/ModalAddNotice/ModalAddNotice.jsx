@@ -32,6 +32,7 @@ import {
   CloseButton,
   Legend,
   ErrorTextComment,
+  AddedImage,
 } from './ModalAddNotice.styled';
 import { useState } from 'react';
 import { useFormik } from 'formik';
@@ -42,14 +43,15 @@ import femaleImg from '../ModalAddNotice/images/female.png';
 import maleImg from '../ModalAddNotice/images/male.png';
 import addImg from '../ModalAddNotice/images/add.svg';
 import { addNotice } from 'redux/notices/noticeOperation';
-import { selectIsLoading } from 'redux/notices/noticeSelector';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { formDataAppender } from 'helpers/formDataAppender';
 
-const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
-  const isLoading = useSelector(selectIsLoading);
+
+
+const ModalAddNotice = ({ onClose, onClickBackdrop, notices }) => {
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
   const [disableNextButton, setDisableNextButton] = useState(true);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -58,7 +60,6 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
       ? setIsFirstRegisterStep(false)
       : setIsFirstRegisterStep(true);
   };
-
 
   const cityInputValidation = value => {
     if (value) {
@@ -86,6 +87,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
       sex: 'male',
       location: '',
       price: '0',
+      'pet-image': '',
       comments: '',
     },
     validationSchema: Yup.object().shape({
@@ -95,7 +97,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
         .min(2, 'Title is too short')
         .matches(
           /^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/,
-          'The title contains only letters and spaces'
+          'Only letters and spaces'
         )
         .trim()
         .max(48, 'Title is too long'),
@@ -105,7 +107,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
         .required('Enter the name of the animal')
         .matches(
           /^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/,
-          'The title contains only letters and spaces'
+          'Only letters and spaces'
         )
         .max(16, 'Name is too long'),
       birthday: Yup.date()
@@ -114,7 +116,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
       breed: Yup.string()
         .required('Enter a breed')
         .min(2, 'Breed is too short')
-        .matches(/^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/, 'only letters')
+        .matches(/^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/, 'Only letters')
         .trim()
         .max(24, 'Breed is too long'),
       location: Yup.string()
@@ -124,13 +126,14 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
           'locationFormat',
           'Format should be "city, region"',
           cityInputValidation
-        ).required('Enter your location'),
+        )
+        .required('Enter your location'),
       sex: Yup.string().required('Select gender'),
       price: Yup.string().when('category', {
         is: category => category.includes('sell'),
         then: () =>
             Yup.string()
-            .matches(/^([0]([.][0-9]+)?|[1-9]([0-9]+)?([.][0-9]+)?)$/,  'Only number')
+            .matches(/^[0-9][0-9]*$/, 'Only number')
             .required('Enter a price'),
       }),
       comments: Yup.string()
@@ -140,51 +143,28 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
         .max(120, 'Comments is too long'),
     }),
     onSubmit: async () => {
-    try {
-      await dispatch(addNotice(formDataAppender(formik.values))).unwrap();
-      toast.success('Ви успішно створили оголошення.');
-    } catch (error) {
-      toast.error('Не вдалось створити оголошення.');
-    }
-      formik.resetForm();
-      onClose();
-    },
+        await dispatch(addNotice(formDataAppender(formik.values)))
+        .unwrap()
+        .then(() => {
+        toast.success('Ви успішно створили оголошення.');
+      })
+      .catch(() => {
+        toast.error('Не вдалось створити оголошення.');
+      })
+
+    formik.resetForm(formik.initialValues);
+    onClose();
+
+  },
   });
 
-
-  // const formDataAppender = () => {
-  //   const petPhotoUrl = document.querySelector('#petPhotoUrl');;
-  //   const formData = new FormData();
-  //   formData.append("petPhotoUrl", petPhotoUrl.files[0]);
-  //   formData.append("category", formik.values.category);
-  //   formData.append("title", formik.values.title);
-  //   formData.append("name", formik.values.name);
-  //   formData.append("birthday", formik.values.birthday);
-  //   formData.append("breed", formik.values.breed);
-  //   formData.append("location", formik.values.location);
-  //   formData.append("price", formik.values.price);
-  //   formData.append("sex", formik.values.sex);
-  //   formData.append("comments", formik.values.comments);
-  //   console.log(formData)
-  // };
-
-  const formDataAppender = fields => {
-    const petImage = document.querySelector('#pet-image');
-    const formData = new FormData();
-    formData.append('pet-image', petImage.files[0]);
-    const entriesForAppend = Object.entries(fields).reduce(
-      (acc, [key, value]) => {
-        acc[key] = value;
-        return acc;
-      },
-      []
-    );
-    Object.entries(entriesForAppend).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    console.log(formData)
-    return formData;
+  const onImageChange = e => {
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      setImagePreview(URL.createObjectURL(e.target.files[0]));
+      formik.setFieldValue('pet-image', e.currentTarget.files[0]);
+    }
   };
+
 
   useEffect(() => {
     const firstStepPossibleErrors = [
@@ -204,7 +184,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
 
   return (
     <WrapperContainer onClick={onClickBackdrop}>
-      <ModalWrap >
+      <ModalWrap>
         <FormWrapper>
           <ModalTitle>Add pet</ModalTitle>
           <Form onSubmit={formik.handleSubmit}>
@@ -381,29 +361,42 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
                       name="price"
                       onChange={formik.handleChange}
                       value={formik.values.price}
-                      onFocus={(e) => e.target.value = ''}
+                      onFocus={e => (e.target.value = '')}
                     />
                   </>
                 ) : null}
 
                 <fieldset>
                   <Legend>
-                  Load the pet's image
+                    Load the pet's image<FieldRequired>*</FieldRequired>
                   </Legend>
+                  {formik.values['pet-image'] === '' ? (
                     <AvatarLabel htmlFor="pet-image">
                       <SelectedImage alt="add" src={addImg} />
                       <FileInput
                         id="pet-image"
                         name="pet-image"
                         type="file"
+                        accept="image/png, image/gif, image/jpeg"
+                        onChange={e => {
+                          formik.handleChange(e);
+                          onImageChange(e);
+                        }}
                       />
                     </AvatarLabel>
+                  ) : (
+                    <AddedImage>
+                      <img alt="pet" src={imagePreview} />
+                    </AddedImage>
+                  )}
                 </fieldset>
 
                 <Label htmlFor="comments">
                   Comments<FieldRequired>*</FieldRequired>
                   {formik.values.comments !== '' && formik.errors.comments ? (
-                    <ErrorTextComment>{formik.errors.comments}</ErrorTextComment>
+                    <ErrorTextComment>
+                      {formik.errors.comments}
+                    </ErrorTextComment>
                   ) : null}
                 </Label>
                 <InputTextArea
@@ -439,7 +432,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
                 </Button>
                 <ButtonSecond
                   type="submit"
-                  disabled={!formik.isValid || isLoading}
+                  disabled={!(formik.isValid && formik.dirty)}
                 >
                   Done
                 </ButtonSecond>
