@@ -166,7 +166,11 @@ export const CardMenu = styled.ul`
 `;
 
 
+export const CardsWithSchedule = styled.p`
+`;
+
 export const CardsWithoutSchedule = styled.p`
+   cursor: none;
 `;
 
 export const CardsItem = styled.li`
@@ -176,7 +180,7 @@ export const CardsItem = styled.li`
 
   &:first-child {
     cursor: pointer;
-    &:hover ${CardsWithoutSchedule} {
+    &:hover ${CardsWithSchedule} {
       color: ${p => p.theme.hoverButtonColor.primary};
       transform: color;
     }

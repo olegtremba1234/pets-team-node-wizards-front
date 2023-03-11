@@ -14,6 +14,7 @@ import {
   FriendsTitle,
   FriendsWrap,
   StyledContainer,
+  CardsWithSchedule,
   CardsWithoutSchedule,
 } from './OurFriends.styled';
 import { useState, useEffect } from 'react';
@@ -84,15 +85,15 @@ const OurFriends = ({ data }) => {
                   <CardsList>
                     <CardsItem>
                       {workDays !== null && workDays.length ? (
-                        <CardsWithoutSchedule>
+                        <CardsWithSchedule>
                           Time: <br />
                           {getWorkTime(workDays)}
-                        </CardsWithoutSchedule>
+                        </CardsWithSchedule>
                       ) : (
-                        <span>
+                        <CardsWithoutSchedule>
                           Time:
                           <br /> -------------
-                        </span>
+                        </CardsWithoutSchedule>
                       )}
                       {workDays !== null && workDays.length !== 0 && (
                         <CardMenu>
@@ -108,7 +109,7 @@ const OurFriends = ({ data }) => {
                     <CardsItem>
                       Address: <br />
                       {address ? (
-                        <CardAddress href={addressUrl}>
+                        <CardAddress href={addressUrl} target="blank">
                           <span>{address}</span>
                         </CardAddress>
                       ) : (

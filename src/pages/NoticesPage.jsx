@@ -21,11 +21,15 @@ import {
   StyledNoticesPageContainer,
   StyledTitle,
 } from 'components/NoticesPage/Categories/Categories.styled';
+import Spinner from 'components/Spinner/Spinner';
+import { selectIsLoading } from 'redux/notices/noticeSelector';
 
 const PAGE_SCROLL_DOWN = 100;
 
 export default function NoticesPage() {
+  const [isSpinnerVisible, setIsSpinnerVisible] = useState(false);
   const addedNotice = useSelector(state => state.notices.notices);
+  const loadingAddedNotice = useSelector(selectIsLoading);
   const token = useSelector(selectToken);
   const [notices, setNotices] = useState([]);
   const [query, setQuery] = useState('');
@@ -50,28 +54,34 @@ export default function NoticesPage() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const Interaction_With_API = async () => {
+    setIsSpinnerVisible(true);
     if (!categoryName && !query.length) {
       const result = await fetchAllNotices();
+      setIsSpinnerVisible(false);
       setNotices(result.reverse());
       return;
     }
     if (query.length && !categoryName) {
       const result = await fetchNoticesByQuery(query);
+      setIsSpinnerVisible(false);
       setNotices(result.reverse());
       return;
     }
     if (categoryName === 'favorite-ads') {
       const result = await fetchFavoriteNotices(token);
+      setIsSpinnerVisible(false);
       setNotices(result.reverse());
       return;
     }
     if (categoryName === 'my-ads') {
       const result = await fetchUserNotices(token);
+      setIsSpinnerVisible(false);
       setNotices(result.reverse());
       return;
     }
     if (!query.length && categoryName) {
       const result = await fetchNoticesByCategory(categoryName);
+      setIsSpinnerVisible(false);
       setNotices(result.reverse());
       return;
     }
@@ -81,6 +91,7 @@ export default function NoticesPage() {
         categoryName,
         token
       );
+      setIsSpinnerVisible(false);
       setNotices(result.reverse());
       return;
     }
@@ -100,19 +111,25 @@ export default function NoticesPage() {
   };
 
   return (
-    <StyledNoticesPageContainer>
-      <StyledTitle>Find your favorite pet</StyledTitle>
-      <SearchNotices onSubmit={onHandleSubmit} />
-      <AddButtonAndCategoriesWrapper>
-        <Categories />
-        <AddNoticeButton />
-      </AddButtonAndCategoriesWrapper>
-      <NoticesCategoriesList notices={notices} callback={handleDelete} />
-      {isShowButtonTop && (
-        <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
-          <SlArrowUp />
-        </ScrollUpButton>
+    <>
+      {isSpinnerVisible || loadingAddedNotice ? (
+        <Spinner />
+      ) : (
+        <StyledNoticesPageContainer>
+          <StyledTitle>Find your favorite pet</StyledTitle>
+          <SearchNotices onSubmit={onHandleSubmit} />
+          <AddButtonAndCategoriesWrapper>
+            <Categories />
+            <AddNoticeButton />
+          </AddButtonAndCategoriesWrapper>
+          <NoticesCategoriesList notices={notices} callback={handleDelete} />
+          {isShowButtonTop && (
+            <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
+              <SlArrowUp />
+            </ScrollUpButton>
+          )}
+        </StyledNoticesPageContainer>
       )}
-    </StyledNoticesPageContainer>
+    </>
   );
 }
