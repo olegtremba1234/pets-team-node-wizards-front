@@ -53,6 +53,7 @@ export const stepTwoRegisterSchema = yup.object().shape({
     .min(5, 'Format must be City, region. For example: Brovary,Kyiv')
     .max(60, 'Maximum number of characters 16')
     .matches(cityRules, 'Format must be City,region. For example: Brovary,Kyiv')
+    .matches(nameRules2, 'No spaces in the City or region')
     .matches(cityRulesOnlyLetters, 'Region name only letters'),
   phone: yup
     .string()
