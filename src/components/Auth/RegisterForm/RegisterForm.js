@@ -213,7 +213,7 @@ const RegisterStepTwo = props => {
               <FormInput
                 id={cityInputId}
                 name="city"
-                placeholder="City, region"
+                placeholder="City,region"
                 type="text"
                 autoComplete="off"
               />

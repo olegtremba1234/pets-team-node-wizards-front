@@ -57,9 +57,6 @@ export default function ModalAddsPet({ children, infoModal }) {
     console.log('Formik submit >>>', formData);
     await postNewPet(formData);
     infoModal();
-    const makeRequest = formData => {
-      postNewPet(formData);
-    };
   };
 
   const resetData = () => {
@@ -240,7 +237,7 @@ export default function ModalAddsPet({ children, infoModal }) {
   //   console.log('avatarFileName after >>>', avatarFileName);
   // };
 
-  const handlePick = e => {
+  const handlePick = () => {
     filePicker.current.click();
   };
 
