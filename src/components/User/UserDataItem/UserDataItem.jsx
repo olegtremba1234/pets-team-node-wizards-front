@@ -13,7 +13,14 @@ const UserDataItem = () => {
   const [birthdayDisabled, setBirthdayDisabled] = useState(true);
   const [phoneDisabled, setPhoneDisabled] = useState(true);
   const [cityDisabled, setCityDisabled] = useState(true);
-  const [userInfo, setUserInfo] = useState('');
+  const [userInfo, setUserInfo] = useState({
+    name: '',
+    email: '',
+    birthday: '',
+    phone: '',
+    city: '',
+    avatarUrl: '',
+  });
 
   const selectInput = (ev, diz) => {
     const id = ev.previousElementSibling.id;
@@ -55,9 +62,18 @@ const UserDataItem = () => {
       case 'birthday':
         selectInput(ev, birthdayDisabled);
         setBirthdayDisabled(!birthdayDisabled);
+
+        console.log(
+          ev.previousElementSibling.value.split('-').reverse().join('.')
+        );
         if (!birthdayDisabled) {
           await fetchUseInfo(
-            { birthday: ev.previousElementSibling.value },
+            {
+              birthday: ev.previousElementSibling.value
+                .split('-')
+                .reverse()
+                .join('.'),
+            },
             token
           ).then(setUserInfo);
           await userDataInfo();
@@ -98,10 +114,7 @@ const UserDataItem = () => {
   };
 
   const userDataInfo = async () => {
-    const info = await fetchUser(token).then(setUserInfo);
-    if (info) {
-    }
-    return info;
+    await fetchUser(token).then(setUserInfo);
   };
 
   useEffect(() => {
@@ -110,6 +123,9 @@ const UserDataItem = () => {
   }, [setUserInfo]);
 
   const { name, email, birthday, city, phone } = userInfo;
+
+
+
 
   return (
     <UserItem>
@@ -173,7 +189,7 @@ const UserDataItem = () => {
         <div className="inputSpace">
           <InfoItem
             className="infoItem"
-            type="text"
+            type="date"
             name="birthday"
             disabled={birthdayDisabled}
             id={nanoid()}

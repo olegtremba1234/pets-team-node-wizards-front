@@ -45,7 +45,11 @@ export const UserItem = styled.ul`
     display: flex;
     align-items: center;
     letter-spacing: 0.04em;
-    width: 80px;
+    width: 60px;
+    @media screen and (min-width: 768px) {
+      width: 80px;
+      font-size: 18px;
+    }
   }
 
   .buttItem {
@@ -61,12 +65,16 @@ export const InfoItem = styled.input`
   border-radius: 40px;
   width: 100%;
   font-weight: 400;
-  font-size: 18px;
-  padding-left:15px;
+  font-size: 12px;
+  padding-left: 10px;
 
   color: #111111;
   border: 1px solid rgba(245, 146, 86, 0.5);
   border-color: ${p => (p.disabled ? ' transparent' : '#F59256')};
-  background: ${p => (p.disabled ? ' transparent' :' #FDF7F2')};
+  background: ${p => (p.disabled ? ' transparent' : ' #FDF7F2')};
+
+  @media screen and (min-width: 768px) {
+    font-size: 18px;
+  }
 `;
 // transparent

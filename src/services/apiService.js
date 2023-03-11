@@ -125,7 +125,7 @@ export const postNewPet = async data => {
   
   formData.append('avatar', avatar.files[0]);
   formData.append('name', name);
-  formData.append('birthDay', birthDay);
+  formData.append('birthDay', birthDay.split("-").reverse().join("."));
   formData.append('breed', breed);
   formData.append('comments', comments);
 
