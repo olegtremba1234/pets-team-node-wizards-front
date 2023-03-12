@@ -24,7 +24,7 @@ const User = () => {
         <MyInfo>My information</MyInfo>
         {userInfo && <UserData user={userInfo} />}
       </UserInfo>
-      <PetsData />
+      {userInfo && <PetsData user={userInfo}/>}
     </UserPage>
   );
 };
