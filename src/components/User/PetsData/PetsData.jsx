@@ -4,7 +4,7 @@ import { useState } from 'react';
 import PetsList from '../PetsList/PetsList';
 import { AddPets, Pets, BtnWrapper } from './PetsData.styled';
 
-const PetsData = () => {
+const PetsData = ({user}) => {
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -21,7 +21,7 @@ const PetsData = () => {
           </ModalAddsPet>
         </BtnWrapper>
       </AddPets>
-      <PetsList refresh={openModal} refreshStop={setOpenModal} />
+      <PetsList refresh={openModal} refreshStop={setOpenModal} data={user}/>
     </Pets>
   );
 };

@@ -19,10 +19,8 @@ const UserDataItem = ({ dataItem }) => {
   let birthdayReverse = null;
 
   const selectInput = (ev, diz) => {
-    const id = ev.previousElementSibling.id;
-    const el = document.getElementById(id);
-    el.disabled = !el.diz;
-    el.focus();
+   
+    
   };
   const token = useSelector(selectToken);
 
@@ -43,7 +41,7 @@ const UserDataItem = ({ dataItem }) => {
     switch (name) {
       case 'name':
         setButName(ev.previousElementSibling.name);
-        selectInput(ev, nameDisabled);
+        // selectInput(ev, nameDisabled);
         setNameDisabled(!nameDisabled);
 
         if (!nameDisabled) {
@@ -149,6 +147,7 @@ const UserDataItem = ({ dataItem }) => {
             name="name"
             disabled={nameDisabled}
             id={nanoid()}
+            autoFocus
             defaultValue={name}
           ></InfoItem>
           {
@@ -177,6 +176,7 @@ const UserDataItem = ({ dataItem }) => {
             disabled={emailDisabled}
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             id={nanoid()}
+            autoFocus
             defaultValue={email}
           ></InfoItem>
           {
@@ -204,6 +204,7 @@ const UserDataItem = ({ dataItem }) => {
             name="birthday"
             disabled={birthdayDisabled}
             id={nanoid()}
+            autoFocus
             defaultValue={birthdayReverse && birthdayReverse}
           ></InfoItem>
           {
@@ -233,6 +234,7 @@ const UserDataItem = ({ dataItem }) => {
             pattern="\(\d{3}\) \d{3}-\d{4}"
             required
             id={nanoid()}
+            autoFocus
             defaultValue={phone}
           ></InfoItem>
           {
@@ -260,6 +262,7 @@ const UserDataItem = ({ dataItem }) => {
             name="city"
             disabled={cityDisabled}
             id={nanoid()}
+            autoFocus
             defaultValue={city}
           ></InfoItem>
           {
