@@ -6,8 +6,10 @@ export const LoqoutIcons = styled.div`
   height: 18px;
   fill: #f59256;
   stroke: #f59256;
+  transition: all 350ms ease-in-out;
   :hover {
     fill: ${p => p.theme.hoverButtonColor.primary};
+    transition: color 350ms ease
   }
 `;
 export const UserAvatarIcons = styled.div`
@@ -23,11 +25,10 @@ export const IconsRed = styled.div`
   fill: '#1111118c';
   fill-opacity: 0.6;
   border-radius: 50%;
-
+  transition: all 350ms ease-in-out;
   :hover {
     fill: ${p => (p.isLocked ? ' #111111' : p.theme.hoverButtonColor.primary)};
-
-    /* fill: ${p => p.theme.hoverButtonColor.primary}; */
+    transition: color 350ms ease
   }
 `;
 
@@ -50,9 +51,10 @@ export const PetsAddIcon = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #f59256;
-
+  transition: all 350ms ease-in-out;
   :hover {
     fill: ${p => p.theme.hoverButtonColor.primary};
+    transition: color 350ms ease
   }
 `;
 
@@ -61,6 +63,7 @@ export const CardIcons = styled.div`
   height: 20px;
   fill: ${p => (p.disabled ? ' transparent' : ' #111111')};
   fill-opacity: 0.6;
+  transition: all 350ms ease-in-out;
   @media screen and (min-width: 768px) {
     width: 24px;
     height: 24px;
@@ -68,6 +71,7 @@ export const CardIcons = styled.div`
 
   :hover {
     fill: ${p => p.theme.hoverButtonColor.primary};
+    transition: color 350ms ease
   }
 `;
 export const UserRemoveAvatar = styled.div`
