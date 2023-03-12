@@ -11,39 +11,28 @@ import { Icons } from '../Icons/Icons';
 import { fetchUserPets, fetchUserAvatar } from 'services/apiService';
 import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
-// import { useSelector } from 'react-redux';
-// import { fetchUserInfo } from 'services/apiService';
-
-const UserData = () => {
+const UserData = ({ user }) => {
   const defaultAvatar =
     'https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792__480.png';
 
-  const [userInfo, setUserInfo] = useState();
-
+  const [userInfo, setUserInfo] = useState(() => user);
 
   const filePicker = useRef(null);
 
   const token = useSelector(selectToken);
 
   const userDataInfo = async () => {
-    const info = await fetchUserPets(token).then(setUserInfo);
-    return info;
+    await fetchUserPets(token).then(setUserInfo);
   };
- 
-  useEffect(() => {
-    userDataInfo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setUserInfo]);
 
   const handleOnChange = async img => {
     const formData = new FormData();
     formData.append('avatar', img);
 
     await fetchUserAvatar(formData, token);
-    userDataInfo()
-   
+    userDataInfo();
   };
 
   const handleSendFile = () => {
@@ -74,7 +63,7 @@ const UserData = () => {
         </Button>
       </ImageItem>
       <DataItem>
-        <UserDataItem />
+        <UserDataItem dataItem={userInfo.user} />
         <Logout />
       </DataItem>
     </UserInfo>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Icons } from '../Icons/Icons';
 import { UserItem, InfoItem } from './UserDataItem.styled';
 import { nanoid } from 'nanoid';
@@ -7,20 +7,16 @@ import { selectToken } from 'redux/auth/authSelectors';
 import { fetchUseInfo, fetchUser } from 'services/apiService';
 import { toast } from 'react-toastify';
 
-const UserDataItem = () => {
+const UserDataItem = ({ dataItem }) => {
   const [nameDisabled, setNameDisabled] = useState(true);
   const [emailDisabled, setEmailDisabled] = useState(true);
   const [birthdayDisabled, setBirthdayDisabled] = useState(true);
   const [phoneDisabled, setPhoneDisabled] = useState(true);
   const [cityDisabled, setCityDisabled] = useState(true);
-  const [userInfo, setUserInfo] = useState({
-    name: '',
-    email: '',
-    birthday: '',
-    phone: '',
-    city: '',
-    avatarUrl: '',
-  });
+  const [userInfo, setUserInfo] = useState(() => dataItem);
+
+  const [butName, setButName] = useState(null);
+  let birthdayReverse = null;
 
   const selectInput = (ev, diz) => {
     const id = ev.previousElementSibling.id;
@@ -30,10 +26,23 @@ const UserDataItem = () => {
   };
   const token = useSelector(selectToken);
 
+  const buttonDisabled = btName => {
+    if (!butName) {
+      return false;
+    } else {
+      if (btName === butName) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  };
+
   const handleClickEdit = async ev => {
     const name = ev.previousElementSibling.name;
     switch (name) {
       case 'name':
+        setButName(ev.previousElementSibling.name);
         selectInput(ev, nameDisabled);
         setNameDisabled(!nameDisabled);
 
@@ -43,11 +52,12 @@ const UserDataItem = () => {
             token
           ).then(setUserInfo);
           userDataInfo();
+          setButName(null);
         }
-
         break;
 
       case 'email':
+        setButName(ev.previousElementSibling.name);
         selectInput(ev, emailDisabled);
         setEmailDisabled(!emailDisabled);
         if (!emailDisabled) {
@@ -56,14 +66,15 @@ const UserDataItem = () => {
             token
           ).then(setUserInfo);
           await userDataInfo();
+          setButName(null);
         }
         break;
 
       case 'birthday':
+        setButName(ev.previousElementSibling.name);
         selectInput(ev, birthdayDisabled);
         setBirthdayDisabled(!birthdayDisabled);
 
-        
         if (!birthdayDisabled) {
           await fetchUseInfo(
             {
@@ -75,15 +86,16 @@ const UserDataItem = () => {
             token
           ).then(setUserInfo);
           await userDataInfo();
+          setButName(null);
         }
         break;
 
       case 'phone':
+        setButName(ev.previousElementSibling.name);
         const len = ev.previousElementSibling.value;
 
         if (len.length < 13 || len.length > 13) {
           toast.error('The phone number is incorrect');
-
           return;
         }
         selectInput(ev, phoneDisabled);
@@ -94,9 +106,12 @@ const UserDataItem = () => {
             token
           ).then(setUserInfo);
           await userDataInfo();
+          setButName(null);
         }
         break;
+
       case 'city':
+        setButName(ev.previousElementSibling.name);
         selectInput(ev, cityDisabled);
         setCityDisabled(!cityDisabled);
         if (!cityDisabled) {
@@ -105,6 +120,7 @@ const UserDataItem = () => {
             token
           ).then(setUserInfo);
           await userDataInfo();
+          setButName(null);
         }
         break;
       default:
@@ -112,22 +128,15 @@ const UserDataItem = () => {
   };
 
   const userDataInfo = async () => {
-    await fetchUser(token).then(setUserInfo);
+    const dataItem = await fetchUser(token);
+    setUserInfo(dataItem);
   };
-
-  useEffect(() => {
-    userDataInfo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setUserInfo]);
 
   const { name, email, birthday, city, phone } = userInfo;
 
- let birthdayReverse= null
-
-  if (birthday!==undefined){ birthdayReverse = birthday.split('.').reverse().join('-')}
- 
-  
-
+  if (birthday !== undefined) {
+    birthdayReverse = birthday.split('.').reverse().join('-');
+  }
 
   return (
     <UserItem>
@@ -147,6 +156,7 @@ const UserDataItem = () => {
               className="buttItem"
               type="button"
               onClick={event => handleClickEdit(event.currentTarget)}
+              disabled={buttonDisabled('name')}
             >
               {nameDisabled ? (
                 <Icons id={'icon-user_red'} />
@@ -162,7 +172,6 @@ const UserDataItem = () => {
         <p className="userInfoName">Email:</p>
         <div className="inputSpace">
           <InfoItem
-            className="infoItem"
             type="text"
             name="email"
             disabled={emailDisabled}
@@ -174,6 +183,7 @@ const UserDataItem = () => {
             <button
               className="buttItem"
               type="button"
+              disabled={buttonDisabled('email')}
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {emailDisabled ? (
@@ -190,17 +200,17 @@ const UserDataItem = () => {
         <p className="userInfoName">Birthday:</p>
         <div className="inputSpace">
           <InfoItem
-            className="infoItem"
             type="date"
             name="birthday"
             disabled={birthdayDisabled}
             id={nanoid()}
-            defaultValue={birthdayReverse&& birthdayReverse}
+            defaultValue={birthdayReverse && birthdayReverse}
           ></InfoItem>
           {
             <button
               className="buttItem"
               type="button"
+              disabled={buttonDisabled('birthday')}
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {birthdayDisabled ? (
@@ -217,7 +227,6 @@ const UserDataItem = () => {
         <p className="userInfoName">Phone:</p>
         <div className="inputSpace">
           <InfoItem
-            className="infoItem"
             type="text"
             name="phone"
             disabled={phoneDisabled}
@@ -230,6 +239,7 @@ const UserDataItem = () => {
             <button
               className="buttItem"
               type="button"
+              disabled={buttonDisabled('phone')}
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {phoneDisabled ? (
@@ -246,7 +256,6 @@ const UserDataItem = () => {
         <p className="userInfoName"> City:</p>
         <div className="inputSpace">
           <InfoItem
-            className="infoItem"
             type="text"
             name="city"
             disabled={cityDisabled}
@@ -257,6 +266,7 @@ const UserDataItem = () => {
             <button
               className="buttItem"
               type="button"
+              disabled={buttonDisabled('city')}
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {cityDisabled ? (
