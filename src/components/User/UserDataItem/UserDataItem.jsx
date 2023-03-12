@@ -63,9 +63,7 @@ const UserDataItem = () => {
         selectInput(ev, birthdayDisabled);
         setBirthdayDisabled(!birthdayDisabled);
 
-        console.log(
-          ev.previousElementSibling.value.split('-').reverse().join('.')
-        );
+        
         if (!birthdayDisabled) {
           await fetchUseInfo(
             {
@@ -124,7 +122,11 @@ const UserDataItem = () => {
 
   const { name, email, birthday, city, phone } = userInfo;
 
+ let birthdayReverse= null
 
+  if (birthday!==undefined){ birthdayReverse = birthday.split('.').reverse().join('-')}
+ 
+  
 
 
   return (
@@ -193,7 +195,7 @@ const UserDataItem = () => {
             name="birthday"
             disabled={birthdayDisabled}
             id={nanoid()}
-            defaultValue={birthday}
+            defaultValue={birthdayReverse&& birthdayReverse}
           ></InfoItem>
           {
             <button
