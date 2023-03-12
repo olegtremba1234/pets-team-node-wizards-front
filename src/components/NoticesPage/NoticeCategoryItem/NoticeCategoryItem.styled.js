@@ -87,6 +87,7 @@ export const HeartBtn = styled.button`
   right: 12px;
   cursor: pointer;
   background-color: ${props => props.isFavorite && '#F59256'};
+  background-color: ${props => props.isLiked && '#F59256'};
 `;
 export const CategoryInfo = styled.div`
   position: absolute;
