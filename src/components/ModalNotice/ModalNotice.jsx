@@ -34,65 +34,83 @@ import Media from 'react-media';
 import transormDate from 'helpers/transformDate';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 export default function ModalNotice({ id, setIsModalOpen }) {
   const [noticeDetails, setNoticesDetails] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const token = useSelector(state => state.auth.accessToken);
 
-  const handleAddToFavorite = id => {
+  const handleAddToFavorite = async id => {
+    setIsLoading(true);
     if (!token) {
+      setIsLoading(false);
       toast.error('Oops...You must be logged in to add to favorites');
       return;
     }
-    addNoticeToFavourite(id, token)
-      .then(() => {
-        setIsFavorite(true);
-        toast.success('Added to favorite list successfully');
-      })
-      .catch(err => {
-        console.log(err.message);
-        toast.error(
-          'Oops...Something went wrong. Failed to add to the favorite list'
-        );
-      });
+    try {
+      await addNoticeToFavourite(id, token);
+      setIsFavorite(true);
+      toast.success('Added to favorite list successfully');
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error.message);
+      toast.error(
+        'Oops...Something went wrong. Failed to add to the favorite list'
+      );
+      setIsLoading(false);
+    }
   };
 
-  const handleRemoveFromFavorite = id => {
-    deleteNoticeFromFavorite(id, token)
-      .then(() => {
-        toast.success('Deleted from favorite list successfully');
-        setIsFavorite(false);
-      })
-      .catch(err => {
-        console.log(err);
-        toast.error(
-          'Oops...Something went wrong. Failed to delete from the favorite list'
-        );
-      });
+  const handleRemoveFromFavorite = async id => {
+    setIsLoading(true);
+    try {
+      await deleteNoticeFromFavorite(id, token);
+      toast.success('Deleted from favorite list successfully');
+      setIsFavorite(false);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        'Oops...Something went wrong. Failed to delete from the favorite list'
+      );
+      setIsLoading(false);
+    }
   };
 
-  const handleDelete = id => {
-    deleteOwnNoticeById(id, token)
-      .then(() => {
-        toast.success('Deleted successfully');
-        setIsModalOpen(false);
-      })
-      .catch(err => {
-        console.log(err);
-        toast.error('Oops...Something went wrong. Failed to delete');
-      });
+  const handleDelete = async id => {
+    setIsLoading(true);
+    try {
+      await deleteOwnNoticeById(id, token);
+      setIsLoading(false);
+      toast.success('Deleted successfully');
+      setIsModalOpen(false);
+    } catch (error) {
+      console.log(error);
+      toast.error('Oops...Something went wrong. Failed to delete');
+      setIsLoading(false);
+    }
+  };
+
+  const fetchCurrentNotice = async () => {
+    try {
+      const data = await fetchNoticeById(id, token);
+      setNoticesDetails(data);
+      setIsFavorite(data.isFavorite);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    fetchNoticeById(id, token)
-      .then(data => {
-        setNoticesDetails(data);
-        setIsFavorite(data.isFavorite);
-      })
-      .catch(console.log);
-  }, [id, token]);
+    setIsLoading(true);
+    fetchCurrentNotice();
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     const escapeModal = event => {
@@ -115,9 +133,21 @@ export default function ModalNotice({ id, setIsModalOpen }) {
   };
 
   return (
-    <>
+    <Overlay onClick={handleCloseModal}>
+      {isLoading && (
+        <ClipLoader
+          color="#F59256"
+          cssOverride={{
+            zIndex: 1000,
+            position: 'fixed',
+            top: ' 50%',
+            left: '50%',
+            transform: 'translateX(-50%) translateY(-50%)',
+          }}
+        />
+      )}
       {noticeDetails && (
-        <Overlay onClick={handleCloseModal}>
+        <>
           <ModalWindow>
             <CloseBtn onClick={() => setIsModalOpen(false)}>
               <CloseIcon />
@@ -257,8 +287,8 @@ export default function ModalNotice({ id, setIsModalOpen }) {
               )}
             </ButtonWrapper>
           </ModalWindow>
-        </Overlay>
+        </>
       )}
-    </>
+    </Overlay>
   );
 }

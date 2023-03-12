@@ -78,10 +78,13 @@ export const H3 = styled.h3`
   letter-spacing: -0.01em;
   color: ${p => p.theme.fontColors.secondary};
   margin-bottom: 15px;
+  overflow-wrap: break-word;
   @media (min-width: 768px) {
     font-size: ${p => p.theme.fontSizes.xxxl};
     line-height: 1.357;
     margin-bottom: 20px;
+    overflow-wrap: break-word;
+    max-width: 320px;
   }
 `;
 
@@ -127,7 +130,9 @@ export const ValueLi = styled.li`
   font-weight: ${p => p.theme.fontWeights.medium};
   font-size: ${p => p.theme.fontSizes.s};
   line-height: 1.357;
-
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 20px;
   color: ${p => p.theme.fontColors.secondary};
   @media (min-width: 768px) {
     font-size: ${p => p.theme.fontSizes.m};
