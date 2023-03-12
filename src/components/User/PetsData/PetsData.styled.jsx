@@ -60,6 +60,10 @@ export const ButtonBack = styled.div`
   height: 40px;
   border-radius: 50%;
   justify-content: center;
-
   align-items: center;
+
+  :hover {
+    color: ${p => p.theme.hoverButtonColor.primary};
+  }
+  
 `;

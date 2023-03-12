@@ -12,6 +12,10 @@ export const ButtonIcon = styled.button`
   @media screen and (min-width: 1280px) {
     font-size: 28px;
   }
+
+  :hover {
+    color: ${p => p.theme.hoverButtonColor.primary};
+  }
 `;
 
 export const Modal = styled.div`

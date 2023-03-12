@@ -86,6 +86,10 @@ export const Button = styled.button`
     left: 200px;
     top: -22px;
   }
+
+  :hover {
+    color: ${p => p.theme.hoverButtonColor.primary};
+  }
 `;
 
 export const DataItem = styled.div`
