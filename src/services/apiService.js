@@ -4,11 +4,13 @@ axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
 
 export const fetchAllNews = async () => {
   const response = await axios(`news`);
-  return response.data;
+  return response.data
+
 };
 
 export const fetchNextNews = async page => {
   return await axios(`news/?page=${page}`);
+
 };
 
 export const fetchSearchNews = async query => {
