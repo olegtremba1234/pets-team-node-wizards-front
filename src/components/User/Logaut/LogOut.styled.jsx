@@ -20,24 +20,14 @@ export const Button = styled.button`
 
   @media screen and (min-width: 768px) {
     margin-left: 0px;
-    }
+  }
 
-    @media screen and (min-width: 1280px) {
-      margin-top:15px;
-      margin-bottom:0px;
-    }
-  
-`;
+  @media screen and (min-width: 1280px) {
+    margin-top: 15px;
+    margin-bottom: 0px;
+  }
 
-export const Overlay = styled.div`
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: ${p => p.theme.backgrounds.modalOverlay};
-  backdrop-filter: ${p => p.theme.backgrounds.backdrop};
-  z-index: 100;
+  :hover {
+    color: ${p => p.theme.hoverButtonColor.primary};
+  }
 `;
