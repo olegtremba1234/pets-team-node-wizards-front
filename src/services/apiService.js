@@ -4,13 +4,11 @@ axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
 
 export const fetchAllNews = async () => {
   const response = await axios(`news`);
-  return response.data
-
+  return response.data;
 };
 
 export const fetchNextNews = async page => {
   return await axios(`news/?page=${page}`);
-
 };
 
 export const fetchSearchNews = async query => {
@@ -125,12 +123,11 @@ export const fetchUseInfo = async (data, token) => {
   }
 };
 
-export const postNewPet = async data => {
+export const postNewPet = async (data, avatar) => {
   const { name, birthDay, breed, comments } = data;
-  const avatar = document.querySelector('#avatar');
   const formData = new FormData();
 
-  formData.append('avatar', avatar.files[0]);
+  formData.append('avatar', avatar);
   formData.append('name', name);
   formData.append('birthDay', birthDay.split("-").reverse().join("."));
   formData.append('breed', breed);
@@ -142,7 +139,7 @@ export const postNewPet = async data => {
         'Content-Type': 'multipart/form-data',
       },
     })
-    .then(console.log)
+    .then()
     .catch(console.log);
   return res;
 };

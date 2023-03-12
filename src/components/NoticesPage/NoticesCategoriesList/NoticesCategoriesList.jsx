@@ -1,10 +1,7 @@
 import NoticeCategoryItem from '../NoticeCategoryItem/NoticeCategoryItem';
 import { NoticeList } from './NoticesCategoriesList.styled';
 
-export default function NoticesCategoriesList({ notices, callback }) {
-  const handleDeleteItem = id => {
-    callback(id);
-  };
+export default function NoticesCategoriesList({ notices }) {
   return (
     <NoticeList>
       {notices &&
@@ -19,9 +16,9 @@ export default function NoticesCategoriesList({ notices, callback }) {
             id,
             isOwn,
             isFavorite,
+            price,
           }) => (
             <NoticeCategoryItem
-              handleDeleteItem={handleDeleteItem}
               key={id}
               title={title}
               breed={breed}
@@ -32,6 +29,7 @@ export default function NoticesCategoriesList({ notices, callback }) {
               id={id}
               isOwn={isOwn}
               isFavorite={isFavorite}
+              price={price}
             />
           )
         )}
