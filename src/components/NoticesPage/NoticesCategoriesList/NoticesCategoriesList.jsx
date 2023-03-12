@@ -19,6 +19,7 @@ export default function NoticesCategoriesList({ notices, callback }) {
             id,
             isOwn,
             isFavorite,
+            price,
           }) => (
             <NoticeCategoryItem
               handleDeleteItem={handleDeleteItem}
@@ -32,6 +33,7 @@ export default function NoticesCategoriesList({ notices, callback }) {
               id={id}
               isOwn={isOwn}
               isFavorite={isFavorite}
+              price={price}
             />
           )
         )}
