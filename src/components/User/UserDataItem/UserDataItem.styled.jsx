@@ -46,8 +46,9 @@ export const UserItem = styled.ul`
     align-items: center;
     letter-spacing: 0.04em;
     width: 60px;
+
     @media screen and (min-width: 768px) {
-      width: 80px;
+      width: 105px;
       font-size: 18px;
     }
   }
@@ -63,7 +64,7 @@ export const UserItem = styled.ul`
 export const InfoItem = styled.input`
   margin-right: 9px;
   border-radius: 40px;
-  width: 100%;
+  width: 136px;
   font-weight: 400;
   font-size: 12px;
   padding-left: 10px;
@@ -75,6 +76,10 @@ export const InfoItem = styled.input`
 
   @media screen and (min-width: 768px) {
     font-size: 18px;
+    width: 100%;
   }
+
+  
 `;
-// transparent
+
+

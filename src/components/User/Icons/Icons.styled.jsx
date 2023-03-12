@@ -18,10 +18,12 @@ export const UserAvatarIcons = styled.div`
 export const IconsRed = styled.div`
   width: 20px;
   height: 20px;
-  fill: #f59256;
+  fill: ${p => (p.disabled ? '#1111118c' : '#f59256')};
   fill-opacity: 0.6;
   background-color: #fdf7f2;
   border-radius: 50%;
+
+  
 `;
 
 export const IconsDone = styled.div`
@@ -44,13 +46,6 @@ export const PetsAddIcon = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #F59256;
-
-
-
-  @media screen and (min-width: 1280px) {
-  
-  }
-
 
 `;
 
