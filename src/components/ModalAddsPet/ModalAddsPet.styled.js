@@ -66,8 +66,8 @@ export const ModalTitle = styled.h2`
   text-align: center;
 
   &.step-2 {
-      margin-bottom: 20px;
-    }
+    margin-bottom: 20px;
+  }
 
   font-family: ${p => p.theme.fontFamily.main};
   font-style: ${p => p.theme.fontStyle.main};
@@ -106,8 +106,11 @@ export const LabelAvatar = styled.label`
 export const InputAvatarWrapper = styled.button`
   width: 208px;
   height: 208px;
-  padding: 10px 16px;
+  padding: 0;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   font-family: ${p => p.theme.fontFamily.main};
   font-style: ${p => p.theme.fontStyle.main};
@@ -118,10 +121,30 @@ export const InputAvatarWrapper = styled.button`
   background: ${p => p.theme.backgrounds.input};
   border: ${p => p.theme.borders.input};
   border-radius: ${p => p.theme.borderRadius.main};
+
   @media ${device.tablet} {
     width: 182px;
-  height: 182px;
+    height: 182px;
+  }
+`;
 
+export const AddedImage = styled.div`
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 208px;
+  height: 208px;
+  border-radius: ${p => p.theme.borderRadius.main};
+
+  @media ${device.tablet} {
+    width: 182px;
+    height: 182px;
+  }
+  & > img {
+    object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
   }
 `;
 
@@ -142,7 +165,7 @@ export const AvatarWrapper = styled.div`
   align-items: center;
   margin-bottom: 20px;
   gap: 20px;
-  
+
   @media ${device.tablet} {
     margin-bottom: 40px;
   }

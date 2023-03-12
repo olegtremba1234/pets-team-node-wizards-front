@@ -3,6 +3,7 @@ import { postNewPet } from 'services/apiService';
 import { Formik, Form } from 'formik';
 import { ReactComponent as Plus } from '../../icons/plus.svg';
 import {
+  AddedImage,
   AvatarWrapper,
   BtnMain,
   BtnWrapper,
@@ -27,9 +28,7 @@ import addPetSchemaSecondStep from 'services/formik/addPetSchemaSecondStep';
 
 export default function ModalAddsPet({ children, infoModal }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [avatar, setAvatar] = useState(null);
-  const [avatarFileName, setAvatarFileName] = useState(null);
   const filePicker = useRef(null);
   const [data, setData] = useState({
     name: '',
@@ -38,6 +37,7 @@ export default function ModalAddsPet({ children, infoModal }) {
     comments: '',
   });
   const [currentStep, setCurrentStep] = useState(0);
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
     const escapeModal = event => {
@@ -54,8 +54,7 @@ export default function ModalAddsPet({ children, infoModal }) {
   });
 
   const makeRequest = async formData => {
-    console.log('Formik submit >>>', formData);
-    await postNewPet(formData);
+    await postNewPet(formData, avatar);
     infoModal();
   };
 
@@ -68,14 +67,15 @@ export default function ModalAddsPet({ children, infoModal }) {
     });
     setIsModalOpen(false);
     setCurrentStep(0);
-    setAvatarFileName(null);
     setAvatar(null);
   };
 
   const handleNextStep = (newData, final = false) => {
     setData(prev => ({ ...prev, ...newData }));
     if (final) {
-      makeRequest(newData);
+      const birthDay = newData.birthDay.split('-').reverse().join('.');
+      const formattedData = { ...newData, birthDay };
+      makeRequest(formattedData);
       resetData();
 
       return;
@@ -86,6 +86,13 @@ export default function ModalAddsPet({ children, infoModal }) {
   const handlePrevStep = newData => {
     setData(prev => ({ ...prev, ...newData }));
     setCurrentStep(prev => prev - 1);
+  };
+
+  const onImageChange = e => {
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      setImagePreview(URL.createObjectURL(e.target.files[0]));
+      setAvatar(e.currentTarget.files[0]);
+    }
   };
 
   const StepOne = props => {
@@ -166,12 +173,10 @@ export default function ModalAddsPet({ children, infoModal }) {
                 Add photo and some comments
               </LabelAvatar>
               <InputAvatarWrapper type="button" onClick={handlePick}>
-                {avatarFileName ? (
-                  <div
-                  // onClick={delAvatarChoice}
-                  >
-                    {avatarFileName}
-                  </div>
+                {avatar ? (
+                  <AddedImage>
+                    <img alt="pet" src={imagePreview} />
+                  </AddedImage>
                 ) : (
                   <Plus />
                 )}
@@ -181,7 +186,9 @@ export default function ModalAddsPet({ children, infoModal }) {
                   id="avatar"
                   ref={filePicker}
                   accept="image/*,.png,.jpg"
-                  // onChangeCapture={handleAvatarChange}
+                  onChange={e => {
+                    onImageChange(e);
+                  }}
                 />
               </InputAvatarWrapper>
             </AvatarWrapper>
@@ -221,30 +228,9 @@ export default function ModalAddsPet({ children, infoModal }) {
     setIsModalOpen(!isModalOpen);
   };
 
-  // const handleAvatarChange = e => {
-  //   const pathString = e.currentTarget.value;
-  //   const fileName = pathString.split('\\').slice(-1).toString();
-
-  //   console.log('avatar before >>>', avatar);
-  //   console.log('avatarFileName before >>>', avatarFileName);
-  //   console.log('pathString >>>', pathString);
-  //   console.log('fileName >>>', fileName);
-
-  //   setAvatarFileName(fileName);
-  //   setAvatar(pathString);
-
-  //   console.log('avatar after >>>', avatar);
-  //   console.log('avatarFileName after >>>', avatarFileName);
-  // };
-
   const handlePick = () => {
     filePicker.current.click();
   };
-
-  // const delAvatarChoice = () => {
-  //   setAvatar(null);
-  //   setAvatarFileName(null)
-  // };
 
   return (
     <>
