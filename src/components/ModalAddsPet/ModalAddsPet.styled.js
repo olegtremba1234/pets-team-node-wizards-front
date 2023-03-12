@@ -8,9 +8,14 @@ export const ButtonIcon = styled.button`
   font-size: 20px;
   align-items: center;
   cursor: pointer;
-
+  transition: all 350ms ease-in-out;
   @media screen and (min-width: 1280px) {
     font-size: 28px;
+  }
+
+  :hover {
+    color: ${p => p.theme.hoverButtonColor.primary};
+    transition: color 350ms 
   }
 `;
 

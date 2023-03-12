@@ -58,6 +58,7 @@ export const UserItem = styled.ul`
     /* width: 0; */
     background-color: inherit;
     cursor: pointer;
+    
   }
 `;
 

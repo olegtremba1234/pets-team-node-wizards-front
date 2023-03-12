@@ -37,19 +37,6 @@ export const BtnWrapper = styled.div`
   display: flex;
 `;
 
-// export const ButtonIcon = styled.button`
-//   display: flex;
-//   border: none;
-//   background-color: inherit;
-//   font-size: 20px;
-//   align-items: center;
-//   cursor: pointer;
-
-//   @media screen and (min-width: 1280px) {
-//     font-size: 28px;
-
-//   }
-// `;
 
 export const ButtonBack = styled.div`
   display: flex;
@@ -60,6 +47,12 @@ export const ButtonBack = styled.div`
   height: 40px;
   border-radius: 50%;
   justify-content: center;
-
   align-items: center;
+  transition: all 350ms ease-in-out;
+  :hover {
+    color: ${p => p.theme.hoverButtonColor.primary};
+    transition: color 350ms ease
+
+  }
+  
 `;
