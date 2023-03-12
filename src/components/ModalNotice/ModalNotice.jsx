@@ -1,5 +1,10 @@
 import { useEffect, useState, Fragment } from 'react';
-import { fetchNoticeById } from 'services/apiService';
+import {
+  addNoticeToFavourite,
+  deleteOwnNoticeById,
+  fetchNoticeById,
+  deleteNoticeFromFavorite,
+} from 'services/apiService';
 import {
   ModalWindow,
   ContentWrapper,
@@ -28,17 +33,57 @@ import defaultCat from './images/defaultCat.jpg';
 import Media from 'react-media';
 import transormDate from 'helpers/transformDate';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
-export default function ModalNotice({
-  id,
-  setIsModalOpen,
-  handleAddToFavorite,
-  handleDelete,
-}) {
+export default function ModalNotice({ id, setIsModalOpen }) {
   const [noticeDetails, setNoticesDetails] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
 
   const token = useSelector(state => state.auth.accessToken);
+
+  const handleAddToFavorite = id => {
+    if (!token) {
+      toast.error('Oops...You must be logged in to add to favorites');
+      return;
+    }
+    addNoticeToFavourite(id, token)
+      .then(() => {
+        setIsFavorite(true);
+        toast.success('Added to favorite list successfully');
+      })
+      .catch(err => {
+        console.log(err.message);
+        toast.error(
+          'Oops...Something went wrong. Failed to add to the favorite list'
+        );
+      });
+  };
+
+  const handleRemoveFromFavorite = id => {
+    deleteNoticeFromFavorite(id, token)
+      .then(() => {
+        toast.success('Deleted from favorite list successfully');
+        setIsFavorite(false);
+      })
+      .catch(err => {
+        console.log(err);
+        toast.error(
+          'Oops...Something went wrong. Failed to delete from the favorite list'
+        );
+      });
+  };
+
+  const handleDelete = id => {
+    deleteOwnNoticeById(id, token)
+      .then(() => {
+        toast.success('Deleted successfully');
+        setIsModalOpen(false);
+      })
+      .catch(err => {
+        console.log(err);
+        toast.error('Oops...Something went wrong. Failed to delete');
+      });
+  };
 
   useEffect(() => {
     fetchNoticeById(id, token)
@@ -147,7 +192,9 @@ export default function ModalNotice({
                     {isFavorite ? (
                       <ButtonRemoveFromFavorite
                         type="button"
-                        onClick={() => handleAddToFavorite(noticeDetails.id)}
+                        onClick={() =>
+                          handleRemoveFromFavorite(noticeDetails.id)
+                        }
                       >
                         Remove from <HeartIcon />
                       </ButtonRemoveFromFavorite>
@@ -191,7 +238,9 @@ export default function ModalNotice({
                     {isFavorite ? (
                       <ButtonRemoveFromFavorite
                         type="button"
-                        onClick={() => handleAddToFavorite(noticeDetails.id)}
+                        onClick={() =>
+                          handleRemoveFromFavorite(noticeDetails.id)
+                        }
                       >
                         Remove from <HeartIcon />
                       </ButtonRemoveFromFavorite>

@@ -1,7 +1,10 @@
 import NoticeCategoryItem from '../NoticeCategoryItem/NoticeCategoryItem';
 import { NoticeList } from './NoticesCategoriesList.styled';
 
-export default function NoticesCategoriesList({ notices }) {
+export default function NoticesCategoriesList({ notices, callback }) {
+  const handleDeleteItem = id => {
+    callback(id);
+  };
   return (
     <NoticeList>
       {notices &&
@@ -19,6 +22,7 @@ export default function NoticesCategoriesList({ notices }) {
             price,
           }) => (
             <NoticeCategoryItem
+              handleDeleteItem={handleDeleteItem}
               key={id}
               title={title}
               breed={breed}
