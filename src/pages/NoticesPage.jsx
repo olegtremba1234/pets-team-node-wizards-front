@@ -9,8 +9,8 @@ import {
   fetchAllNotices,
   fetchNoticesByQuery,
   fetchNoticesByCategoryAndQuery,
-} from 'redux/notices/noticeOperation';
-import { useDispatch, useSelector } from 'react-redux';
+} from 'services/apiService';
+import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
 import SearchNotices from 'components/NoticesPage/NoticesSearch/SearchNotices';
 import { ScrollUpButton, scrollTopPage } from 'components/ScrollUpButton';
@@ -22,21 +22,16 @@ import {
   StyledTitle,
 } from 'components/NoticesPage/Categories/Categories.styled';
 import Spinner from 'components/Spinner/Spinner';
-import {
-  selectIsLoading,
-  selectfetchedNotices,
-} from 'redux/notices/noticeSelector';
+import { selectIsLoading } from 'redux/notices/noticeSelector';
 
 const PAGE_SCROLL_DOWN = 100;
 
 export default function NoticesPage() {
-  const fetchedNotices = useSelector(selectfetchedNotices);
-  const dispatch = useDispatch();
-  // const [isSpinnerVisible, setIsSpinnerVisible] = useState(false);
+  const [isSpinnerVisible, setIsSpinnerVisible] = useState(false);
   const addedNotice = useSelector(state => state.notices.notices);
   const loadingAddedNotice = useSelector(selectIsLoading);
   const token = useSelector(selectToken);
-  // const [notices, setNotices] = useState([]);
+  const [notices, setNotices] = useState([]);
   const [query, setQuery] = useState('');
   const { categoryName } = useParams();
   const [scrollTop, setScrollTop] = useState(0);
@@ -59,28 +54,45 @@ export default function NoticesPage() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const Interaction_With_API = async () => {
+    setIsSpinnerVisible(true);
     if (!categoryName && !query.length) {
-      dispatch(fetchAllNotices());
+      const result = await fetchAllNotices();
+      setIsSpinnerVisible(false);
+      setNotices(result.reverse());
       return;
     }
     if (query.length && !categoryName) {
-      dispatch(fetchNoticesByQuery(query));
+      const result = await fetchNoticesByQuery(query);
+      setIsSpinnerVisible(false);
+      setNotices(result.reverse());
       return;
     }
     if (categoryName === 'favorite-ads') {
-      dispatch(fetchFavoriteNotices(token));
+      const result = await fetchFavoriteNotices(token);
+      setIsSpinnerVisible(false);
+      setNotices(result.reverse());
       return;
     }
     if (categoryName === 'my-ads') {
-      dispatch(fetchUserNotices(token));
+      const result = await fetchUserNotices(token);
+      setIsSpinnerVisible(false);
+      setNotices(result.reverse());
       return;
     }
     if (!query.length && categoryName) {
-      dispatch(fetchNoticesByCategory(categoryName));
+      const result = await fetchNoticesByCategory(categoryName);
+      setIsSpinnerVisible(false);
+      setNotices(result.reverse());
       return;
     }
     if (categoryName && query.length) {
-      dispatch(fetchNoticesByCategoryAndQuery({ query, categoryName, token }));
+      const result = await fetchNoticesByCategoryAndQuery(
+        query,
+        categoryName,
+        token
+      );
+      setIsSpinnerVisible(false);
+      setNotices(result.reverse());
       return;
     }
   };
@@ -94,9 +106,13 @@ export default function NoticesPage() {
   }, [categoryName, token, query, addedNotice]);
   const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
 
+  const handleDelete = id => {
+    setNotices(prev => prev.filter(item => item.id !== id));
+  };
+
   return (
     <>
-      {loadingAddedNotice ? (
+      {isSpinnerVisible || loadingAddedNotice ? (
         <Spinner />
       ) : (
         <StyledNoticesPageContainer>
@@ -106,10 +122,7 @@ export default function NoticesPage() {
             <Categories />
             <AddNoticeButton />
           </AddButtonAndCategoriesWrapper>
-          <NoticesCategoriesList
-            notices={fetchedNotices}
-            // callback={handleDelete}
-          />
+          <NoticesCategoriesList notices={notices} callback={handleDelete} />
           {isShowButtonTop && (
             <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
               <SlArrowUp />
