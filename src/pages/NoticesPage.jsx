@@ -21,9 +21,9 @@ import {
   StyledNoticesPageContainer,
   StyledTitle,
 } from 'components/NoticesPage/Categories/Categories.styled';
-import Spinner from 'components/Spinner/Spinner';
+// import Spinner from 'components/Spinner/Spinner';
 import {
-  selectIsLoading,
+  // selectIsLoading,
   selectfetchedNotices,
 } from 'redux/notices/noticeSelector';
 
@@ -112,7 +112,7 @@ export default function NoticesPage() {
         </AddButtonAndCategoriesWrapper>
         <NoticesCategoriesList
           notices={fetchedNotices}
-          // callback={handleDelete}
+        // callback={handleDelete}
         />
         {isShowButtonTop && (
           <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
