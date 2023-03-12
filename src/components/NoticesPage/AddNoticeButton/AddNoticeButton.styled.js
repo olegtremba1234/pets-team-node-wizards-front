@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { theme } from 'vars/theme';
 
 export const Button = styled.button`
   cursor: pointer;
@@ -12,6 +13,12 @@ export const Button = styled.button`
   display: flex;
   gap: 12px;
   align-items: center;
+  transition: ${theme.transition.first};
+  &:hover {
+    background-color: ${theme.hoverButtonColor.primary};
+    border-radius: 30px;
+    color: #fff;
+  }
 
   @media (max-width: 767px) {
     font-size: 12px;

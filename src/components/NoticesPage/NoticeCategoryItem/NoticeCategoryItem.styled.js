@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { theme } from 'vars/theme';
 
 export const Card = styled.div`
   width: 288px;
@@ -26,28 +27,6 @@ export const Title = styled.h2`
   color: #111111;
   margin-bottom: 20px;
 `;
-export const DescriptionList = styled.ul`
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 8;
-`;
-export const DescriptionInfo = styled.ul`
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 8;
-`;
 export const LearnMoneBtn = styled.button`
   cursor: pointer;
   background: #ffffff;
@@ -58,7 +37,13 @@ export const LearnMoneBtn = styled.button`
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0.04em;
-  margin-bottom: 12px;
+  margin-bottom: ${props => (!props.isOwn ? '20px' : '12px')};
+  transition: ${theme.transition.first};
+  &:hover {
+    background-color: ${theme.hoverButtonColor.primary};
+    border-radius: 30px;
+    color: #fff;
+  }
   @media (max-width: 1279px) and (min-width: 321px) {
     width: 248px;
     margin-left: auto;
@@ -79,6 +64,12 @@ export const DeleteBtn = styled.button`
   align-items: center;
   justify-content: center;
   gap: 5px;
+  transition: ${theme.transition.first};
+  &:hover {
+    background-color: ${theme.hoverButtonColor.primary};
+    border-radius: 30px;
+    color: #fff;
+  }
   @media (max-width: 1279px) and (min-width: 321px) {
     width: 248px;
     margin-left: auto;
@@ -118,11 +109,6 @@ export const ImageWrapper = styled.div`
   margin-bottom: 20px;
   position: relative;
   height: 288px;
-`;
-export const DescriptionWrapper = styled.div`
-  display: flex;
-  gap: 43px;
-  margin-bottom: 20px;
 `;
 export const InfoWrapper = styled.div`
   height: 100%;

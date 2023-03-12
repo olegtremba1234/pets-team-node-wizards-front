@@ -2,14 +2,11 @@ import {
   Card,
   Image,
   Title,
-  DescriptionList,
-  DescriptionInfo,
   LearnMoneBtn,
   DeleteBtn,
   HeartBtn,
   CategoryInfo,
   ImageWrapper,
-  DescriptionWrapper,
   InfoWrapper,
   ButtonWrapper,
 } from './NoticeCategoryItem.styled';
@@ -33,20 +30,12 @@ export default function NoticeCategoryItem({
   isOwn,
   isFavorite,
   handleDeleteItem,
+  price,
 }) {
   const token = useSelector(selectToken);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  function getAge(dateString) {
-    var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
-  }
+
   const handleAddToFavorite = id => {
     if (!token) {
       toast.error('Oops..You must be logged in to add to favorites');
@@ -80,24 +69,53 @@ export default function NoticeCategoryItem({
             color={isFavorite || isLiked ? '#fff' : '#F59256'}
           />
         </HeartBtn>
-        <CategoryInfo>{category}</CategoryInfo>
+        <CategoryInfo>
+          {category === 'lost-found'
+            ? 'lost/found'
+            : category === 'in-good-hands'
+            ? 'in good hands'
+            : 'sell'}
+        </CategoryInfo>
       </ImageWrapper>
       <InfoWrapper>
         <Title>{title}</Title>
-        <DescriptionWrapper>
-          <DescriptionList>
-            <li>Breed:</li>
-            <li>Place:</li>
-            <li>Age:</li>
-          </DescriptionList>
-          <DescriptionInfo>
-            <li>{breed}</li>
-            <li>{location}</li>
-            <li>{birthday && getAge(birthday)}</li>
-          </DescriptionInfo>
-        </DescriptionWrapper>
+
+        <table
+          style={{
+            borderCollapse: 'separate',
+            borderSpacing: '8px',
+            marginBottom: '20px',
+            fontWeight: '500',
+            fontSize: '16px',
+            lineHeight: '22px',
+          }}
+        >
+          <tbody>
+            <tr style={{ marginBottom: '8px' }}>
+              <th style={{ textAlign: 'left', minWidth: '50px' }}>Breed:</th>
+              <td style={{ marginLeft: '37px', display: 'block' }}>{breed}</td>
+            </tr>
+            <tr style={{ marginBottom: '8px' }}>
+              <th style={{ textAlign: 'left', minWidth: '50px' }}>Place:</th>
+              <td style={{ marginLeft: '37px', display: 'block' }}>
+                {location}
+              </td>
+            </tr>
+            <tr style={{ marginBottom: '8px' }}>
+              <th style={{ textAlign: 'left', minWidth: '50px' }}>Age:</th>
+              <td style={{ marginLeft: '37px', display: 'block' }}>
+                {birthday}
+              </td>
+            </tr>
+            <tr>
+              <th style={{ textAlign: 'left', minWidth: '50px' }}>Price:</th>
+              <td style={{ marginLeft: '37px', display: 'block' }}>{price}</td>
+            </tr>
+          </tbody>
+        </table>
+
         <ButtonWrapper>
-          <LearnMoneBtn onClick={() => setIsModalOpen(true)}>
+          <LearnMoneBtn isOwn={isOwn} onClick={() => setIsModalOpen(true)}>
             Learn more
           </LearnMoneBtn>
           {isOwn && (
