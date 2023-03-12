@@ -59,14 +59,12 @@ export default function NoticesPage() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const Interaction_With_API = async () => {
-    if (!categoryName && !query.length) {
+    if (categoryName === 'all' && !query.length) {
+      console.log(query.length);
       dispatch(fetchAllNotices());
       return;
     }
-    if (query.length && !categoryName) {
-      dispatch(fetchNoticesByQuery(query));
-      return;
-    }
+
     if (categoryName === 'favorite-ads') {
       dispatch(fetchFavoriteNotices(token));
       return;
@@ -75,10 +73,16 @@ export default function NoticesPage() {
       dispatch(fetchUserNotices(token));
       return;
     }
+
     if (!query.length && categoryName) {
       dispatch(fetchNoticesByCategory(categoryName));
       return;
     }
+    if (query.length && categoryName === 'all') {
+      dispatch(fetchNoticesByQuery(query));
+      return;
+    }
+
     if (categoryName && query.length) {
       dispatch(fetchNoticesByCategoryAndQuery({ query, categoryName, token }));
       return;
@@ -96,27 +100,26 @@ export default function NoticesPage() {
 
   return (
     <>
-      {loadingAddedNotice ? (
+      {/* {loadingAddedNotice ? (
         <Spinner />
-      ) : (
-        <StyledNoticesPageContainer>
-          <StyledTitle>Find your favorite pet</StyledTitle>
-          <SearchNotices onSubmit={onHandleSubmit} />
-          <AddButtonAndCategoriesWrapper>
-            <Categories />
-            <AddNoticeButton />
-          </AddButtonAndCategoriesWrapper>
-          <NoticesCategoriesList
-            notices={fetchedNotices}
-            // callback={handleDelete}
-          />
-          {isShowButtonTop && (
-            <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
-              <SlArrowUp />
-            </ScrollUpButton>
-          )}
-        </StyledNoticesPageContainer>
-      )}
+      ) : ( */}
+      <StyledNoticesPageContainer>
+        <StyledTitle>Find your favorite pet</StyledTitle>
+        <SearchNotices onSubmit={onHandleSubmit} />
+        <AddButtonAndCategoriesWrapper>
+          <Categories />
+          <AddNoticeButton />
+        </AddButtonAndCategoriesWrapper>
+        <NoticesCategoriesList
+          notices={fetchedNotices}
+          // callback={handleDelete}
+        />
+        {isShowButtonTop && (
+          <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
+            <SlArrowUp />
+          </ScrollUpButton>
+        )}
+      </StyledNoticesPageContainer>
     </>
   );
 }

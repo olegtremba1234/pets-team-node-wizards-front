@@ -24,6 +24,7 @@ export const fetchNoticesByCategory = createAsyncThunk(
   async (query, thunkAPI) => {
     try {
       const response = await axios.get(`/notices/by-category/${query}`);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -64,6 +65,7 @@ export const fetchAllNotices = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get('/notices');
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -76,6 +78,7 @@ export const fetchNoticesByQuery = createAsyncThunk(
   async (query, thunkAPI) => {
     try {
       const response = await axios.get(`/notices?search=${query}`);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -85,9 +88,9 @@ export const fetchNoticesByQuery = createAsyncThunk(
 
 export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
   'notices/fetchNoticesByCategoryAndQuery',
-  async ({ query, category, token }, thunkAPI) => {
+  async ({ query, categoryName, token }, thunkAPI) => {
     try {
-      if (token && category === 'my-ads') {
+      if (token && categoryName === 'my-ads') {
         const response = await axios.get(
           `/notices/my-notices?search=${query}`,
           {
@@ -96,7 +99,7 @@ export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
         );
         return response.data;
       }
-      if (token && category === 'favorite-ads') {
+      if (token && categoryName === 'favorite-ads') {
         const response = await axios.get(
           `/notices/my-favorites?search=${query}`,
           {
@@ -105,9 +108,11 @@ export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
         );
         return response.data;
       }
+
       const response = await axios.get(
-        `/notices/by-category/${category}?search=${query}`
+        `/notices/by-category/${categoryName}?search=${query}`
       );
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -133,9 +138,9 @@ export const addNoticeToFavourite = createAsyncThunk(
   'notices/addNoticeToFavourite',
   async ({ id, token }, thunkAPI) => {
     try {
-    await axios.post(`/notices/my-favorites/${id}`, {
-       headers: { Authorization: `Bearer ${token}` },
-     });
+      await axios.post(`/notices/my-favorites/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       return id;
     } catch (error) {
@@ -149,8 +154,8 @@ export const deleteNoticeFromFavorite = createAsyncThunk(
   async ({ id, token }, thunkAPI) => {
     try {
       await axios.delete(`/notices/my-favorites/${id}`, {
-         headers: { Authorization: `Bearer ${token}` },
-       });
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       return id;
     } catch (error) {
@@ -158,4 +163,3 @@ export const deleteNoticeFromFavorite = createAsyncThunk(
     }
   }
 );
-

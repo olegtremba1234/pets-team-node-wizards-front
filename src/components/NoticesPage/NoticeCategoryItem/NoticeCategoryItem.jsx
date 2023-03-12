@@ -54,6 +54,7 @@ export default function NoticeCategoryItem({
         });
       return;
     }
+
     dispatch(addNoticeToFavourite({ id, token }))
       .then(() => toast.success('Added to favorite successfully'))
       .catch(err => {
