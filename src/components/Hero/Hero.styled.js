@@ -34,11 +34,12 @@ export const HeroWrapper = styled.div`
 
   width: 320px;
   padding: 0 20px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 
   @media ${device.tablet} {
     width: 768px;
     padding: 0 32px;
+    margin: 0 auto;
   }
   @media ${device.desktop} {
     width: 1280px;
