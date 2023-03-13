@@ -24,7 +24,7 @@ export const fetchNoticesByCategory = createAsyncThunk(
   async (query, thunkAPI) => {
     try {
       const response = await axios.get(`/notices/by-category/${query}`);
-      console.log(response.data);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -65,7 +65,7 @@ export const fetchAllNotices = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get('/notices');
-      console.log(response.data);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -78,7 +78,7 @@ export const fetchNoticesByQuery = createAsyncThunk(
   async (query, thunkAPI) => {
     try {
       const response = await axios.get(`/notices?search=${query}`);
-      console.log(response.data);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -112,7 +112,6 @@ export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
       const response = await axios.get(
         `/notices/by-category/${categoryName}?search=${query}`
       );
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

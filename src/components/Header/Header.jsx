@@ -4,11 +4,13 @@ import { HeaderEl, HeaderContainer } from './Header.styled';
 
 export default function Header() {
   return (
-    <HeaderEl>
-      <HeaderContainer>
-        <Logo />
-        <Navigation />
-      </HeaderContainer>
-    </HeaderEl>
+    <>
+      <HeaderEl>
+        <HeaderContainer>
+          <Logo />
+          <Navigation />
+        </HeaderContainer>
+      </HeaderEl>
+    </>
   );
 }
