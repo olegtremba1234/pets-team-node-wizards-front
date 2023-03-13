@@ -18,10 +18,7 @@ const UserDataItem = ({ dataItem }) => {
   const [butName, setButName] = useState(null);
   let birthdayReverse = null;
 
-  const selectInput = (ev, diz) => {
-   
-    
-  };
+  const selectInput = (ev, diz) => {};
   const token = useSelector(selectToken);
 
   const buttonDisabled = btName => {
@@ -158,7 +155,7 @@ const UserDataItem = ({ dataItem }) => {
               disabled={buttonDisabled('name')}
             >
               {nameDisabled ? (
-                <Icons id={'icon-user_red'} />
+                <Icons isLocked={buttonDisabled('name')} id={'icon-user_red'} />
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
@@ -187,7 +184,10 @@ const UserDataItem = ({ dataItem }) => {
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {emailDisabled ? (
-                <Icons id={'icon-user_red'} />
+                <Icons
+                  isLocked={buttonDisabled('email')}
+                  id={'icon-user_red'}
+                />
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
@@ -215,7 +215,10 @@ const UserDataItem = ({ dataItem }) => {
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {birthdayDisabled ? (
-                <Icons id={'icon-user_red'} />
+                <Icons
+                  isLocked={buttonDisabled('birthday')}
+                  id={'icon-user_red'}
+                />
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
@@ -245,7 +248,10 @@ const UserDataItem = ({ dataItem }) => {
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {phoneDisabled ? (
-                <Icons id={'icon-user_red'} />
+                <Icons
+                  isLocked={buttonDisabled('phone')}
+                  id={'icon-user_red'}
+                />
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
@@ -273,7 +279,7 @@ const UserDataItem = ({ dataItem }) => {
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {cityDisabled ? (
-                <Icons id={'icon-user_red'} />
+                <Icons isLocked={buttonDisabled('city')} id={'icon-user_red'} />
               ) : (
                 <Icons id={'icon-user_done'} />
               )}

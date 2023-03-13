@@ -17,6 +17,7 @@ export const Button = styled.button`
   justify-content: space-between;
   font-size: 16px;
   cursor: pointer;
+  transition: all 350ms ease-in-out;
 
   @media screen and (min-width: 768px) {
     margin-left: 0px;
@@ -29,5 +30,6 @@ export const Button = styled.button`
 
   :hover {
     color: ${p => p.theme.hoverButtonColor.primary};
+    transition: color 350ms ease
   }
 `;

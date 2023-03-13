@@ -15,9 +15,13 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
 import { useState } from 'react';
 import ModalNotice from 'components/ModalNotice';
-import { addNoticeToFavourite, deleteOwnNoticeById } from 'services/apiService';
+import {
+  deleteOwnNoticeById,
+  addNoticeToFavourite,
+  deleteNoticeFromFavorite,
+} from 'redux/notices/noticeOperation';
 import { selectToken } from 'redux/auth/authSelectors';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function NoticeCategoryItem({
   title,
@@ -29,45 +33,53 @@ export default function NoticeCategoryItem({
   id,
   isOwn,
   isFavorite,
-  handleDeleteItem,
   price,
 }) {
+  const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
 
   const handleAddToFavorite = id => {
     if (!token) {
       toast.error('Oops..You must be logged in to add to favorites');
       return;
     }
-    addNoticeToFavourite(id, token)
+    if (isFavorite) {
+      dispatch(deleteNoticeFromFavorite({ id, token }))
+        .then(() => toast.success('Deleted from favorite successfully'))
+        .catch(err => {
+          toast.error(
+            'Oops...Something went wrong. Failed to add to the favorite list'
+          );
+        });
+      return;
+    }
+
+    dispatch(addNoticeToFavourite({ id, token }))
       .then(() => toast.success('Added to favorite successfully'))
-      .catch(console.log);
+      .catch(err => {
+        toast.error(
+          'Oops...Something went wrong.  Failed to delete from the favorite list'
+        );
+      });
   };
 
   const handleDelete = id => {
-    deleteOwnNoticeById(id, token)
+    dispatch(deleteOwnNoticeById({ id, token }))
       .then(() => toast.success('Deleted successfully'))
-      .catch(console.log);
+      .catch(err => {
+        toast.error('Oops...Something went wrong. Failed to delete');
+      });
   };
   return (
     <Card>
       <ImageWrapper>
         <Image src={petPhotoURL} />
         <HeartBtn
-          isLiked={isLiked}
           isFavorite={isFavorite}
-          disabled={isFavorite || isLiked}
-          onClick={() => {
-            handleAddToFavorite(id);
-            setIsLiked(true);
-          }}
+          onClick={() => handleAddToFavorite(id)}
         >
-          <AiOutlineHeart
-            size="100%"
-            color={isFavorite || isLiked ? '#fff' : '#F59256'}
-          />
+          <AiOutlineHeart size="100%" color={isFavorite ? '#fff' : '#F59256'} />
         </HeartBtn>
         <CategoryInfo>
           {category === 'lost-found'
@@ -107,10 +119,14 @@ export default function NoticeCategoryItem({
                 {birthday}
               </td>
             </tr>
-            <tr>
-              <th style={{ textAlign: 'left', minWidth: '50px' }}>Price:</th>
-              <td style={{ marginLeft: '37px', display: 'block' }}>{price}</td>
-            </tr>
+            {category === 'sell' && (
+              <tr>
+                <th style={{ textAlign: 'left', minWidth: '50px' }}>Price:</th>
+                <td style={{ marginLeft: '37px', display: 'block' }}>
+                  {price}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
 
@@ -119,18 +135,20 @@ export default function NoticeCategoryItem({
             Learn more
           </LearnMoneBtn>
           {isOwn && (
-            <DeleteBtn
-              onClick={() => {
-                handleDelete(id);
-                handleDeleteItem(id);
-              }}
-            >
+            <DeleteBtn onClick={() => handleDelete(id)}>
               Delete <BsTrash color="#F59256" />
             </DeleteBtn>
           )}
         </ButtonWrapper>
       </InfoWrapper>
-      {isModalOpen && <ModalNotice id={id} setIsModalOpen={setIsModalOpen} />}
+      {isModalOpen && (
+        <ModalNotice
+          handleDelete={handleDelete}
+          handleAddToFavorite={handleAddToFavorite}
+          id={id}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
     </Card>
   );
 }

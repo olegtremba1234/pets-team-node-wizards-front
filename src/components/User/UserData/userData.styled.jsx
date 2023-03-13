@@ -74,6 +74,7 @@ export const Button = styled.button`
   border: none;
   background-color: inherit;
   cursor: pointer;
+  transition: all 350ms ease-in-out;
 
   @media screen and (min-width: 768px) {
     margin: 0px;
@@ -85,6 +86,11 @@ export const Button = styled.button`
   @media screen and (min-width: 1280px) {
     left: 200px;
     top: -22px;
+  }
+
+  :hover {
+    color: ${p => p.theme.hoverButtonColor.primary};
+    transition: color 350ms ease
   }
 `;
 
