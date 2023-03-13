@@ -35,32 +35,40 @@ const UserDataItem = ({ dataItem }) => {
 
   const handleClickEdit = async ev => {
     const name = ev.previousElementSibling.name;
+    const val = ev.previousElementSibling.value;
     switch (name) {
       case 'name':
         setButName(ev.previousElementSibling.name);
-        // selectInput(ev, nameDisabled);
         setNameDisabled(!nameDisabled);
 
         if (!nameDisabled) {
-          await fetchUseInfo(
-            { name: ev.previousElementSibling.value },
-            token
-          ).then(setUserInfo);
+          await fetchUseInfo({ name: val }, token).then(setUserInfo);
           userDataInfo();
+          toast.success('Done');
           setButName(null);
         }
         break;
 
       case 'email':
         setButName(ev.previousElementSibling.name);
+
+        const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!reg.test(val)) {
+          toast.error('The email was entered incorrectly');
+          return;
+        }
+
         selectInput(ev, emailDisabled);
         setEmailDisabled(!emailDisabled);
+
         if (!emailDisabled) {
           await fetchUseInfo(
             { email: ev.previousElementSibling.value },
             token
           ).then(setUserInfo);
           await userDataInfo();
+          toast.success('Done');
           setButName(null);
         }
         break;
@@ -81,16 +89,20 @@ const UserDataItem = ({ dataItem }) => {
             token
           ).then(setUserInfo);
           await userDataInfo();
+          toast.success('Done');
           setButName(null);
         }
         break;
 
       case 'phone':
         setButName(ev.previousElementSibling.name);
-        const len = ev.previousElementSibling.value;
 
-        if (len.length < 13 || len.length > 13) {
-          toast.error('The phone number is incorrect');
+        const tel = /^\+380\d{9}$/;
+
+        if (!tel.test(val)) {
+          toast.error(
+            'The phone number is incorrect. Data must be in the format "+380501111111. With no space between them'
+          );
           return;
         }
         selectInput(ev, phoneDisabled);
@@ -101,20 +113,32 @@ const UserDataItem = ({ dataItem }) => {
             token
           ).then(setUserInfo);
           await userDataInfo();
+          toast.success('Done');
           setButName(null);
         }
         break;
 
       case 'city':
         setButName(ev.previousElementSibling.name);
+        const regex = /^[a-zA-Z]+,[a-zA-Z]+$/;
+
+        if (!regex.test(val)) {
+          toast.error(
+            'The data must be in the "City,Region" format. With no space between them'
+          );
+          return;
+        }
+
         selectInput(ev, cityDisabled);
         setCityDisabled(!cityDisabled);
+
         if (!cityDisabled) {
           await fetchUseInfo(
             { city: ev.previousElementSibling.value },
             token
           ).then(setUserInfo);
           await userDataInfo();
+          toast.success('Done');
           setButName(null);
         }
         break;
