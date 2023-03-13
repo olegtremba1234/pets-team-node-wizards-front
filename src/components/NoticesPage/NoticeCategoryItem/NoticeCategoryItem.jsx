@@ -39,9 +39,10 @@ export default function NoticeCategoryItem({
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const handleAddToFavorite = id => {
-    if (!token) {
+    if (!token || !isLoggedIn) {
       toast.error('Oops..You must be logged in to add to favorites');
       return;
     }
