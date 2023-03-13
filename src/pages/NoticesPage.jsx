@@ -26,6 +26,7 @@ import {
   // selectIsLoading,
   selectfetchedNotices,
 } from 'redux/notices/noticeSelector';
+import { toast } from 'react-toastify';
 
 const PAGE_SCROLL_DOWN = 100;
 
@@ -62,39 +63,45 @@ export default function NoticesPage() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const Interaction_With_API = async () => {
-    if (searchQuery.length && categoryName === 'all') {
-      dispatch(fetchNoticesByQuery(query));
-      setQuery('');
-      return;
-    }
+    try {
+      if (searchQuery.length && categoryName === 'all') {
+        dispatch(fetchNoticesByQuery(query));
+        setQuery('');
+        return;
+      }
 
-    if (categoryName && searchQuery.length) {
-      setQuery(searchQuery);
-      dispatch(fetchNoticesByCategoryAndQuery({ query, categoryName, token }));
-      setQuery('');
-      return;
-    }
-    if (categoryName === 'all') {
-      setQuery('');
-      dispatch(fetchAllNotices());
-      return;
-    }
+      if (categoryName && searchQuery.length) {
+        setQuery(searchQuery);
+        dispatch(
+          fetchNoticesByCategoryAndQuery({ query, categoryName, token })
+        );
+        setQuery('');
+        return;
+      }
+      if (categoryName === 'all') {
+        setQuery('');
+        dispatch(fetchAllNotices());
+        return;
+      }
 
-    if (categoryName === 'favorite-ads') {
-      setQuery('');
-      dispatch(fetchFavoriteNotices(token));
-      return;
-    }
-    if (categoryName === 'my-ads') {
-      setQuery('');
-      dispatch(fetchUserNotices(token));
-      return;
-    }
+      if (categoryName === 'favorite-ads') {
+        setQuery('');
+        dispatch(fetchFavoriteNotices(token));
+        return;
+      }
+      if (categoryName === 'my-ads') {
+        setQuery('');
+        dispatch(fetchUserNotices(token));
+        return;
+      }
 
-    if (categoryName) {
-      setQuery('');
-      dispatch(fetchNoticesByCategory(categoryName));
-      return;
+      if (categoryName) {
+        setQuery('');
+        dispatch(fetchNoticesByCategory(categoryName));
+        return;
+      }
+    } catch (error) {
+      return toast.error('От халепа! Спробуйте ще раз');
     }
   };
 

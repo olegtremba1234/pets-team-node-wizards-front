@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
+import { toast } from 'react-toastify';
 axios.defaults.baseURL = 'https://node-wizards-backend.onrender.com/api';
 
 export const addNotice = createAsyncThunk(
@@ -24,7 +24,10 @@ export const fetchNoticesByCategory = createAsyncThunk(
   async (query, thunkAPI) => {
     try {
       const response = await axios.get(`/notices/by-category/${query}`);
-
+      if (!response.data.length) {
+        toast.error('Вибачте, нічого не знайдено.');
+        return;
+      }
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -39,6 +42,9 @@ export const fetchFavoriteNotices = createAsyncThunk(
       const response = await axios.get('/notices/my-favorites', {
         headers: { Authorization: `Bearer ${token}` },
       });
+      if (!response.data.length) {
+        toast.error('Вибачте, нічого не знайдено.');
+      }
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -53,6 +59,9 @@ export const fetchUserNotices = createAsyncThunk(
       const response = await axios.get('/notices/my-notices', {
         headers: { Authorization: `Bearer ${token}` },
       });
+      if (!response.data.length) {
+        toast.error('Вибачте, нічого не знайдено.');
+      }
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -65,7 +74,9 @@ export const fetchAllNotices = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get('/notices');
-
+      if (!response.data.length) {
+        toast.error('Вибачте, нічого не знайдено.');
+      }
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -78,7 +89,11 @@ export const fetchNoticesByQuery = createAsyncThunk(
   async (query, thunkAPI) => {
     try {
       const response = await axios.get(`/notices?search=${query}`);
-
+      if (!response.data.length) {
+        toast.error(
+          'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
+        );
+      }
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -97,6 +112,11 @@ export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
             headers: { Authorization: `Bearer ${token}` },
           }
         );
+        if (!response.data.length) {
+          toast.error(
+            'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
+          );
+        }
         return response.data;
       }
       if (token && categoryName === 'favorite-ads') {
@@ -106,12 +126,22 @@ export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
             headers: { Authorization: `Bearer ${token}` },
           }
         );
+        if (!response.data.length) {
+          toast.error(
+            'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
+          );
+        }
         return response.data;
       }
 
       const response = await axios.get(
         `/notices/by-category/${categoryName}?search=${query}`
       );
+      if (!response.data.length) {
+        toast.error(
+          'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
+        );
+      }
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
