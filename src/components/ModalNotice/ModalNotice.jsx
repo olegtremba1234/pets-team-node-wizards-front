@@ -1,10 +1,5 @@
 import { useEffect, useState, Fragment } from 'react';
-import {
-  addNoticeToFavourite,
-  deleteOwnNoticeById,
-  fetchNoticeById,
-  deleteNoticeFromFavorite,
-} from 'services/apiService';
+import { fetchNoticeById } from 'services/apiService';
 import {
   ModalWindow,
   ContentWrapper,
@@ -32,14 +27,20 @@ import { Overlay } from 'components/ModalAddsPet/ModalAddsPet.styled';
 import defaultCat from './images/defaultCat.jpg';
 import Media from 'react-media';
 import transormDate from 'helpers/transformDate';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import ClipLoader from 'react-spinners/ClipLoader';
+import {
+  deleteOwnNoticeById,
+  addNoticeToFavourite,
+  deleteNoticeFromFavorite,
+} from 'redux/notices/noticeOperation';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function ModalNotice({ id, setIsModalOpen }) {
   const [noticeDetails, setNoticesDetails] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const token = useSelector(state => state.auth.accessToken);
 
@@ -51,7 +52,7 @@ export default function ModalNotice({ id, setIsModalOpen }) {
       return;
     }
     try {
-      await addNoticeToFavourite(id, token);
+      await dispatch(addNoticeToFavourite({ id, token }));
       setIsFavorite(true);
       toast.success('Added to favorite list successfully');
       setIsLoading(false);
@@ -67,7 +68,7 @@ export default function ModalNotice({ id, setIsModalOpen }) {
   const handleRemoveFromFavorite = async id => {
     setIsLoading(true);
     try {
-      await deleteNoticeFromFavorite(id, token);
+      await dispatch(deleteNoticeFromFavorite({ id, token }));
       toast.success('Deleted from favorite list successfully');
       setIsFavorite(false);
       setIsLoading(false);
@@ -83,7 +84,7 @@ export default function ModalNotice({ id, setIsModalOpen }) {
   const handleDelete = async id => {
     setIsLoading(true);
     try {
-      await deleteOwnNoticeById(id, token);
+      await dispatch(deleteOwnNoticeById({ id, token }));
       setIsLoading(false);
       toast.success('Deleted successfully');
       setIsModalOpen(false);
