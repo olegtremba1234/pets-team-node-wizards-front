@@ -40,6 +40,7 @@ export default function NoticesPage() {
   const [query, setQuery] = useState('');
   const { categoryName } = useParams();
   const [scrollTop, setScrollTop] = useState(0);
+  const favoriteNotices = useSelector(state => state.notices.favoriteNotices);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -111,8 +112,10 @@ export default function NoticesPage() {
           <AddNoticeButton />
         </AddButtonAndCategoriesWrapper>
         <NoticesCategoriesList
-          notices={fetchedNotices}
-        // callback={handleDelete}
+          notices={
+            categoryName === 'favorite-ads' ? favoriteNotices : fetchedNotices
+          }
+          // callback={handleDelete}
         />
         {isShowButtonTop && (
           <ScrollUpButton onClick={scrollTopPage} aria-label="To top page">
