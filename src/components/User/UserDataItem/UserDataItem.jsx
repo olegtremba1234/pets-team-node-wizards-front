@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Icons } from '../Icons/Icons';
-import { UserItem, InfoItem } from './UserDataItem.styled';
+import { UserItem, InfoItem, InputSpace, UserInfoName, ButtItem, UserInfoItem } from './UserDataItem.styled';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
 import { selectToken } from 'redux/auth/authSelectors';
@@ -159,11 +159,10 @@ const UserDataItem = ({ dataItem }) => {
 
   return (
     <UserItem>
-      <li className="userInfoItem" key={nanoid()}>
-        <p className="userInfoName">Name:</p>
-        <div className="inputSpace">
+      <UserInfoItem key={nanoid()}>
+        <UserInfoName>Name:</UserInfoName>
+        <InputSpace>
           <InfoItem
-            className="infoItem"
             type="text"
             name="name"
             disabled={nameDisabled}
@@ -172,8 +171,7 @@ const UserDataItem = ({ dataItem }) => {
             defaultValue={name}
           ></InfoItem>
           {
-            <button
-              className="buttItem"
+            <ButtItem
               type="button"
               onClick={event => handleClickEdit(event.currentTarget)}
               disabled={buttonDisabled('name')}
@@ -183,14 +181,14 @@ const UserDataItem = ({ dataItem }) => {
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
-            </button>
+            </ButtItem>
           }
-        </div>
-      </li>
+        </InputSpace>
+      </UserInfoItem>
 
-      <li className="userInfoItem" key={nanoid()}>
-        <p className="userInfoName">Email:</p>
-        <div className="inputSpace">
+      <UserInfoItem key={nanoid()}>
+        <UserInfoName>Email:</UserInfoName>
+        <InputSpace>
           <InfoItem
             type="text"
             name="email"
@@ -201,8 +199,7 @@ const UserDataItem = ({ dataItem }) => {
             defaultValue={email}
           ></InfoItem>
           {
-            <button
-              className="buttItem"
+            <ButtItem
               type="button"
               disabled={buttonDisabled('email')}
               onClick={event => handleClickEdit(event.currentTarget)}
@@ -215,14 +212,14 @@ const UserDataItem = ({ dataItem }) => {
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
-            </button>
+            </ButtItem>
           }
-        </div>
-      </li>
+        </InputSpace>
+      </UserInfoItem>
 
-      <li className="userInfoItem" key={nanoid()}>
-        <p className="userInfoName">Birthday:</p>
-        <div className="inputSpace">
+      <UserInfoItem key={nanoid()}>
+        <UserInfoName>Birthday:</UserInfoName>
+        <InputSpace>
           <InfoItem
             type="date"
             name="birthday"
@@ -232,8 +229,7 @@ const UserDataItem = ({ dataItem }) => {
             defaultValue={birthdayReverse && birthdayReverse}
           ></InfoItem>
           {
-            <button
-              className="buttItem"
+            <ButtItem
               type="button"
               disabled={buttonDisabled('birthday')}
               onClick={event => handleClickEdit(event.currentTarget)}
@@ -246,14 +242,14 @@ const UserDataItem = ({ dataItem }) => {
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
-            </button>
+            </ButtItem>
           }
-        </div>
-      </li>
+        </InputSpace>
+      </UserInfoItem>
 
-      <li className="userInfoItem" key={nanoid()}>
-        <p className="userInfoName">Phone:</p>
-        <div className="inputSpace">
+      <UserInfoItem key={nanoid()}>
+        <UserInfoName>Phone:</UserInfoName>
+        <InputSpace>
           <InfoItem
             type="text"
             name="phone"
@@ -265,8 +261,7 @@ const UserDataItem = ({ dataItem }) => {
             defaultValue={phone}
           ></InfoItem>
           {
-            <button
-              className="buttItem"
+            <ButtItem
               type="button"
               disabled={buttonDisabled('phone')}
               onClick={event => handleClickEdit(event.currentTarget)}
@@ -279,14 +274,14 @@ const UserDataItem = ({ dataItem }) => {
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
-            </button>
+            </ButtItem>
           }
-        </div>
-      </li>
+        </InputSpace>
+      </UserInfoItem>
 
-      <li className="userInfoItem">
-        <p className="userInfoName"> City:</p>
-        <div className="inputSpace">
+      <UserInfoItem key={nanoid()}>
+        <UserInfoName> City:</UserInfoName>
+        <InputSpace>
           <InfoItem
             type="text"
             name="city"
@@ -296,8 +291,7 @@ const UserDataItem = ({ dataItem }) => {
             defaultValue={city}
           ></InfoItem>
           {
-            <button
-              className="buttItem"
+            <ButtItem
               type="button"
               disabled={buttonDisabled('city')}
               onClick={event => handleClickEdit(event.currentTarget)}
@@ -307,10 +301,10 @@ const UserDataItem = ({ dataItem }) => {
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
-            </button>
+            </ButtItem>
           }
-        </div>
-      </li>
+        </InputSpace>
+      </UserInfoItem>
     </UserItem>
   );
 };
