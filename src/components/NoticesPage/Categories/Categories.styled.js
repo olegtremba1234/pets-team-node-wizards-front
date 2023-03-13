@@ -74,18 +74,21 @@ export const AddButtonAndCategoriesWrapper = styled.div`
 export const StyledNoticesPageContainer = styled.div`
   padding-left: 20px;
   padding-right: 20px;
+  padding-bottom: 32px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
   @media ${device.tablet} {
     padding-left: 32px;
     padding-right: 32px;
+    padding-bottom: 32px;
     width: 768px;
   }
 
   @media ${device.desktop} {
     padding-left: 16px;
     padding-right: 16px;
+    padding-bottom: 32px;
     width: 1280px;
   }
 `;

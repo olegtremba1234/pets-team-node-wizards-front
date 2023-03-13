@@ -17,7 +17,9 @@ const deleteNoticeFromFavoriteSuccessReducer = (state, action) => {
     item => item.id === action.payload
   );
   state.fetchedNotices[itemIndex].isFavorite = false;
-  state.favoriteNotices.splice(itemIndex, 1);
+  state.favoriteNotices = state.favoriteNotices.filter(
+    item => item.id !== action.payload
+  );
   state.isLoading = false;
 };
 
