@@ -38,10 +38,11 @@ export default function NoticesPage() {
   const token = useSelector(selectToken);
   // const [notices, setNotices] = useState([]);
   const [query, setQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const { categoryName } = useParams();
   const [scrollTop, setScrollTop] = useState(0);
   const favoriteNotices = useSelector(state => state.notices.favoriteNotices);
-
+  let x = Math.random() * 100;
   useEffect(() => {
     const handleScroll = () => {
       setScrollTop(window.scrollY);
@@ -55,38 +56,44 @@ export default function NoticesPage() {
   }, []);
 
   const onHandleSubmit = result => {
+    setSearchQuery(result + x);
     setQuery(result);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const Interaction_With_API = async () => {
-    if (categoryName === 'all') {
-      dispatch(fetchAllNotices());
-      return;
-    }
-
-    if (categoryName === 'favorite-ads') {
-      dispatch(fetchFavoriteNotices(token));
-      return;
-    }
-    if (categoryName === 'my-ads') {
-      dispatch(fetchUserNotices(token));
-      return;
-    }
-
-    if (categoryName) {
-      dispatch(fetchNoticesByCategory(categoryName));
-      return;
-    }
-    if (query.length && categoryName === 'all') {
+    if (searchQuery.length && categoryName === 'all') {
       dispatch(fetchNoticesByQuery(query));
       setQuery('');
       return;
     }
 
-    if (categoryName && query.length) {
+    if (categoryName && searchQuery.length) {
+      setQuery(searchQuery);
       dispatch(fetchNoticesByCategoryAndQuery({ query, categoryName, token }));
       setQuery('');
+      return;
+    }
+    if (categoryName === 'all') {
+      setQuery('');
+      dispatch(fetchAllNotices());
+      return;
+    }
+
+    if (categoryName === 'favorite-ads') {
+      setQuery('');
+      dispatch(fetchFavoriteNotices(token));
+      return;
+    }
+    if (categoryName === 'my-ads') {
+      setQuery('');
+      dispatch(fetchUserNotices(token));
+      return;
+    }
+
+    if (categoryName) {
+      setQuery('');
+      dispatch(fetchNoticesByCategory(categoryName));
       return;
     }
   };
@@ -94,7 +101,7 @@ export default function NoticesPage() {
   useEffect(() => {
     Interaction_With_API();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryName, token, query, addedNotice]);
+  }, [categoryName, token, searchQuery, addedNotice]);
   const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
 
   return (

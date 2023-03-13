@@ -11,11 +11,7 @@ export default function Nav({ closeMobile }) {
           </StyledLink>
         </li>
         <li>
-          <StyledLink
-            exact
-            to="/notices/sell"
-            onClick={() => closeMobile(false)}
-          >
+          <StyledLink to="/notices/sell" onClick={() => closeMobile(false)}>
             Find pet
           </StyledLink>
         </li>
