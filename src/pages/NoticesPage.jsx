@@ -1,6 +1,6 @@
 import Categories from '../components/NoticesPage/Categories/Categories';
 import NoticesCategoriesList from 'components/NoticesPage/NoticesCategoriesList/NoticesCategoriesList';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import {
   fetchNoticesByCategory,
@@ -42,6 +42,7 @@ export default function NoticesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const { categoryName } = useParams();
   const [scrollTop, setScrollTop] = useState(0);
+  const navigate = useNavigate();
   const favoriteNotices = useSelector(state => state.notices.favoriteNotices);
   let x = Math.random() * 100;
   useEffect(() => {
@@ -99,6 +100,9 @@ export default function NoticesPage() {
         setQuery('');
         dispatch(fetchNoticesByCategory(categoryName));
         return;
+      }
+      if (!categoryName) {
+        navigate('sell');
       }
     } catch (error) {
       return toast.error('От халепа! Спробуйте ще раз');
