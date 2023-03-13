@@ -2,12 +2,16 @@ import { useMediaQuery } from 'react-responsive';
 import { Button, Span } from './AddNoticeButton.styled';
 import { useState, useEffect } from 'react';
 import ModalAddNotice from 'components/ModalAddNotice/ModalAddNotice';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from 'redux/auth/authSelectors';
+
 
 export default function AddNoticeButton() {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
-  const [isModalOpen, setIsModalOpen] =
-    useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = 'hidden';
