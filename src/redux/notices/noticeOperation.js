@@ -93,6 +93,7 @@ export const fetchNoticesByQuery = createAsyncThunk(
         toast.error(
           'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
         );
+        return;
       }
       return response.data;
     } catch (error) {
@@ -116,6 +117,7 @@ export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
           toast.error(
             'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
           );
+          return;
         }
         return response.data;
       }
@@ -130,7 +132,9 @@ export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
           toast.error(
             'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
           );
+          return;
         }
+
         return response.data;
       }
 
@@ -141,6 +145,7 @@ export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
         toast.error(
           'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
         );
+        return;
       }
       return response.data;
     } catch (error) {
