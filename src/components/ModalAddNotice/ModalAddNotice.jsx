@@ -48,7 +48,7 @@ import { formDataAppender } from 'helpers/formDataAppender';
 
 
 
-const ModalAddNotice = ({ onClose, onClickBackdrop, notices }) => {
+const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
   const [disableNextButton, setDisableNextButton] = useState(true);
   const [imagePreview, setImagePreview] = useState(null);
