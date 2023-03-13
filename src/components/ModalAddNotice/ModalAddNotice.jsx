@@ -96,8 +96,8 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
         .required('Enter a title')
         .min(2, 'Title is too short')
         .matches(
-          /^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/,
-          'Only letters and spaces'
+          /^([А-Яа-яЁёЇїІіЄєҐґ'\s-]+|[a-zA-Z\s-]+){2,}$/,
+          'Only letters, spaces and hyphen'
         )
         .trim()
         .max(48, 'Title is too long'),
@@ -106,8 +106,8 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
         .min(2, 'Name is too short')
         .required('Enter the name of the animal')
         .matches(
-          /^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/,
-          'Only letters and spaces'
+          /^([А-Яа-яЁёЇїІіЄєҐґ'\s-]+|[a-zA-Z\s-]+){2,}$/,
+          'Only letters, spaces and hyphen'
         )
         .max(16, 'Name is too long'),
       birthday: Yup.date()
@@ -116,7 +116,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
       breed: Yup.string()
         .required('Enter a breed')
         .min(2, 'Breed is too short')
-        .matches(/^([А-Яа-яЁёЇїІіЄєҐґ'\s]+|[a-zA-Z\s]+){2,}$/, 'Only letters')
+        .matches(/^([А-Яа-яЁёЇїІіЄєҐґ'\s-]+|[a-zA-Z\s-]+){2,}$/, 'Only letters, spaces and hyphen')
         .trim()
         .max(24, 'Breed is too long'),
       location: Yup.string()

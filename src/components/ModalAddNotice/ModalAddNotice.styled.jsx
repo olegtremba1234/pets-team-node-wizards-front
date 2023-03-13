@@ -548,7 +548,7 @@ color: red;
 font-size: 0.9rem;
 top: 75px;
 left: 14px;
-width: 185px;
+width: 232px;
 
 @media ${device.tablet} {
   top: 91px;
