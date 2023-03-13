@@ -221,16 +221,19 @@ export const LabelTitle = styled.label`
   font-size: ${p => p.theme.fontSizes.l};
   line-height: 1.44;
   margin-top: 10px;
+  overflow-wrap: break-word;
   color: ${p => p.theme.fontColors.secondary};
 
   @media screen and (min-width: 768px) {
     font-size: 22px;
     line-height: 1.1;
+    overflow-wrap: break-word;
   }
 
   @media screen and (min-width: 1280px) {
     font-size: ${p => p.theme.fontSizes.xxl};
     line-height: 1.1;
+    overflow-wrap: break-word;
   }
 `;
 
@@ -545,7 +548,7 @@ color: red;
 font-size: 0.9rem;
 top: 75px;
 left: 14px;
-width: 121px;
+width: 185px;
 
 @media ${device.tablet} {
   top: 91px;
