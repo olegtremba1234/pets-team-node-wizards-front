@@ -14,9 +14,10 @@ export const Button = styled.button`
   gap: 12px;
   align-items: center;
   transition: ${theme.transition.first};
+  border-radius: 30px;
   &:hover {
     background-color: ${theme.hoverButtonColor.primary};
-    border-radius: 30px;
+
     color: #fff;
   }
 
