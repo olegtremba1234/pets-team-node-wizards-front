@@ -17,6 +17,7 @@ const deleteNoticeFromFavoriteSuccessReducer = (state, action) => {
     item => item.id === action.payload
   );
   state.fetchedNotices[itemIndex].isFavorite = false;
+  state.favoriteNotices.splice(itemIndex, 1);
   state.isLoading = false;
 };
 
@@ -25,11 +26,13 @@ const addNoticeToFavouriteSuccessReducer = (state, action) => {
     item => item.id === action.payload
   );
   state.fetchedNotices[itemIndex].isFavorite = true;
+  state.favoriteNotices = [...state.favoriteNotices, action.payload];
   state.isLoading = false;
 };
 
 const fetchNoticesSuccessReducer = (state, action) => {
   state.fetchedNotices = action.payload.reverse();
+  state.favoriteNotices = state.fetchedNotices.filter(item => item.isFavorite);
   state.isLoading = false;
 };
 
@@ -60,6 +63,7 @@ const noticesSlice = createSlice({
     isLoading: false,
     error: null,
     fetchedNotices: [],
+    favoriteNotices: [],
   },
   extraReducers: builder =>
     builder

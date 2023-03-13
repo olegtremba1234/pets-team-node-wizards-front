@@ -40,6 +40,7 @@ export default function NoticesPage() {
   const [query, setQuery] = useState('');
   const { categoryName } = useParams();
   const [scrollTop, setScrollTop] = useState(0);
+  const favoriteNotices = useSelector(state => state.notices.favoriteNotices);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +60,7 @@ export default function NoticesPage() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const Interaction_With_API = async () => {
-    if (categoryName === 'all' && !query.length) {
+    if (categoryName === 'all') {
       dispatch(fetchAllNotices());
       return;
     }
@@ -73,24 +74,25 @@ export default function NoticesPage() {
       return;
     }
 
-    if (!query.length && categoryName) {
+    if (categoryName) {
       dispatch(fetchNoticesByCategory(categoryName));
       return;
     }
     if (query.length && categoryName === 'all') {
       dispatch(fetchNoticesByQuery(query));
+      setQuery('');
       return;
     }
 
     if (categoryName && query.length) {
       dispatch(fetchNoticesByCategoryAndQuery({ query, categoryName, token }));
+      setQuery('');
       return;
     }
   };
 
   useEffect(() => {
     Interaction_With_API();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryName, token, query, addedNotice]);
   const isShowButtonTop = scrollTop > PAGE_SCROLL_DOWN;
@@ -108,7 +110,9 @@ export default function NoticesPage() {
           <AddNoticeButton />
         </AddButtonAndCategoriesWrapper>
         <NoticesCategoriesList
-          notices={fetchedNotices}
+          notices={
+            categoryName === 'favorite-ads' ? favoriteNotices : fetchedNotices
+          }
           // callback={handleDelete}
         />
         {isShowButtonTop && (

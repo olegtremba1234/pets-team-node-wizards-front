@@ -22,6 +22,7 @@ import {
 } from 'redux/notices/noticeOperation';
 import { selectToken } from 'redux/auth/authSelectors';
 import { useDispatch, useSelector } from 'react-redux';
+import transormDateToAge from 'helpers/transformDateToAge';
 
 export default function NoticeCategoryItem({
   title,
@@ -116,7 +117,7 @@ export default function NoticeCategoryItem({
             <tr style={{ marginBottom: '8px' }}>
               <th style={{ textAlign: 'left', minWidth: '50px' }}>Age:</th>
               <td style={{ marginLeft: '37px', display: 'block' }}>
-                {birthday}
+                {transormDateToAge(birthday)}
               </td>
             </tr>
             {category === 'sell' && (
