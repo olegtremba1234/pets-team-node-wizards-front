@@ -34,7 +34,7 @@ export const Button = styled.button`
     gap: 10px;
     position: fixed;
     z-index: 1;
-    bottom: 10px;
+    bottom: 100px;
     right: 20px;
   }
 

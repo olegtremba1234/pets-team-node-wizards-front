@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from 'vars/device';
 
 export const Button = styled.button`
   position: fixed;
@@ -17,5 +18,12 @@ export const Button = styled.button`
 
   & > svg {
     color: ${p => p.theme.fontColors.primary};
+  }
+
+  @media ${device.preTablet}{
+    width: 60px;
+    height: 60px;
+    right: 30px;
+    bottom: 20px;
   }
 `;
