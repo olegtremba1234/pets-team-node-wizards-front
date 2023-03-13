@@ -18,12 +18,7 @@ const UserDataItem = ({ dataItem }) => {
   const [butName, setButName] = useState(null);
   let birthdayReverse = null;
 
-  const selectInput = (ev, diz) => {
-    const id = ev.previousElementSibling.id;
-    const el = document.getElementById(id);
-    el.disabled = !el.diz;
-    el.focus();
-  };
+  const selectInput = (ev, diz) => {};
   const token = useSelector(selectToken);
 
   const buttonDisabled = btName => {
@@ -40,32 +35,40 @@ const UserDataItem = ({ dataItem }) => {
 
   const handleClickEdit = async ev => {
     const name = ev.previousElementSibling.name;
+    const val = ev.previousElementSibling.value;
     switch (name) {
       case 'name':
         setButName(ev.previousElementSibling.name);
-        selectInput(ev, nameDisabled);
         setNameDisabled(!nameDisabled);
 
         if (!nameDisabled) {
-          await fetchUseInfo(
-            { name: ev.previousElementSibling.value },
-            token
-          ).then(setUserInfo);
+          await fetchUseInfo({ name: val }, token).then(setUserInfo);
           userDataInfo();
+          toast.success('Done');
           setButName(null);
         }
         break;
 
       case 'email':
         setButName(ev.previousElementSibling.name);
+
+        const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!reg.test(val)) {
+          toast.error('The email was entered incorrectly');
+          return;
+        }
+
         selectInput(ev, emailDisabled);
         setEmailDisabled(!emailDisabled);
+
         if (!emailDisabled) {
           await fetchUseInfo(
             { email: ev.previousElementSibling.value },
             token
           ).then(setUserInfo);
           await userDataInfo();
+          toast.success('Done');
           setButName(null);
         }
         break;
@@ -86,16 +89,20 @@ const UserDataItem = ({ dataItem }) => {
             token
           ).then(setUserInfo);
           await userDataInfo();
+          toast.success('Done');
           setButName(null);
         }
         break;
 
       case 'phone':
         setButName(ev.previousElementSibling.name);
-        const len = ev.previousElementSibling.value;
 
-        if (len.length < 13 || len.length > 13) {
-          toast.error('The phone number is incorrect');
+        const tel = /^\+380\d{9}$/;
+
+        if (!tel.test(val)) {
+          toast.error(
+            'The phone number is incorrect. Data must be in the format "+380501111111. With no space between them'
+          );
           return;
         }
         selectInput(ev, phoneDisabled);
@@ -106,20 +113,32 @@ const UserDataItem = ({ dataItem }) => {
             token
           ).then(setUserInfo);
           await userDataInfo();
+          toast.success('Done');
           setButName(null);
         }
         break;
 
       case 'city':
         setButName(ev.previousElementSibling.name);
+        const regex = /^[a-zA-Z]+,[a-zA-Z]+$/;
+
+        if (!regex.test(val)) {
+          toast.error(
+            'The data must be in the "City,Region" format. With no space between them'
+          );
+          return;
+        }
+
         selectInput(ev, cityDisabled);
         setCityDisabled(!cityDisabled);
+
         if (!cityDisabled) {
           await fetchUseInfo(
             { city: ev.previousElementSibling.value },
             token
           ).then(setUserInfo);
           await userDataInfo();
+          toast.success('Done');
           setButName(null);
         }
         break;
@@ -149,6 +168,7 @@ const UserDataItem = ({ dataItem }) => {
             name="name"
             disabled={nameDisabled}
             id={nanoid()}
+            autoFocus
             defaultValue={name}
           ></InfoItem>
           {
@@ -159,7 +179,7 @@ const UserDataItem = ({ dataItem }) => {
               disabled={buttonDisabled('name')}
             >
               {nameDisabled ? (
-                <Icons id={'icon-user_red'} />
+                <Icons isLocked={buttonDisabled('name')} id={'icon-user_red'} />
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
@@ -177,6 +197,7 @@ const UserDataItem = ({ dataItem }) => {
             disabled={emailDisabled}
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             id={nanoid()}
+            autoFocus
             defaultValue={email}
           ></InfoItem>
           {
@@ -187,7 +208,10 @@ const UserDataItem = ({ dataItem }) => {
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {emailDisabled ? (
-                <Icons id={'icon-user_red'} />
+                <Icons
+                  isLocked={buttonDisabled('email')}
+                  id={'icon-user_red'}
+                />
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
@@ -204,6 +228,7 @@ const UserDataItem = ({ dataItem }) => {
             name="birthday"
             disabled={birthdayDisabled}
             id={nanoid()}
+            autoFocus
             defaultValue={birthdayReverse && birthdayReverse}
           ></InfoItem>
           {
@@ -214,7 +239,10 @@ const UserDataItem = ({ dataItem }) => {
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {birthdayDisabled ? (
-                <Icons id={'icon-user_red'} />
+                <Icons
+                  isLocked={buttonDisabled('birthday')}
+                  id={'icon-user_red'}
+                />
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
@@ -233,6 +261,7 @@ const UserDataItem = ({ dataItem }) => {
             pattern="\(\d{3}\) \d{3}-\d{4}"
             required
             id={nanoid()}
+            autoFocus
             defaultValue={phone}
           ></InfoItem>
           {
@@ -243,7 +272,10 @@ const UserDataItem = ({ dataItem }) => {
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {phoneDisabled ? (
-                <Icons id={'icon-user_red'} />
+                <Icons
+                  isLocked={buttonDisabled('phone')}
+                  id={'icon-user_red'}
+                />
               ) : (
                 <Icons id={'icon-user_done'} />
               )}
@@ -260,6 +292,7 @@ const UserDataItem = ({ dataItem }) => {
             name="city"
             disabled={cityDisabled}
             id={nanoid()}
+            autoFocus
             defaultValue={city}
           ></InfoItem>
           {
@@ -270,7 +303,7 @@ const UserDataItem = ({ dataItem }) => {
               onClick={event => handleClickEdit(event.currentTarget)}
             >
               {cityDisabled ? (
-                <Icons id={'icon-user_red'} />
+                <Icons isLocked={buttonDisabled('city')} id={'icon-user_red'} />
               ) : (
                 <Icons id={'icon-user_done'} />
               )}

@@ -59,7 +59,7 @@ export const App = () => {
           />
           <Route path="news" element={<PublicRoute component={NewsPage} />} />
           <Route path="notices" element={<NoticesPage />}>
-            <Route path=":categoryName" />
+            <Route path=":categoryName" element={<NoticesPage />} />
           </Route>
           <Route
             path="friends"

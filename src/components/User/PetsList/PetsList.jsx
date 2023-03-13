@@ -13,7 +13,7 @@ import {
   ItemList,
 } from './PestList.styled';
 
-const PetsList = ({ refresh, refreshStop }) => {
+const PetsList = ({ refresh, refreshStop, data }) => {
   const [petsInfo, setPetsInfo] = useState({});
   const token = useSelector(selectToken);
 
@@ -39,12 +39,8 @@ const PetsList = ({ refresh, refreshStop }) => {
   };
 
   useEffect(() => {
-    const fetchPetData = async () => {
-      const petData = await fetchUserPets(token);
-      setPetsInfo(petData);
-    };
-    fetchPetData();
-  }, [token]);
+    setPetsInfo(data);
+  }, [data]);
 
   return (
     <PetsDescribed>

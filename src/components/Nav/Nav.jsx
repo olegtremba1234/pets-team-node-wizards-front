@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { Ul, StyledLink } from './Nav.styled';
 
 export default function Nav({ closeMobile }) {
@@ -10,7 +11,11 @@ export default function Nav({ closeMobile }) {
           </StyledLink>
         </li>
         <li>
-          <StyledLink to="/notices/sell" onClick={() => closeMobile(false)}>
+          <StyledLink
+            exact
+            to="/notices/sell"
+            onClick={() => closeMobile(false)}
+          >
             Find pet
           </StyledLink>
         </li>

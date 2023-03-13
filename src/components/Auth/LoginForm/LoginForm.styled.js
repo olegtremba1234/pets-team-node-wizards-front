@@ -177,6 +177,7 @@ export const LoginSubmitBtn = styled.button`
     cursor: pointer;
     transform: scale(1.03);
     border: 2px solid ${p => p.theme.hoverButtonColor.primary};
+    background-color: ${p => p.theme.hoverButtonColor.primary};
   }
   @media ${device.tablet} {
     margin-top: 40px;
@@ -199,6 +200,10 @@ export const LoginLinkText = styled.p`
   line-height: 16px;
   letter-spacing: ${props => props.theme.fonts.letterSpacing};
   color: ${props => props.theme.fontColors.inputTextColor};
+  &:hover,
+  &:focus {
+    transform: scale(1.03);
+  }
 `;
 
 export const LoginLink = styled(NavLink)`

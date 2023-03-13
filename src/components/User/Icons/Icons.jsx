@@ -2,13 +2,12 @@ import {
   LoqoutIcons,
   UserAvatarIcons,
   IconsRed,
-  UserRemoveAvatar,
   IconsDone,
   PetsAddIcon,
   CardIcons,
 } from './Icons.styled';
 
-export const Icons = ({ id }) => {
+export const Icons = ({ id, isLocked }) => {
   switch (id) {
     case 'icon-user_logout':
       return (
@@ -24,7 +23,7 @@ export const Icons = ({ id }) => {
       );
     case 'icon-user_red':
       return (
-        <IconsRed>
+        <IconsRed isLocked={isLocked}>
           <svg
             viewBox="0 0 32 32"
             xmlns="http://www.w3.org/2000/svg"
@@ -83,18 +82,6 @@ export const Icons = ({ id }) => {
             <path d="M9 17V9M9 9V1M9 9H17M9 9H1" />
           </svg>
         </PetsAddIcon>
-      );
-    case 'icon-remove_avatar':
-      return (
-        <UserRemoveAvatar>
-          <svg
-            viewBox="0 0 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path d="M25.5 49.166V25.5m0 0V1.833m0 23.667h23.667m-23.667 0H1.833" />
-          </svg>
-        </UserRemoveAvatar>
       );
 
     default:

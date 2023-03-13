@@ -239,16 +239,13 @@ export const NextFormRegisterBtn = styled.button`
   &:focus {
     cursor: pointer;
     transform: scale(1.03);
-    /* border: 2px solid ${p => p.theme.hoverButtonColor.primary}; */
     border: ${props =>
       props.disabled ? '2px solid #A0A0A0' : '2px solid #FF6101'};
   }
   &:hover {
     transform: scale(1.03);
   }
-  /* &:hover {
-    transform: scale(1.03);
-  } */
+
   @media ${device.tablet} {
     margin-top: 40px;
   }
@@ -279,6 +276,7 @@ export const BackFormRegisterBtn = styled.button`
     cursor: pointer;
     transform: scale(1.03);
     border: 2px solid ${p => p.theme.hoverButtonColor.primary};
+    background-color: ${p => p.theme.hoverButtonColor.primary};
   }
   @media ${device.tablet} {
     margin-top: 16px;
