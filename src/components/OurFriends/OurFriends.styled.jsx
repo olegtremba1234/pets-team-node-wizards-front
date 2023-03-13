@@ -170,7 +170,7 @@ export const CardsWithSchedule = styled.p`
 `;
 
 export const CardsWithoutSchedule = styled.p`
-   cursor: none;
+   cursor: auto;
 `;
 
 export const CardsItem = styled.li`

@@ -9,23 +9,23 @@ const ModalNotAuthorized = ({ onClose, onClickBackdrop }) => {
     <ModalBox>
       <Overlay onClick={onClickBackdrop}>
         <ModalWindow>
-      <ModalWrap>
-      <Title>Ви не авторизовані!</Title>
+          <ModalWrap>
+            <Title>You are not authorized!</Title>
 
-      <ModalText> Будь ласка, увійдіть або зареєструйтесь!</ModalText>
-      <ButtonWrap>
-      <Btn onClick={() => {
-                  navigate('/login');
-                  onClose()
-                }}>Login</Btn>
-      <Btn onClick={() => {
-                  navigate('/register');
-                  onClose()
-                }}>Register</Btn>
-      </ButtonWrap>
-      <CloseButton onClick={onClose}></CloseButton>
-      </ModalWrap>
-      </ModalWindow>
+            <ModalText> Please, Login or Register!</ModalText>
+            <ButtonWrap>
+              <Btn onClick={() => {
+                navigate('/login');
+                onClose()
+              }}>Login</Btn>
+              <Btn onClick={() => {
+                navigate('/register');
+                onClose()
+              }}>Register</Btn>
+            </ButtonWrap>
+            <CloseButton onClick={onClose}></CloseButton>
+          </ModalWrap>
+        </ModalWindow>
       </Overlay>
     </ModalBox>
   );
