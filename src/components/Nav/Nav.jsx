@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import { Ul, StyledLink } from './Nav.styled';
 
 export default function Nav({ closeMobile }) {
