@@ -10,57 +10,57 @@ export const UserItem = styled.ul`
   @media screen and (min-width: 1280px) {
     padding: 0;
   }
-
-  .userInfoItem {
-    padding: 0 16px;
-    display: flex;
-    margin-bottom: 12px;
-    justify-content: space-between;
-
-    @media screen and (min-width: 768px) {
-      padding: 0;
-    }
-
-    @media screen and (min-width: 1280px) {
-      padding-right: 16px;
-    }
-  }
-
-  .inputSpace {
-    display: flex;
-    padding-right: 16px;
-
-    @media screen and (min-width: 768px) {
-      width: 100%;
-      justify-content: space-between;
-    }
-  }
-
-  .userInfoName {
-    font-family: 'Manrope';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    display: flex;
-    align-items: center;
-    letter-spacing: 0.04em;
-    width: 60px;
-
-    @media screen and (min-width: 768px) {
-      width: 105px;
-      font-size: 18px;
-    }
-  }
-
-  .buttItem {
-    border: none;
-    /* width: 0; */
-    background-color: inherit;
-    cursor: pointer;
-    
-  }
 `;
+
+export const UserInfoItem  = styled.li`
+  padding: 0 16px;
+  display: flex;
+  margin-bottom: 12px;
+  justify-content: space-between;
+
+  @media screen and (min-width: 768px) {
+    padding: 0;
+  }
+
+  @media screen and (min-width: 1280px) {
+    padding-right: 16px;
+  }
+`
+
+export const InputSpace = styled.div`
+  display: flex;
+  padding-right: 16px;
+
+  @media screen and (min-width: 768px) {
+    width: 100%;
+    justify-content: space-between;
+  }
+`
+
+export const UserInfoName=styled.p`   
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.04em;
+  width: 60px;
+
+  @media screen and (min-width: 768px) {
+    width: 105px;
+    font-size: 18px;
+  }
+`
+
+export const ButtItem = styled.button`
+  border: none;
+  /* width: 0; */
+  background-color: inherit;
+  cursor: pointer;
+  
+`
 
 export const InfoItem = styled.input`
   margin-right: 9px;
@@ -80,7 +80,6 @@ export const InfoItem = styled.input`
     width: 100%;
   }
 
-  
 `;
 
 
