@@ -39,9 +39,10 @@ export default function NoticeCategoryItem({
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const handleAddToFavorite = id => {
-    if (!token) {
+    if (!token || !isLoggedIn) {
       toast.error('Oops..You must be logged in to add to favorites');
       return;
     }
@@ -117,8 +118,7 @@ export default function NoticeCategoryItem({
             <tr style={{ marginBottom: '8px' }}>
               <th style={{ textAlign: 'left', minWidth: '50px' }}>Age:</th>
               <td style={{ marginLeft: '37px', display: 'block' }}>
-              {transormDateToAge(birthday)}
-                
+                {transormDateToAge(birthday)}
               </td>
             </tr>
             {category === 'sell' && (
