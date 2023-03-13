@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { device } from 'vars/device';
-import img from '../ModalNotAuthorized/image/pets.png'
+import img from '../ModalNotAuthorized/image/pets.png';
+import closeBtn from '../ModalNotAuthorized/image/closeBtn.svg';
 
 export const ModalBox = styled.div`
   margin-left: auto;
@@ -8,64 +9,64 @@ export const ModalBox = styled.div`
   text-align: center;
 `;
 
+export const ModalText = styled.p`
+fonts-size: 35px
+font-family: 'Manrope';
+font-weight: 500;
+margin-bottom: 25px;
 
-export const  ModalText = styled.div`
-margin-top: 20px;
-fonts-size: 28px
+@media ${device.tablet} {
+  fonts-size: 50px
+  margin-bottom: 35px;
+}
 `;
 
 export const Overlay = styled.div`
-height: 100%;
-width: 100%;
-position: fixed;
-background-color: rgba(0, 0, 0, 0.4);
-z-index: 10;
-top: 0;
-left: 0;
-display: flex;
-justify-content: center;
-align-items: center;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-
 export const ModalWindow = styled.div`
-
+  width: 240px;
   border-radius: 40px;
   position: relative;
   overflow: auto;
 
-  max-height: 90vh;
-
   &::-webkit-scrollbar {
-    width: 0px;
     background: transparent;
     overflow-y: hidden;
+  }
+
+  @media ${device.tablet} {
+    width: 350px;
   }
 `;
 
 export const ModalWrap = styled.div`
-
-background-image: url(${img});
-background-color: #FDF7F2;
-background-position: bottom left;
-background-size: contain;
-background-repeat: no-repeat;
-padding: 60px 15px 30px;
-text-align: center;
-display: grid;
-
-grid-template-rows: 1fr 1fr 1fr;
-@include mq(tablet) {
-  padding: 60px 20px 30px;
-}
-`;
-
-
-export const ButtonWrap = styled.div`
+  background-image: url(${img});
+  background-color: #fceee2;
+  background-position: 50% 6%;
+  background-size: 140px;
+  background-repeat: no-repeat;
+  padding: 40px 15px;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  margin-top: 40px;
 
+  @media ${device.tablet} {
+    padding: 60px 20px 40px;
+  }
+`;
+
+export const ButtonWrap = styled.div`
   @media ${device.tablet} {
     flex-wrap: nowrap;
     justify-content: center;
@@ -73,7 +74,7 @@ export const ButtonWrap = styled.div`
   }
 `;
 export const Btn = styled.button`
-  width: 220px;
+  width: 210px;
   height: 40px;
 
   border-radius: 40px;
@@ -87,9 +88,8 @@ export const Btn = styled.button`
   cursor: pointer;
 
   transition: ${p => p.theme.transition.first};
-
-  &:first-child {
-    margin-top: 12px;
+  &:last-of-type {
+    margin-top: 5px;
   }
 
   &:hover,
@@ -99,20 +99,51 @@ export const Btn = styled.button`
   }
 
   @media ${device.tablet} {
-    width: 160px;
+    width: 310px;
     height: 44px;
-
-    &:last-child {
-      margin-top: 0;
-    }
-
-    &:not(:last-of-type) {
-      margin-right: 20px;
-    }
-
-    &:not(:last-of-type) {
-      margin-top: 0px;
-    }
   }
 `;
 
+export const Title = styled.h3`
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-family: 'Manrope';
+  font-weight: 700;
+  font-size: ${p => p.theme.fontSizes.xl};
+  line-height: 1.4;
+  color: ${p => p.theme.fontColors.secondary};
+
+  @media ${device.tablet} {
+    font-size: ${p => p.theme.fontSizes.xxxl};
+    margin-bottom: 30px;
+  }
+`;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  left: 200px;
+  top: 20px;
+
+  width: 12px;
+  height: 12px;
+
+  border: none;
+  padding: 0;
+  background-color: transparent;
+
+  cursor: pointer;
+  background-position-x: center;
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-image: url(${closeBtn});
+
+  @media screen and (min-width: 768px) {
+    top: 18px;
+    width: 20px;
+    height: 20px;
+    left: 302px;
+  }
+`;

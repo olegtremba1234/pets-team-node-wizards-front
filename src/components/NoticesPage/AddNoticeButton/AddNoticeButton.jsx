@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import ModalAddNotice from 'components/ModalAddNotice/ModalAddNotice';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'redux/auth/authSelectors';
-
+import ModalNotAuthorized from 'components/ModalNotAuthorized/ModalNotAuthorized';
 
 export default function AddNoticeButton() {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
@@ -46,14 +46,25 @@ export default function AddNoticeButton() {
       window.removeEventListener('keydown', closeByEsc);
     };
   }, []);
+  let modal;
+  if (isLoggedIn) {
+    modal = (
+      <ModalAddNotice
+        onClose={handleClickClose}
+        onClickBackdrop={handleBackdrop}
+      />
+    );
+  } else {
+    modal = (
+      <ModalNotAuthorized
+        onClose={handleClickClose}
+        onClickBackdrop={handleBackdrop}
+      />
+    );
+  }
   return (
     <>
-      {isModalOpen && (
-        <ModalAddNotice
-          onClose={handleClickClose}
-          onClickBackdrop={handleBackdrop}
-        />
-      )}
+      {isModalOpen && modal}
       {isMobile ? (
         <Button onClick={handleOpenModal}>
           <Span>+</Span>
