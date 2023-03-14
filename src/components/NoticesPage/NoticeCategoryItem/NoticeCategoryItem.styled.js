@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { theme } from 'vars/theme';
+import { BsTrash } from 'react-icons/bs';
 
 export const Card = styled.div`
   width: 288px;
@@ -39,6 +40,7 @@ export const LearnMoneBtn = styled.button`
   letter-spacing: 0.04em;
   margin-bottom: ${props => (!props.isOwn ? '20px' : '12px')};
   transition: ${theme.transition.first};
+  color: #f59256;
   &:hover {
     background-color: ${theme.hoverButtonColor.primary};
     border-radius: 30px;
@@ -49,6 +51,11 @@ export const LearnMoneBtn = styled.button`
     margin-left: auto;
     margin-right: auto;
   }
+`;
+
+export const DeleteSvg = styled(BsTrash)`
+  fill: #f59256;
+  transition: ${theme.transition.first};
 `;
 export const DeleteBtn = styled.button`
   cursor: pointer;
@@ -65,10 +72,14 @@ export const DeleteBtn = styled.button`
   justify-content: center;
   gap: 5px;
   transition: ${theme.transition.first};
+  color: #f59256;
   &:hover {
     background-color: ${theme.hoverButtonColor.primary};
     border-radius: 30px;
     color: #fff;
+    ${DeleteSvg} {
+      fill: ${p => p.theme.backgrounds.bodySecondary};
+    }
   }
   @media (max-width: 1279px) and (min-width: 321px) {
     width: 248px;
