@@ -25,7 +25,7 @@ export const fetchNoticesByCategory = createAsyncThunk(
     try {
       const response = await axios.get(`/notices/by-category/${query}`);
       if (!response.data.length) {
-        toast.error('Вибачте, нічого не знайдено.');
+        toast.error('Sorry, there are no notices yet');
         return;
       }
       return response.data;
@@ -43,7 +43,7 @@ export const fetchFavoriteNotices = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.data.length) {
-        toast.error('Вибачте, нічого не знайдено.');
+        toast.error('Sorry, there are no notices yet');
       }
       return response.data;
     } catch (error) {
@@ -60,7 +60,7 @@ export const fetchUserNotices = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.data.length) {
-        toast.error('Вибачте, нічого не знайдено.');
+        toast.error('Sorry, there are no notices yet');
       }
       return response.data;
     } catch (error) {
@@ -75,7 +75,7 @@ export const fetchAllNotices = createAsyncThunk(
     try {
       const response = await axios.get('/notices');
       if (!response.data.length) {
-        toast.error('Вибачте, нічого не знайдено.');
+        toast.error('Sorry, there are no notices yet');
       }
       return response.data;
     } catch (error) {
@@ -91,7 +91,7 @@ export const fetchNoticesByQuery = createAsyncThunk(
       const response = await axios.get(`/notices?search=${query}`);
       if (!response.data.length) {
         toast.error(
-          'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
+          'Sorry, there are no matches on your search, please try another query.'
         );
         return;
       }
@@ -115,7 +115,7 @@ export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
         );
         if (!response.data.length) {
           toast.error(
-            'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
+            'Sorry, there are no matches on your search, please try another query.'
           );
           return;
         }
@@ -130,7 +130,7 @@ export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
         );
         if (!response.data.length) {
           toast.error(
-            'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
+            'Sorry, there are no matches on your search,  please try another query.'
           );
           return;
         }
@@ -143,7 +143,7 @@ export const fetchNoticesByCategoryAndQuery = createAsyncThunk(
       );
       if (!response.data.length) {
         toast.error(
-          'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
+          'Sorry, there are no matches on your search,  please try another query.'
         );
         return;
       }

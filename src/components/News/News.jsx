@@ -88,7 +88,7 @@ const News = () => {
       setSearchNews(renderSearchedQuery);
     } catch (error) {
       toast.error(
-        'Вибачте, по вашому запиту нічого не знайдено. Будь ласка, уточніть свій запит'
+        'Sorry, there are no matches on your search,  please try another query.'
       );
     }
   };

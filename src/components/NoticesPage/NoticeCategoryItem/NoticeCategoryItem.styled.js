@@ -19,6 +19,7 @@ export const Image = styled.img`
   width: 100%;
   object-position: center top;
   height: 288px;
+  object-fit: cover;
 `;
 export const Title = styled.h2`
   font-weight: 700;
