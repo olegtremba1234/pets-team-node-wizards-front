@@ -20,6 +20,7 @@ import {
 import { Icons } from '../User/Icons/Icons';
 import { GrClose } from 'react-icons/gr';
 import { ButtonBack } from 'components/User/PetsData/PetsData.styled';
+import { toast } from 'react-toastify';
 
 import MyTextInput from 'components/MyTextInput';
 import MyTextArea from 'components/MyTextArea';
@@ -54,7 +55,13 @@ export default function ModalAddsPet({ children, infoModal }) {
   });
 
   const makeRequest = async formData => {
-    await postNewPet(formData, avatar);
+    await postNewPet(formData, avatar)
+      .then(() => {
+        toast.success('Your pet added successfully');
+      })
+      .catch(() => {
+        toast.error('Something went wrong, please try again');
+      });
     infoModal();
   };
 
@@ -88,10 +95,11 @@ export default function ModalAddsPet({ children, infoModal }) {
     setCurrentStep(prev => prev - 1);
   };
 
-  const onImageChange = e => {
+  const onImageChange = (e, newData) => {
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       setImagePreview(URL.createObjectURL(e.target.files[0]));
       setAvatar(e.currentTarget.files[0]);
+      setData(prev => ({ ...prev, ...newData }));
     }
   };
 
@@ -187,7 +195,7 @@ export default function ModalAddsPet({ children, infoModal }) {
                   ref={filePicker}
                   accept="image/*,.png,.jpg"
                   onChange={e => {
-                    onImageChange(e);
+                    onImageChange(e, values);
                   }}
                 />
               </InputAvatarWrapper>
@@ -198,6 +206,7 @@ export default function ModalAddsPet({ children, infoModal }) {
               id="comments"
               type="text"
               placeholder="Type comments"
+              value={values.comments}
             />
             <BtnWrapper>
               <BtnMain type="button" onClick={() => props.prev(values)}>

@@ -1,18 +1,19 @@
 import * as Yup from 'yup';
 
 const addPetSchemaFirstStep = Yup.object({
-    name: Yup.string('Type name pet')
-      .min(2, 'Too Short!')
-      .max(16, 'Too Long!')
-      .required('Required'),
-    birthDay: Yup.string('Date of birth')
-      .min(10, 'Too Short!')
-      .max(10, 'Too Long!')
-      .required('Required'),
-    breed: Yup.string('Type breed')
-      .min(2, 'Too Short!')
-      .max(16, 'Too Long!')
-      .required('Required'),
-  });
+  name: Yup.string('Type name pet')
+    .trim()
+    .min(2, 'Please enter a name more than 1 character')
+    .max(16, 'Please enter a name less than 16 character')
+    .matches(/^([a-zA-Z-А-Яа-яЁёЇїІіЄєҐґ\s-']+){2,}$/, 'Invalid symbol')
+    .required('Required'),
+  birthDay: Yup.date().required('Required'),
+  breed: Yup.string('Type breed')
+    .trim()
+    .min(2, 'Please enter a breed more than 1 character')
+    .max(16, 'Please enter a breed less than 16 character')
+    .matches(/^([a-zA-Z-А-Яа-яЁёЇїІіЄєҐґ\s-']+){2,}$/, 'Invalid symbol')
+    .required('Required'),
+});
 
-  export default addPetSchemaFirstStep;
+export default addPetSchemaFirstStep;

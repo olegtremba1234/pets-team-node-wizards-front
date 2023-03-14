@@ -45,8 +45,7 @@ import addImg from '../ModalAddNotice/images/add.svg';
 import { addNotice } from 'redux/notices/noticeOperation';
 import { useDispatch } from 'react-redux';
 import { formDataAppender } from 'helpers/formDataAppender';
-
-
+import { useNavigate } from 'react-router-dom';
 
 const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
   const [isFirstRegisterStep, setIsFirstRegisterStep] = useState(true);
@@ -75,8 +74,7 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
       return true;
     }
   };
-
-
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       category: 'sell',
@@ -116,7 +114,10 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
       breed: Yup.string()
         .required('Enter a breed')
         .min(2, 'Breed is too short')
-        .matches(/^([А-Яа-яЁёЇїІіЄєҐґ'\s-]+|[a-zA-Z\s-]+){2,}$/, 'Only letters, spaces and hyphen')
+        .matches(
+          /^([А-Яа-яЁёЇїІіЄєҐґ'\s-]+|[a-zA-Z\s-]+){2,}$/,
+          'Only letters, spaces and hyphen'
+        )
         .trim()
         .max(24, 'Breed is too long'),
       location: Yup.string()
@@ -132,8 +133,11 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
       price: Yup.string().when('category', {
         is: category => category.includes('sell'),
         then: () =>
-            Yup.string()
-            .matches(/^([0]([.][0-9]+)?|[1-9]([0-9]+)?([.][0-9]+)?)$/,'Only number')
+          Yup.string()
+            .matches(
+              /^([0]([.][0-9]+)?|[1-9]([0-9]+)?([.][0-9]+)?)$/,
+              'Only number'
+            )
             .required('Enter a price'),
       }),
       comments: Yup.string()
@@ -143,19 +147,19 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
         .max(120, 'Comments is too long'),
     }),
     onSubmit: async () => {
-        await dispatch(addNotice(formDataAppender(formik.values)))
+      await dispatch(addNotice(formDataAppender(formik.values)))
         .unwrap()
         .then(() => {
-        toast.success('Ви успішно створили оголошення.');
-      })
-      .catch(() => {
-        toast.error('Не вдалось створити оголошення.');
-      })
+          toast.success('Ви успішно створили оголошення.');
+          navigate(`/notices/${formik.values.category}`);
+        })
+        .catch(() => {
+          toast.error('Не вдалось створити оголошення.');
+        });
 
-    formik.resetForm(formik.initialValues);
-    onClose();
-
-  },
+      formik.resetForm(formik.initialValues);
+      onClose();
+    },
   });
 
   const onImageChange = e => {
@@ -164,7 +168,6 @@ const ModalAddNotice = ({ onClose, onClickBackdrop }) => {
       formik.setFieldValue('pet-image', e.currentTarget.files[0]);
     }
   };
-
 
   useEffect(() => {
     const firstStepPossibleErrors = [
