@@ -27,10 +27,14 @@ export default function transormDateToAge(incomeDate) {
   const birthDate = new Date(incomeDate);
   let age = today.getFullYear() - birthDate.getFullYear();
   const m = today.getMonth() - birthDate.getMonth();
-  if (m < 1 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age = 0;
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
   }
-  const ageInWords = yearInWords[age];
+  if (age >= 19) {
+    let ageInWords = 'press "learn more"';
+    return ageInWords;
+  }
+  let ageInWords = yearInWords[age];
 
   return ageInWords;
 }
