@@ -9,10 +9,10 @@ import {
   ImageWrapper,
   InfoWrapper,
   ButtonWrapper,
+  DeleteSvg,
 } from './NoticeCategoryItem.styled';
 import { toast } from 'react-toastify';
 import { AiOutlineHeart } from 'react-icons/ai';
-import { BsTrash } from 'react-icons/bs';
 import { useState } from 'react';
 import ModalNotice from 'components/ModalNotice';
 import {
@@ -138,7 +138,7 @@ export default function NoticeCategoryItem({
           </LearnMoneBtn>
           {isOwn && (
             <DeleteBtn onClick={() => handleDelete(id)}>
-              Delete <BsTrash color="#F59256" />
+              Delete <DeleteSvg />
             </DeleteBtn>
           )}
         </ButtonWrapper>

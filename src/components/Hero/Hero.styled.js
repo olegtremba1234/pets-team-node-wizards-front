@@ -6,25 +6,26 @@ import mainBgImgMobile from '../../images/hero-images/vectors/vector-mobile.svg'
 import mainBgImgTablet from '../../images/hero-images/vectors/vector-tablet.svg';
 import mainBgImgDesktop from '../../images/hero-images/vectors/vector-desktop.svg';
 
+import secondaryImage from '../../images/hero-images/standart.png';
+
 export const StyledContainer = styled.main`
   background-color: ${theme.backgrounds.bodyPrimary};
-  background-image: url(${mainBgImgMobile});
-  background-size: 100% 470px;
+  background-image: url(${secondaryImage}), url(${mainBgImgMobile});
+  background-size: 320px 327px, 100% 470px;
   background-repeat: no-repeat;
-  background-position: right 0% bottom 0%;
-
+  background-position: bottom center, right 0% bottom 0%;
+  min-height: 601px;
   @media ${device.tablet} {
-    background-image: url(${mainBgImgTablet});
-    background-size: 100% 1098px;
+    background-image: url(${secondaryImage}), url(${mainBgImgTablet});
+    background-size: 645px 715px, 100% 1098px;
+    background-position: bottom center;
+    min-height: 1190px;
   }
   @media ${device.desktop} {
-    z-index: -1;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-image: url(${mainBgImgDesktop});
-    background-size: 100% 538px;
+    min-height: 769px;
+    background-image: url(${secondaryImage}), url(${mainBgImgDesktop});
+    background-size: 590px 640px, 100% 538px;
+    background-position: bottom right;
   }
 `;
 
@@ -75,23 +76,22 @@ export const HeartSvg = styled.img`
 `;
 
 export const HeroTitle = styled.h1`
-  margin-top: 60px;
-
+  padding-top: 60px;
   color: ${theme.fontColors.secondary};
-  font-family: 'Manrope';
+  font-family: 'Manrope', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 32px;
   line-height: 44px;
   @media ${device.tablet} {
-    margin-top: 88px;
+    padding-top: 88px;
 
     font-size: 68px;
     line-height: 100px;
   }
   @media ${device.desktop} {
     margin-top: 0px;
-    padding-top: 60px;
+    padding-top: 90px;
     width: 588px;
   }
 `;
