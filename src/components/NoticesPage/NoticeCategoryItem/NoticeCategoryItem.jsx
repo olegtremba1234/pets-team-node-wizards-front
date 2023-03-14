@@ -125,7 +125,7 @@ export default function NoticeCategoryItem({
               <tr>
                 <th style={{ textAlign: 'left', minWidth: '50px' }}>Price:</th>
                 <td style={{ marginLeft: '37px', display: 'block' }}>
-                  {price}
+                  {price}&#36;
                 </td>
               </tr>
             )}
