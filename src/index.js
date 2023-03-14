@@ -11,15 +11,15 @@ import { theme } from './vars/theme';
 import 'modern-normalize';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter basename="">
-            <App />
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
-    </ThemeProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter basename="">
+          <App />
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
+  </ThemeProvider>
+  // </React.StrictMode>
 );
